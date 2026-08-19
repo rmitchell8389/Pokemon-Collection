@@ -188,9 +188,31 @@ const SET_FILE_FILTERS: Array<[string, string]> = [[slugify("Celebrations Classi
 // "...luxraygl..." with no underscore left to match against. Stripped the
 // underscores from the override strings to match what they're actually
 // compared against.
+// UPDATE 2026-08-19, round 5: Unseen Forces' Unown Collection has 28 cards
+// (A-Z plus "!" and "?"), and 26 of them (the plain letters) already resolve
+// fine via extractCardNumber's single-letter fallback. The last two don't,
+// for two different reasons confirmed by hand against the real folder
+// listing: "!" was stripped out of its filename entirely by whatever tool
+// scraped the archive ("unown-unseen-forces-uf-.jpg" — nothing between the
+// last "-" and the extension, so extractCardNumber finds no digits and no
+// single-letter token, returns null), and "?" was spelled out as a word
+// ("unown-unseen-forces-uf-question-mark.jpg" — "mark" is the last segment,
+// which isn't a single letter either). Both then fall through to
+// findByNameFallback, where every one of the 28 Unown files matches the
+// tokenized name "Unown" equally, so both get flagged ambiguous and skipped.
+// Explicit overrides sidestep this rather than teaching extractCardNumber
+// two more one-off shapes. cardNumber values match normalizeCardNumber's
+// output for the DB's literal card_number values here: "!" isn't
+// touched by that function (no digits to normalize), and "?" is stored
+// URL-encoded in the DB as "%3F" (confirmed via a live query — a pre-existing
+// data quirk from wherever that value was originally written, not something
+// this script controls or should try to "fix" by guessing at a different
+// value).
 const CARD_NUMBER_OVERRIDES: Array<{ setSlug: string; cardNumber: string; filenameContains: string }> = [
   { setSlug: slugify("Celebrations Classic Collection"), cardNumber: "CC17", filenameContains: "luxraygl" },
   { setSlug: slugify("Celebrations Classic Collection"), cardNumber: "CC18", filenameContains: "garchompc" },
+  { setSlug: slugify("Unseen Forces Unown Collection"), cardNumber: "!", filenameContains: "ufjpg" },
+  { setSlug: slugify("Unseen Forces Unown Collection"), cardNumber: "%3F", filenameContains: "ufquestionmarkjpg" },
 ];
 
 // UPDATE 2026-08-19: "Yellow A Alternate" isn't a real product/folder at
