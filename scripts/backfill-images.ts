@@ -27,6 +27,25 @@ import {
 
 const CONCURRENCY = 3;
 
+// Confirmed 2026-08-19 by actually looking at the images (Ross spot-checked
+// in the app, then we swept every card across every McDonald's Collection
+// year using the new set-filter search): pokemontcg.io's own data for these
+// four years is the literal card BACK, for every single card in each year,
+// not a matching bug on our end. Re-running this script without an
+// exclusion just re-fetches the same wrong image every time, since
+// pokemontcg.io's data hasn't changed — confirmed the hard way when a
+// first attempt at re-running this after nulling these rows out silently
+// re-broke all 48 of them again. Block these outright rather than trusting
+// "a set + number match exists" as good enough — that assumption is what
+// let this through the first time. Remove an entry here only after
+// confirming pokemontcg.io has fixed that specific year's images for real
+// (visually, not just "the API responds").
+const KNOWN_BAD_PTCGIO_SETS = new Set(
+  ["McDonald's Collection 2014", "McDonald's Collection 2015", "McDonald's Collection 2017", "McDonald's Collection 2018"].map(
+    (s) => s.toLowerCase()
+  )
+);
+
 type CardRow = { id: string; set_name: string; card_number: string; name: string };
 
 // PostgREST (Supabase's query layer) caps a single request at 1000 rows by
@@ -122,6 +141,14 @@ async function main() {
   const setEntries = Array.from(bySet.entries());
 
   await mapWithConcurrency(setEntries, CONCURRENCY, async ([setName, cards]) => {
+    if (KNOWN_BAD_PTCGIO_SETS.has(setName.toLowerCase())) {
+      console.log(
+        `  ! skipping "${setName}" — pokemontcg.io's images for this set are confirmed wrong (card backs), see KNOWN_BAD_PTCGIO_SETS (${cards.length} card(s) stay blank)`
+      );
+      totalSkippedNoSetMatch += cards.length;
+      return;
+    }
+
     const ptcgSet = ptcgSetByNormalizedName.get(normalizeSetName(setName));
     if (!ptcgSet) {
       console.log(`  ! no pokemontcg.io match for set "${setName}" (${cards.length} card(s) stay blank)`);
