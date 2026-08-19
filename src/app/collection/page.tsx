@@ -24,16 +24,25 @@ function resolveImageSrc(imageUrl: string): string {
   return /\.(png|jpe?g|webp)$/i.test(imageUrl) ? imageUrl : `${imageUrl}/high.png`;
 }
 
+// Card numbers are strings but frequently numeric ("1", "10", "2") or
+// numeric-with-suffix ("H13", "74a"). A plain localeCompare sorts "10"
+// before "2"; passing `numeric: true` makes the comparator treat embedded
+// digit runs as numbers, so sets display in real print order.
+function compareCardNumbers(a: string, b: string): number {
+  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+}
+
 export default async function CollectionPage({
   searchParams,
 }: {
-  searchParams: Promise<{ lang?: string; q?: string }>;
+  searchParams: Promise<{ lang?: string; q?: string; set?: string }>;
 }) {
-  const { lang, q } = await searchParams;
+  const { lang, q, set } = await searchParams;
   const language: TcgdexLanguage = TCGDEX_LANGUAGES.includes(lang as TcgdexLanguage)
     ? (lang as TcgdexLanguage)
     : "en";
   const query = (q ?? "").trim();
+  const setQuery = (set ?? "").trim();
 
   const supabase = await createClient();
   const {
@@ -41,11 +50,34 @@ export default async function CollectionPage({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
+  // Populate the set-search datalist with every set name that actually has
+  // cards in the currently-selected language, so the field is a real
+  // autocomplete rather than requiring Ross to remember exact spelling.
+  const { data: setNameRows } = await supabase
+    .from("cards")
+    .select("set_name")
+    .eq("language", language)
+    .order("set_name");
+  const setNames = Array.from(new Set((setNameRows ?? []).map((r) => r.set_name)));
+
   type CardRow = { id: string; name: string; set_name: string; card_number: string; image_url: string | null };
   let cards: CardRow[] = [];
   let notReleasedInThisLanguage = false;
 
-  if (query) {
+  if (setQuery && !query) {
+    // Set-only browsing: no Pokemon name to resolve across languages, so
+    // this can go straight at the `cards` table for the selected language.
+    const { data } = await supabase
+      .from("cards")
+      .select("id, name, set_name, card_number, image_url")
+      .eq("language", language)
+      .ilike("set_name", `%${setQuery}%`);
+    cards = (data ?? []).sort((a, b) =>
+      a.set_name === b.set_name
+        ? compareCardNumbers(a.card_number, b.card_number)
+        : a.set_name.localeCompare(b.set_name)
+    );
+  } else if (query) {
     // Card names are stored in each card's own language — a Japanese
     // Charizard's `name` is literally "リザードン", not "Charizard", so a
     // plain text search against non-English cards needs another way in.
@@ -114,13 +146,20 @@ export default async function CollectionPage({
       }
     }
 
-    cards = Array.from(cardsById.values()).sort((a, b) =>
+    let matched = Array.from(cardsById.values());
+    if (setQuery) {
+      // Both a Pokemon name and a set filter were given — narrow to the
+      // intersection rather than treating them as two separate searches.
+      const setQueryLower = setQuery.toLowerCase();
+      matched = matched.filter((c) => c.set_name.toLowerCase().includes(setQueryLower));
+    }
+    cards = matched.sort((a, b) =>
       a.set_name === b.set_name
-        ? a.card_number.localeCompare(b.card_number)
+        ? compareCardNumbers(a.card_number, b.card_number)
         : a.set_name.localeCompare(b.set_name)
     );
 
-    if (cards.length === 0 && language !== "en") {
+    if (cards.length === 0 && language !== "en" && !setQuery) {
       // Distinguish "not released in this language" from "no such Pokemon" —
       // per the spec, this must be an honest, explicit state, not a blank
       // list. Now backed by the species table search above rather than just
@@ -154,38 +193,55 @@ export default async function CollectionPage({
       <h1 className="text-2xl font-semibold">Collection</h1>
 
       <div className="flex flex-wrap gap-2">
-        {TCGDEX_LANGUAGES.map((l) => (
-          <a
-            key={l}
-            href={`/collection?lang=${l}${query ? `&q=${encodeURIComponent(query)}` : ""}`}
-            className={`rounded-full px-3 py-1 text-sm ${
-              l === language
-                ? "bg-red-600 text-white"
-                : "border border-black/15 dark:border-white/20"
-            }`}
-          >
-            {LANGUAGE_LABELS[l]}
-          </a>
-        ))}
+        {TCGDEX_LANGUAGES.map((l) => {
+          const params = new URLSearchParams({ lang: l });
+          if (query) params.set("q", query);
+          if (setQuery) params.set("set", setQuery);
+          return (
+            <a
+              key={l}
+              href={`/collection?${params.toString()}`}
+              className={`rounded-full px-3 py-1 text-sm ${
+                l === language
+                  ? "bg-red-600 text-white"
+                  : "border border-black/15 dark:border-white/20"
+              }`}
+            >
+              {LANGUAGE_LABELS[l]}
+            </a>
+          );
+        })}
       </div>
 
-      <form action="/collection" className="flex gap-2">
+      <form action="/collection" className="flex flex-wrap gap-2">
         <input type="hidden" name="lang" value={language} />
         <input
           name="q"
           defaultValue={query}
           placeholder="Search a Pokemon, e.g. Charizard"
-          className="flex-1 rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
+          className="min-w-[200px] flex-1 rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
         />
+        <input
+          name="set"
+          list="set-names"
+          defaultValue={setQuery}
+          placeholder="Filter by set, e.g. Skyridge"
+          className="min-w-[200px] flex-1 rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
+        />
+        <datalist id="set-names">
+          {setNames.map((name) => (
+            <option key={name} value={name} />
+          ))}
+        </datalist>
         <button type="submit" className="rounded bg-red-600 px-4 py-2 font-medium text-white">
           Search
         </button>
       </form>
 
-      {!query && (
+      {!query && !setQuery && (
         <p className="text-sm text-black/60 dark:text-white/60">
-          Search for a Pokemon to see every {LANGUAGE_LABELS[language]} card of it, and mark
-          which ones you own.
+          Search for a Pokemon, filter by set, or both, to see {LANGUAGE_LABELS[language]} cards
+          and mark which ones you own.
         </p>
       )}
 
@@ -199,8 +255,16 @@ export default async function CollectionPage({
 
       {query && cards.length === 0 && !notReleasedInThisLanguage && (
         <p className="rounded bg-black/5 p-3 text-sm dark:bg-white/10">
-          No cards found matching &ldquo;{query}&rdquo;. Check the spelling, or the card catalog
-          may not be synced yet — see the sync script in the README.
+          No cards found matching &ldquo;{query}&rdquo;
+          {setQuery && <> in a set matching &ldquo;{setQuery}&rdquo;</>}. Check the spelling, or
+          the card catalog may not be synced yet — see the sync script in the README.
+        </p>
+      )}
+
+      {!query && setQuery && cards.length === 0 && (
+        <p className="rounded bg-black/5 p-3 text-sm dark:bg-white/10">
+          No set matching &ldquo;{setQuery}&rdquo; found in {LANGUAGE_LABELS[language]}. Pick one
+          from the suggestions as you type, or check the spelling.
         </p>
       )}
 
