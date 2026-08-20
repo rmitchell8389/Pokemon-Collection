@@ -1,0 +1,215 @@
+{{ExpansionPrevNext|无色C|妖精|prev=宝石包 第一弹|next=宝石包 第三弹|other=无畏太晶|other2=嗨皮组合 路卡利欧&甲贺忍蛙&藏玛然特&獒教父}}
+{{TCG版本信息框/ZH
+| setname  = Pokémon宝石包VOL.2
+| title    = 九彩倾心， 一步探“宝”
+| setsymbol  = yes
+| alt     = CBB2C
+<!--| setlogo  = TCG 朱&紫 宝石包 第2弹logo.png-->
+| packlogo = TCG 朱&紫 宝石包 第2弹.png
+| packlogo2 = TCG 朱&紫 宝石包 第2弹 卡盒.jpg
+| poster = TCG 朱&紫 宝石包 第2弹poster.jpg
+| 版本    = 朱&紫
+| cards   = 15×4+14×5+4+6
+| pack    = 扩充包
+| release  = 2025年5月16日
+| price   = 10（人民币元）
+| packnumber = 
+| cardnumber = 4
+| serices  = 随机
+| official = https://www.pokemon.cn/tcg/product/2025041102.html
+|}}
+{{快捷方式|CBB|CBB2}}
+“'''宝可梦集换式卡牌游戏 朱&紫 Pokémon宝石包VOL.2'''”是{{TCG|朱&紫系列}}简体中文版[[宝可梦集换式卡牌游戏|卡牌]]独占的系列扩充包中的第2款。
+
+==概述==
+“Pokémon宝石包VOL.2”每包含有4张卡牌，均为闪卡。收录了伊布和它的进化形们，总计九种宝可梦的多种闪卡，编号01～09对应[[伊布]]、[[水伊布]]、[[雷伊布]]、[[火伊布]]、[[太陽伊布]]、[[月亮伊布]]、[[葉伊布]]、[[冰伊布]]和[[仙子伊布]]。即便相同插画的卡牌也有多种不同工艺。
+
+卡牌编号01/14或01/15至12/14或12/15的奇偶数编号分别对应2种插画的不同纹样。卡牌编号13/14或13/15的卡牌为{{TCG|宝可梦V}}，部分卡牌使用了此前未在简体中文版推出的插画。卡牌编号14/14或14/15的卡牌为{{TCG|宝可梦VMAX}}。卡牌编号15/15为由同一位插画师绘制四张艺术插画闪卡，为独占插画，将它们按照叶伊布、仙子伊布、月亮伊布、伊布的顺序顺次拼接，就会得到一幅描绘宝可梦们在森林中休憩游玩的长画。
+<gallery mode=packed>
+CBB2C0715.png|叶伊布
+CBB2C0915.png|仙子伊布
+CBB2C0615.png|月亮伊布
+CBB2C0115.png|伊布
+</gallery>
+
+宝石包卡牌的{{TCG|稀有度}}标记共分为5种，分别是●、◆、★、★★、★★★。每一包的4张卡牌中，3张是●或◆稀有度，另外1张是★或★★或★★★稀有度中的其中1种。
+==卡牌列表==
+因其中皆为闪卡，此列表不另特殊说明。特殊注释含义如下：
+* 属：{{RarityCBB|C}} 属性纹样
+* 球：{{RarityCBB|C}} 精灵球纹样
+* 星：{{RarityCBB|U}} 特殊工艺（''星星''，正式名称未知）
+* 花：{{RarityCBB|U}} 特殊工艺（''花纹''，正式名称未知）
+* 师：{{RarityCBB|R}} 大师球纹样
+* 宝：{{RarityCBB|DR}} 印有“宝石包”logo的烫金工艺
+* —：{{RarityCBB|DR}} 支援者卡
+* —：{{RarityCBB|R}} {{TCG|宝可梦V}}
+* —：{{RarityCBB|UR}} {{TCG|宝可梦VMAX}}
+* 艺：{{RarityCBB|UR}} 艺术插画闪卡
+
+{{卡牌列表/header|LE|无色C|妖C|rarity=yes|symbol=yes|num=no|image=SetSymbolCBB2C.png|title=宝石包 VOL.2}}
+{{卡牌列表/entryjp|01 01/15|{{C|伊布|S6a}}|无色||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|01 02/15|{{C|伊布|S10D}}|无色||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|01 03/15|{{C|伊布|S6a}}|无色||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|01 04/15|{{C|伊布|S10D}}|无色||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|01 05/15|{{C|伊布|S6a}}|无色||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|01 06/15|{{C|伊布|S10D}}|无色||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|01 07/15|{{C|伊布|S6a}}|无色||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|01 08/15|{{C|伊布|S10D}}|无色||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|01 09/15|{{C|伊布|S6a}}|无色||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|01 10/15|{{C|伊布|S10D}}|无色||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|01 11/15|{{C|伊布|S6a}}|无色||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|01 12/15|{{C|伊布|S10D}}|无色||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|01 13/15|{{C|伊布V|SD}}|无色||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|01 14/15|{{C|伊布VMAX|S-P}}|无色||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|01 15/15|{{C|伊布|S10D}}|无色||{{RarityCBB|UR}}|全||艺}}
+{{卡牌列表/entryjp|02 01/14|{{C|水伊布|S-P}}|水||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|02 02/14|{{C|水伊布|S4}}|水||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|02 03/14|{{C|水伊布|S-P}}|水||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|02 04/14|{{C|水伊布|S4}}|水||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|02 05/14|{{C|水伊布|S-P}}|水||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|02 06/14|{{C|水伊布|S4}}|水||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|02 07/14|{{C|水伊布|S-P}}|水||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|02 08/14|{{C|水伊布|S4}}|水||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|02 09/14|{{C|水伊布|S-P}}|水||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|02 10/14|{{C|水伊布|S4}}|水||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|02 11/14|{{C|水伊布|S-P}}|水||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|02 12/14|{{C|水伊布|S4}}|水||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|02 13/14|{{C|水伊布V|S6a}}|水||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|02 14/14|{{C|水伊布VMAX|SP4}}|水||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|03 01/14|{{C|雷伊布|S4}}|雷||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|03 02/14|{{C|雷伊布|S-P}}|雷||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|03 03/14|{{C|雷伊布|S4}}|雷||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|03 04/14|{{C|雷伊布|S-P}}|雷||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|03 05/14|{{C|雷伊布|S4}}|雷||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|03 06/14|{{C|雷伊布|S-P}}|雷||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|03 07/14|{{C|雷伊布|S4}}|雷||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|03 08/14|{{C|雷伊布|S-P}}|雷||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|03 09/14|{{C|雷伊布|S4}}|雷||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|03 10/14|{{C|雷伊布|S-P}}|雷||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|03 11/14|{{C|雷伊布|S4}}|雷||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|03 12/14|{{C|雷伊布|S-P}}|雷||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|03 13/14|{{C|雷伊布V|S6a}}|雷||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|03 14/14|{{C|雷伊布VMAX|SP4}}|雷||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|04 01/14|{{C|火伊布|S4}}|火||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|04 02/14|{{C|火伊布|S-P}}|火||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|04 03/14|{{C|火伊布|S4}}|火||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|04 04/14|{{C|火伊布|S-P}}|火||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|04 05/14|{{C|火伊布|S4}}|火||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|04 06/14|{{C|火伊布|S-P}}|火||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|04 07/14|{{C|火伊布|S4}}|火||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|04 08/14|{{C|火伊布|S-P}}|火||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|04 09/14|{{C|火伊布|S4}}|火||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|04 10/14|{{C|火伊布|S-P}}|火||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|04 11/14|{{C|火伊布|S4}}|火||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|04 12/14|{{C|火伊布|S-P}}|火||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|04 13/14|{{C|火伊布V|S6a}}|火||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|04 14/14|{{C|火伊布VMAX|SP4}}|火||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|05 01/14|{{C|太阳伊布|SM8}}|超||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|05 02/14|{{C|太阳伊布|S-P}}|超||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|05 03/14|{{C|太阳伊布|SM8}}|超||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|05 04/14|{{C|太阳伊布|S-P}}|超||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|05 05/14|{{C|太阳伊布|SM8}}|超||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|05 06/14|{{C|太阳伊布|S-P}}|超||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|05 07/14|{{C|太阳伊布|SM8}}|超||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|05 08/14|{{C|太阳伊布|S-P}}|超||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|05 09/14|{{C|太阳伊布|SM8}}|超||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|05 10/14|{{C|太阳伊布|S-P}}|超||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|05 11/14|{{C|太阳伊布|SM8}}|超||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|05 12/14|{{C|太阳伊布|S-P}}|超||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|05 13/14|{{C|太阳伊布V|S6a}}|超||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|05 14/14|{{C|太阳伊布VMAX|SP4}}|超||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|06 01/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|06 02/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|06 03/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|06 04/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|06 05/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|06 06/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|06 07/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|06 08/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|06 09/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|06 10/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|06 11/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|06 12/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|06 13/15|{{C|月亮伊布V|S6a}}|恶||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|06 14/15|{{C|月亮伊布VMAX|S6a}}|恶||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|06 15/15|{{C|月亮伊布|S-P}}|恶||{{RarityCBB|UR}}|全||艺}}
+{{卡牌列表/entryjp|07 01/15|{{C|叶伊布|S-P}}|草||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|07 02/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|07 03/15|{{C|叶伊布|S-P}}|草||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|07 04/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|07 05/15|{{C|叶伊布|S-P}}|草||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|07 06/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|07 07/15|{{C|叶伊布|S-P}}|草||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|07 08/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|07 09/15|{{C|叶伊布|S-P}}|草||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|07 10/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|07 11/15|{{C|叶伊布|S-P}}|草||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|07 12/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|07 13/15|{{C|叶伊布V|S-P}}|草||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|07 14/15|{{C|叶伊布VMAX|S6a}}|草||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|07 15/15|{{C|叶伊布|S10D}}|草||{{RarityCBB|UR}}|全||艺}}
+{{卡牌列表/entryjp|08 01/14|{{C|冰伊布|S-P}}|水||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|08 02/14|{{C|冰伊布|S10P}}|水||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|08 03/14|{{C|冰伊布|S-P}}|水||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|08 04/14|{{C|冰伊布|S10P}}|水||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|08 05/14|{{C|冰伊布|S-P}}|水||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|08 06/14|{{C|冰伊布|S10P}}|水||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|08 07/14|{{C|冰伊布|S-P}}|水||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|08 08/14|{{C|冰伊布|S10P}}|水||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|08 09/14|{{C|冰伊布|S-P}}|水||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|08 10/14|{{C|冰伊布|S10P}}|水||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|08 11/14|{{C|冰伊布|S-P}}|水||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|08 12/14|{{C|冰伊布|S10P}}|水||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|08 13/14|{{C|冰伊布V|S-P}}|水||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|08 14/14|{{C|冰伊布VMAX|S6a}}|水||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|09 01/15|{{C|仙子伊布|SM12}}|妖||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|09 02/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|C}}|||属}}
+{{卡牌列表/entryjp|09 03/15|{{C|仙子伊布|SM12}}|妖||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|09 04/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|C}}|||球}}
+{{卡牌列表/entryjp|09 05/15|{{C|仙子伊布|SM12}}|妖||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|09 06/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|U}}|||星}}
+{{卡牌列表/entryjp|09 07/15|{{C|仙子伊布|SM12}}|妖||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|09 08/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|U}}|||花}}
+{{卡牌列表/entryjp|09 09/15|{{C|仙子伊布|SM12}}|妖||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|09 10/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|R}}|||师}}
+{{卡牌列表/entryjp|09 11/15|{{C|仙子伊布|SM12}}|妖||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|09 12/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|09 13/15|{{C|仙子伊布V|S6a}}|妖||{{RarityCBB|R}}|全||}}
+{{卡牌列表/entryjp|09 14/15|{{C|仙子伊布VMAX|S6a}}|超||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|09 15/15|{{C|仙子伊布|S-P}}|超||{{RarityCBB|UR}}|全||艺}}
+{{卡牌列表/entryjp|10 01/04|{{TCG|精灵球}}|物品卡||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|10 02/04|{{TCG|等级球}}|物品卡||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|10 03/04|{{TCG|先机球}}|物品卡||{{RarityCBB|DR}}|||宝}}
+{{卡牌列表/entryjp|10 04/04|{{TCG|牡丹}}|支援者卡||{{RarityCBB|UR}}|全||}}
+{{卡牌列表/entryjp|11 01/06|{{TCG|基本雷能量}}|能量卡|雷|{{RarityCBB|UR}}}}
+{{卡牌列表/entryjp|11 02/06|{{TCG|基本超能量}}|能量卡|超|{{RarityCBB|UR}}}}
+{{卡牌列表/entryjp|11 03/06|{{TCG|基本恶能量}}|能量卡|恶|{{RarityCBB|UR}}}}
+{{卡牌列表/entryjp|11 04/06|{{TCG|基本雷能量}}|能量卡|雷|{{RarityCBB|UR}}|||宝}}
+{{卡牌列表/entryjp|11 05/06|{{TCG|基本超能量}}|能量卡|超|{{RarityCBB|UR}}|||宝}}
+{{卡牌列表/entryjp|11 06/06|{{TCG|基本恶能量}}|能量卡|恶|{{RarityCBB|UR}}|||宝}}
+{{卡牌列表/footer|cellcol=无色C}}
+
+==规格==
+{{TCG简中比例|h=4|0|7|1|50.00|1|25.00|1|18.13|1|4.70|3|2.17|
+type={{RarityCBB|C}} <td> {{RarityCBB|U}} <td> {{RarityCBB|R}} <td> {{RarityCBB|DR}} <td> {{RarityCBB|UR}}<br><small>宝可梦闪卡</small><td> {{RarityCBB|UR}}<br><small>无烫金工艺闪卡</small><td> {{RarityCBB|UR}}<br><small>烫金工艺闪卡</small>|
+num=36 <td> 36 <td> 27 <td> 21 <td> 13 <td> 4 <td> 3
+}}
+
+==细节==
+*在宝石包 第二弹中登场的[[仙子伊布（SM12）]]是{{TCG|太阳&月亮系列}}赛制标记为C的卡牌，不属于当时的{{TCG|标准赛制}}。
+
+==参见==
+* [[宝石包 相关产品（TCG）]]
+
+{{reflist}}
+{{-}}
+
+{{PTCG版本导航/朱&紫系列简中}}
+{{神奇宝贝百科卡牌工程}}
+
+[[Category:宝石包（TCG）]]
+[[Category:宝石包 第二弹（TCG）|*]]
+[[Category:朱&紫系列（TCG）]]
+
+[[de:Bǎoshí Bāo VOL.2 (TCG)]]
+[[en:Gem Pack Vol. 2 (ATCG)]]

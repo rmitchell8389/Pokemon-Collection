@@ -11,7 +11,12 @@
     "sync:species": "tsx scripts/sync-species-names.ts",
     "backfill:images": "tsx scripts/backfill-images.ts",
     "backfill:images-archive": "tsx scripts/backfill-images-from-archive.ts",
-    "backfill:images-manual": "tsx scripts/backfill-images-manual.ts"
+    "backfill:images-manual": "tsx scripts/backfill-images-manual.ts",
+    "backfill:images-jp": "tsx scripts/backfill-images-jp.ts",
+    "backfill:images-jp-vintage": "tsx scripts/backfill-images-jp-vintage.ts",
+    "backfill:images-tc": "tsx scripts/backfill-images-tc.ts",
+    "backfill:images-cn": "tsx scripts/backfill-images-cn.ts",
+    "report:missing-images": "tsx scripts/report-missing-images.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
