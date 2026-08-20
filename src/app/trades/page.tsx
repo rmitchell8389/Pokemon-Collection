@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TCGDEX_LANGUAGES, type TcgdexLanguage } from "@/lib/tcgdex";
-import { advanceTrade, cancelTrade, resolveGivenCard } from "./actions";
+import { advanceTrade, cancelTrade, markReceived, markShipped, resolveGivenCard } from "./actions";
 
 const LANGUAGE_LABELS: Record<TcgdexLanguage, string> = {
   en: "English",
@@ -55,7 +55,9 @@ export default async function TradesPage() {
 
   const { data: trades } = await supabase
     .from("trades")
-    .select("id, proposer_id, recipient_id, status, created_at")
+    .select(
+      "id, proposer_id, recipient_id, status, created_at, fulfillment_method, proposer_shipped_at, proposer_tracking_ref, proposer_received_at, recipient_shipped_at, recipient_tracking_ref, recipient_received_at"
+    )
     .or(`proposer_id.eq.${user.id},recipient_id.eq.${user.id}`)
     .order("created_at", { ascending: false });
 
@@ -105,6 +107,18 @@ export default async function TradesPage() {
       : { data: [] as { id: string; display_name: string }[] };
   const nameById = new Map((participantProfiles ?? []).map((p) => [p.id, p.display_name]));
 
+  // Only relevant for postal trades — RLS ("trade partners can view each
+  // other's shipping address" in schema.sql) means this only actually
+  // returns rows for people the current user has a real in_progress or
+  // completed postal trade with, plus the user's own row. Fetching for all
+  // participants (rather than filtering to postal trades here) is simpler
+  // and the RLS boundary is the real enforcement either way.
+  const { data: shippingAddresses } =
+    participantIds.length > 0
+      ? await supabase.from("shipping_addresses").select("user_id, address").in("user_id", participantIds)
+      : { data: [] as { user_id: string; address: string }[] };
+  const addressByUserId = new Map((shippingAddresses ?? []).map((a) => [a.user_id, a.address]));
+
   return (
     <div className="flex flex-col gap-8">
       <h1 className="text-2xl font-bold tracking-tight">Trades</h1>
@@ -150,8 +164,13 @@ export default async function TradesPage() {
                     <span className="font-medium">
                       With {nameById.get(otherId) ?? "Unknown"}
                     </span>
-                    <span className={`badge ${STATUS_STYLES[t.status] ?? "bg-black/5 dark:bg-white/10"}`}>
-                      {STATUS_LABELS[t.status] ?? t.status}
+                    <span className="flex items-center gap-1">
+                      {t.fulfillment_method === "post" && (
+                        <span className="badge bg-black/5 dark:bg-white/10">By post</span>
+                      )}
+                      <span className={`badge ${STATUS_STYLES[t.status] ?? "bg-black/5 dark:bg-white/10"}`}>
+                        {STATUS_LABELS[t.status] ?? t.status}
+                      </span>
                     </span>
                   </div>
                   <ul className="mt-2 flex flex-col gap-1 text-sm text-black/70 dark:text-white/70">
@@ -218,7 +237,7 @@ export default async function TradesPage() {
                     </div>
                   )}
 
-                  {t.status === "in_progress" && (
+                  {t.status === "in_progress" && t.fulfillment_method === "in_person" && (
                     <div className="mt-3 flex gap-2">
                       <form action={advanceTrade}>
                         <input type="hidden" name="tradeId" value={t.id} />
@@ -231,6 +250,87 @@ export default async function TradesPage() {
                       </form>
                     </div>
                   )}
+
+                  {t.status === "in_progress" && t.fulfillment_method === "post" && (() => {
+                    // Postal trades can't complete with one click — see
+                    // advanceTrade in actions.ts. Instead each side tracks
+                    // their own ship/receive steps independently.
+                    const youAreProposer = t.proposer_id === user.id;
+                    const yourShippedAt = youAreProposer ? t.proposer_shipped_at : t.recipient_shipped_at;
+                    const yourTrackingRef = youAreProposer ? t.proposer_tracking_ref : t.recipient_tracking_ref;
+                    const yourReceivedAt = youAreProposer ? t.proposer_received_at : t.recipient_received_at;
+                    const theirShippedAt = youAreProposer ? t.recipient_shipped_at : t.proposer_shipped_at;
+                    const theirTrackingRef = youAreProposer ? t.recipient_tracking_ref : t.proposer_tracking_ref;
+                    const theirReceivedAt = youAreProposer ? t.recipient_received_at : t.proposer_received_at;
+                    const partnerAddress = addressByUserId.get(otherId);
+
+                    return (
+                      <div className="mt-3 flex flex-col gap-3 rounded-lg bg-black/[0.03] p-3 text-sm dark:bg-white/[0.04]">
+                        {!yourShippedAt ? (
+                          <div className="flex flex-col gap-2">
+                            <p className="text-black/70 dark:text-white/70">
+                              {partnerAddress ? (
+                                <>
+                                  Send to {nameById.get(otherId) ?? "them"} at:{" "}
+                                  <span className="whitespace-pre-line font-medium">{partnerAddress}</span>
+                                </>
+                              ) : (
+                                <>
+                                  {nameById.get(otherId) ?? "They"} haven&apos;t added a shipping address yet —
+                                  ask them to add one on their Settings page before you post this.
+                                </>
+                              )}
+                            </p>
+                            <form action={markShipped} className="flex flex-wrap items-center gap-2">
+                              <input type="hidden" name="tradeId" value={t.id} />
+                              <input
+                                type="text"
+                                name="trackingRef"
+                                placeholder="Tracking reference (optional)"
+                                className="rounded-lg border border-black/10 bg-transparent px-2 py-1 text-xs outline-none focus:border-red-500 dark:border-white/15"
+                              />
+                              <button className="btn-success btn-sm">I&apos;ve posted it</button>
+                            </form>
+                          </div>
+                        ) : (
+                          <p className="text-black/70 dark:text-white/70">
+                            You posted this{yourTrackingRef ? ` — tracking: ${yourTrackingRef}` : ""}.{" "}
+                            {yourReceivedAt ? "You've also confirmed receipt of their card." : ""}
+                          </p>
+                        )}
+
+                        {theirShippedAt ? (
+                          <p className="text-black/70 dark:text-white/70">
+                            {nameById.get(otherId) ?? "They"} posted their card
+                            {theirTrackingRef ? ` — tracking: ${theirTrackingRef}` : ""}.{" "}
+                            {theirReceivedAt ? "" : "Let them know once it arrives."}
+                          </p>
+                        ) : (
+                          <p className="text-black/50 dark:text-white/50">
+                            Waiting for {nameById.get(otherId) ?? "them"} to post their card.
+                          </p>
+                        )}
+
+                        <div className="flex items-center gap-2">
+                          {theirShippedAt && !yourReceivedAt && (
+                            <form action={markReceived}>
+                              <input type="hidden" name="tradeId" value={t.id} />
+                              <button className="btn-success btn-sm">I&apos;ve received it</button>
+                            </form>
+                          )}
+                          {yourReceivedAt && (
+                            <span className="badge bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
+                              You confirmed receipt
+                            </span>
+                          )}
+                          <form action={cancelTrade}>
+                            <input type="hidden" name="tradeId" value={t.id} />
+                            <button className="btn-secondary btn-sm">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </li>
               );
             })}

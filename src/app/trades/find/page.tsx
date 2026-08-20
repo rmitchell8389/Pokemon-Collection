@@ -92,6 +92,26 @@ export default async function FindMatchesPage({
           <input type="hidden" name="language" value={language} />
 
           <section>
+            <h2 className="mb-2 font-semibold">How are you swapping these?</h2>
+            <div className="flex gap-4">
+              <label className="panel flex flex-1 items-center gap-2 text-sm">
+                <input
+                  type="radio"
+                  name="fulfillmentMethod"
+                  value="in_person"
+                  defaultChecked
+                  className="h-4 w-4 accent-red-600"
+                />
+                In person
+              </label>
+              <label className="panel flex flex-1 items-center gap-2 text-sm">
+                <input type="radio" name="fulfillmentMethod" value="post" className="h-4 w-4 accent-red-600" />
+                By post
+              </label>
+            </div>
+          </section>
+
+          <section>
             <h2 className="mb-2 font-semibold">They have, you need — pick what you want</h2>
             <ul className="flex flex-col gap-2">
               {iNeedIds.map((id) => {

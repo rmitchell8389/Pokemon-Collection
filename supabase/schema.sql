@@ -213,8 +213,39 @@ create table if not exists public.trades (
   status text not null default 'proposed' check (status in ('proposed', 'in_progress', 'completed', 'cancelled')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  -- 'in_person' (the original, only option) or 'post' — added 2026-08-20 so
+  -- friends spread across the UK can trade without meeting up. Chosen when
+  -- the trade is proposed; doesn't change afterward. In-person trades keep
+  -- the original lightweight "either side clicks completed" rule (safe
+  -- because the exchange is simultaneous — both people are standing there).
+  -- Postal trades CANNOT complete that way: nobody can truthfully vouch
+  -- that a parcel they didn't personally receive actually arrived, so
+  -- in_progress -> completed is blocked for 'post' trades in
+  -- advanceTrade — completion only happens once both
+  -- *_received_at columns below are set, via markReceived.
+  fulfillment_method text not null default 'in_person' check (fulfillment_method in ('in_person', 'post')),
+  -- Per-participant shipping status for postal trades. Nullable/unused for
+  -- in_person trades. tracking_ref is free text (a Royal Mail/courier
+  -- reference), optional — some people just won't bother getting one.
+  proposer_shipped_at timestamptz,
+  proposer_tracking_ref text,
+  proposer_received_at timestamptz,
+  recipient_shipped_at timestamptz,
+  recipient_tracking_ref text,
+  recipient_received_at timestamptz,
   check (proposer_id <> recipient_id)
 );
+
+-- Existing databases already have this table without the columns above.
+alter table public.trades add column if not exists fulfillment_method text not null default 'in_person';
+alter table public.trades drop constraint if exists trades_fulfillment_method_check;
+alter table public.trades add constraint trades_fulfillment_method_check check (fulfillment_method in ('in_person', 'post'));
+alter table public.trades add column if not exists proposer_shipped_at timestamptz;
+alter table public.trades add column if not exists proposer_tracking_ref text;
+alter table public.trades add column if not exists proposer_received_at timestamptz;
+alter table public.trades add column if not exists recipient_shipped_at timestamptz;
+alter table public.trades add column if not exists recipient_tracking_ref text;
+alter table public.trades add column if not exists recipient_received_at timestamptz;
 
 alter table public.trades enable row level security;
 
@@ -331,5 +362,48 @@ create policy "trade completion adds the received card for both sides"
         and ti.offered_by_user_id <> collection_entries.user_id
         and (t.proposer_id = collection_entries.user_id or t.recipient_id = collection_entries.user_id)
         and (t.proposer_id = auth.uid() or t.recipient_id = auth.uid())
+    )
+  );
+
+-- ---------------------------------------------------------------------------
+-- Shipping addresses — one per user, for postal trades. Deliberately a
+-- SEPARATE table from `profiles`, not a column on it: `profiles` has a
+-- blanket "readable by any signed-in user" policy (see above), so adding an
+-- address column there would hand every user's home address to every other
+-- signed-in user, not just their trade partners. That's not what "store
+-- addresses in the app" was meant to authorize. This table instead has its
+-- own narrow policy: you can always read/write your own row, and someone
+-- else can only read your address if you're both actively in a postal trade
+-- together (in_progress or completed — so it stays visible after
+-- completion in case the sender needs to double check where it went, but
+-- disappears once a trade is cancelled or if you were never actually
+-- trading by post).
+-- ---------------------------------------------------------------------------
+create table if not exists public.shipping_addresses (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  address text not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.shipping_addresses enable row level security;
+
+drop policy if exists "users manage their own shipping address" on public.shipping_addresses;
+create policy "users manage their own shipping address"
+  on public.shipping_addresses for all
+  to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+drop policy if exists "trade partners can view each other's shipping address" on public.shipping_addresses;
+create policy "trade partners can view each other's shipping address"
+  on public.shipping_addresses for select
+  to authenticated
+  using (
+    exists (
+      select 1 from public.trades t
+      where t.fulfillment_method = 'post'
+        and t.status in ('in_progress', 'completed')
+        and ((t.proposer_id = auth.uid() and t.recipient_id = shipping_addresses.user_id)
+          or (t.recipient_id = auth.uid() and t.proposer_id = shipping_addresses.user_id))
     )
   );

@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/collection", label: "Collection" },
   { href: "/friends", label: "Friends" },
   { href: "/trades", label: "Trades" },
+  { href: "/settings", label: "Settings" },
 ] as const;
 
 // Client component so it can read the current route and highlight it — the

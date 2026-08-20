@@ -4,11 +4,16 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
+type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;
+
 export async function proposeTrade(formData: FormData) {
   const friendId = String(formData.get("friendId"));
   const language = String(formData.get("language"));
   const wantCardIds = formData.getAll("wantCardIds").map(String).filter(Boolean);
   const offerCardIds = formData.getAll("offerCardIds").map(String).filter(Boolean);
+  // Defaults to in_person if the form somehow submits without it (e.g. an
+  // older cached page) — matches the column default in schema.sql.
+  const fulfillmentMethod = formData.get("fulfillmentMethod") === "post" ? "post" : "in_person";
 
   const supabase = await createClient();
   const {
@@ -30,7 +35,7 @@ export async function proposeTrade(formData: FormData) {
 
   const { data: trade, error } = await supabase
     .from("trades")
-    .insert({ proposer_id: user.id, recipient_id: friendId, status: "proposed" })
+    .insert({ proposer_id: user.id, recipient_id: friendId, status: "proposed", fulfillment_method: fulfillmentMethod })
     .select("id")
     .single();
 
@@ -64,6 +69,51 @@ const NEXT_STATUS: Record<string, string> = {
   in_progress: "completed",
 };
 
+// Adds whatever each participant received in a just-completed trade to
+// their own collection. Shared by advanceTrade's in-person completion path
+// and markReceived's postal completion path below, since both reach the
+// same "trade is now completed, so add the received cards" moment — they
+// just get there via different rules about WHO is allowed to say so.
+//
+// Safe to do without asking: owning a card you didn't have before has no
+// downside. It's allowed past RLS by the "trade completion adds the
+// received card for both sides" policy on collection_entries (see
+// schema.sql) — the normal "users manage their own collection" policy
+// alone wouldn't allow writing a row for the OTHER participant.
+//
+// The other half of a trade — REMOVING the traded card from the GIVING
+// side's collection — deliberately does NOT happen here. See
+// resolveGivenCard below for why: this app has no concept of
+// quantity-owned, so an automatic removal here could silently un-own a
+// card someone actually has a spare of. That's a per-card decision only
+// the giver can make, asked separately once the trade is completed.
+async function addReceivedCardsToCollections(
+  supabase: SupabaseServerClient,
+  tradeId: string,
+  proposerId: string,
+  recipientId: string
+) {
+  const { data: items } = await supabase
+    .from("trade_items")
+    .select("card_id, language, offered_by_user_id")
+    .eq("trade_id", tradeId);
+
+  const receivedRows = (items ?? []).map((item) => ({
+    user_id: item.offered_by_user_id === proposerId ? recipientId : proposerId,
+    card_id: item.card_id,
+    language: item.language,
+  }));
+
+  if (receivedRows.length > 0) {
+    // ignoreDuplicates: true so a card the receiver already owned (e.g.
+    // traded for a second copy) doesn't get its added_at bumped or
+    // error out — this is purely additive, never destructive.
+    await supabase
+      .from("collection_entries")
+      .upsert(receivedRows, { onConflict: "user_id,card_id,language", ignoreDuplicates: true });
+  }
+}
+
 export async function advanceTrade(formData: FormData) {
   const tradeId = String(formData.get("tradeId"));
   const currentStatus = String(formData.get("currentStatus"));
@@ -81,7 +131,7 @@ export async function advanceTrade(formData: FormData) {
   // receives what when auto-adding cards to collections further down.
   const { data: trade } = await supabase
     .from("trades")
-    .select("proposer_id, recipient_id")
+    .select("proposer_id, recipient_id, fulfillment_method")
     .eq("id", tradeId)
     .maybeSingle();
   if (!trade) return;
@@ -95,52 +145,118 @@ export async function advanceTrade(formData: FormData) {
   // "can a stranger touch this trade" boundary); this is an app-level rule
   // on top of it for "which participant can do what."
   //
-  // in_progress -> completed has no such restriction: either side
-  // confirming the physical exchange happened is enough for a light
-  // workflow between friends who already trust each other.
+  // in_progress -> completed has no such restriction for in_person trades:
+  // either side confirming the physical exchange happened is enough for a
+  // light workflow between friends who already trust each other. Postal
+  // trades are different — see the block below.
   if (currentStatus === "proposed" && trade.recipient_id !== user.id) return;
+
+  // Postal trades can NOT complete via this single-click path: nobody can
+  // truthfully vouch that a parcel they didn't personally receive actually
+  // arrived. Completion for a 'post' trade only happens once both
+  // participants have separately confirmed receipt via markReceived below.
+  // The button that would call this is hidden for postal trades in
+  // trades/page.tsx, but this check is the real enforcement — the UI hint
+  // alone wouldn't stop a direct form submission.
+  if (currentStatus === "in_progress" && trade.fulfillment_method === "post") return;
 
   await supabase
     .from("trades")
     .update({ status: next, updated_at: new Date().toISOString() })
     .eq("id", tradeId);
 
-  // Completing a trade means both sides now own whatever the OTHER side
-  // offered — added to each participant's collection automatically and
-  // immediately, regardless of which of them clicked "Mark as completed".
-  // This is safe to do without asking: owning a card you didn't have
-  // before has no downside. It's allowed past RLS by the
-  // "trade completion adds the received card for both sides" policy on
-  // collection_entries (see schema.sql) — the normal
-  // "users manage their own collection" policy alone wouldn't allow
-  // writing a row for the OTHER participant.
-  //
-  // The other half of a trade — REMOVING the traded card from the GIVING
-  // side's collection — deliberately does NOT happen here. See
-  // resolveGivenCard below for why: this app has no concept of
-  // quantity-owned, so an automatic removal here could silently un-own a
-  // card someone actually has a spare of. That's a per-card decision only
-  // the giver can make, asked separately once the trade is completed.
   if (next === "completed") {
-    const { data: items } = await supabase
-      .from("trade_items")
-      .select("card_id, language, offered_by_user_id")
-      .eq("trade_id", tradeId);
+    await addReceivedCardsToCollections(supabase, tradeId, trade.proposer_id, trade.recipient_id);
+  }
 
-    const receivedRows = (items ?? []).map((item) => ({
-      user_id: item.offered_by_user_id === trade.proposer_id ? trade.recipient_id : trade.proposer_id,
-      card_id: item.card_id,
-      language: item.language,
-    }));
+  revalidatePath("/trades");
+  revalidatePath("/collection");
+}
 
-    if (receivedRows.length > 0) {
-      // ignoreDuplicates: true so a card the receiver already owned (e.g.
-      // traded for a second copy) doesn't get its added_at bumped or
-      // error out — this is purely additive, never destructive.
-      await supabase
-        .from("collection_entries")
-        .upsert(receivedRows, { onConflict: "user_id,card_id,language", ignoreDuplicates: true });
-    }
+// Records that the caller has posted their side of a postal trade. Only
+// meaningful for 'post' trades that are in_progress — in_person trades
+// don't have a shipping step, and there's nothing to mark once a trade is
+// completed or cancelled.
+export async function markShipped(formData: FormData) {
+  const tradeId = String(formData.get("tradeId"));
+  const trackingRef = String(formData.get("trackingRef") ?? "").trim();
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const { data: trade } = await supabase
+    .from("trades")
+    .select("proposer_id, recipient_id, status, fulfillment_method")
+    .eq("id", tradeId)
+    .maybeSingle();
+  if (!trade || trade.status !== "in_progress" || trade.fulfillment_method !== "post") return;
+  if (trade.proposer_id !== user.id && trade.recipient_id !== user.id) return;
+
+  const isProposer = trade.proposer_id === user.id;
+  await supabase
+    .from("trades")
+    .update(
+      isProposer
+        ? { proposer_shipped_at: new Date().toISOString(), proposer_tracking_ref: trackingRef || null }
+        : { recipient_shipped_at: new Date().toISOString(), recipient_tracking_ref: trackingRef || null }
+    )
+    .eq("id", tradeId);
+
+  revalidatePath("/trades");
+}
+
+// Records that the caller has received their side of a postal trade, then
+// completes the trade if — and only if — BOTH participants have now
+// confirmed receipt.
+//
+// This can't be "read status, decide in app code, then write" — if both
+// people mark received within moments of each other, that read-then-write
+// races and can double-fire the completion side effect, or miss it
+// entirely. Instead: write the caller's own received timestamp first, then
+// run a SECOND, unconditional update whose WHERE clause re-checks BOTH
+// participants' received timestamps directly in the database. Whether that
+// second update actually matches a row (checked via .select() on the
+// result) tells this request, definitively, whether IT was the one that
+// completed the trade — safe regardless of which of the two requests the
+// database happens to process first.
+export async function markReceived(formData: FormData) {
+  const tradeId = String(formData.get("tradeId"));
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const { data: trade } = await supabase
+    .from("trades")
+    .select("proposer_id, recipient_id, status, fulfillment_method")
+    .eq("id", tradeId)
+    .maybeSingle();
+  if (!trade || trade.status !== "in_progress" || trade.fulfillment_method !== "post") return;
+  if (trade.proposer_id !== user.id && trade.recipient_id !== user.id) return;
+
+  const isProposer = trade.proposer_id === user.id;
+  const now = new Date().toISOString();
+  await supabase
+    .from("trades")
+    .update(isProposer ? { proposer_received_at: now } : { recipient_received_at: now })
+    .eq("id", tradeId);
+
+  const { data: completedRows } = await supabase
+    .from("trades")
+    .update({ status: "completed", updated_at: now })
+    .eq("id", tradeId)
+    .eq("status", "in_progress")
+    .not("proposer_received_at", "is", null)
+    .not("recipient_received_at", "is", null)
+    .select("id");
+
+  if (completedRows && completedRows.length > 0) {
+    await addReceivedCardsToCollections(supabase, tradeId, trade.proposer_id, trade.recipient_id);
   }
 
   revalidatePath("/trades");
