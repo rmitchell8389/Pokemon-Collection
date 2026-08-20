@@ -101,11 +101,14 @@ export default async function CollectionPage({
   type CardRow = { id: string; name: string; set_name: string; card_number: string; image_url: string | null };
   let cards: CardRow[] = [];
   let notReleasedInThisLanguage = false;
-  // When viewing a friend with no search typed yet, default to showing
-  // everything they own instead of an empty "search to begin" prompt — the
-  // whole point of opening someone's collection is browsing it, not
-  // guessing what to search for first.
-  let showingFriendsFullCollection = false;
+  // With no search typed yet, default to showing everything the target user
+  // (yourself, or a friend you're viewing) owns instead of an empty "search
+  // to begin" prompt — the whole point of opening a collection is browsing
+  // it, not guessing what to search for first. This used to only apply when
+  // viewing a friend; as of 2026-08-20 it applies to your own collection
+  // too, since requiring a search just to see your own cards was the actual
+  // complaint that prompted this change.
+  let showingFullCollection = false;
 
   if (setQuery && !query) {
     // Set-only browsing: no Pokemon name to resolve across languages, so
@@ -217,12 +220,14 @@ export default async function CollectionPage({
         .limit(1);
       notReleasedInThisLanguage = speciesMatchCount > 0 || (enData?.length ?? 0) > 0;
     }
-  } else if (viewingFriend) {
-    // No search typed — show everything the friend owns in this language.
+  } else {
+    // No search typed — show everything targetUserId (yourself, or the
+    // friend you're viewing) owns in this language, rather than an empty
+    // "search to begin" prompt.
     const { data: entries } = await supabase
       .from("collection_entries")
       .select("card_id")
-      .eq("user_id", viewingFriend.id)
+      .eq("user_id", targetUserId)
       .eq("language", language);
     const ownedCardIds = (entries ?? []).map((e) => e.card_id);
     if (ownedCardIds.length > 0) {
@@ -237,7 +242,7 @@ export default async function CollectionPage({
           : a.set_name.localeCompare(b.set_name)
       );
     }
-    showingFriendsFullCollection = true;
+    showingFullCollection = true;
   }
 
   const cardIds = cards.map((c) => c.id);
@@ -332,17 +337,19 @@ export default async function CollectionPage({
         </button>
       </form>
 
-      {!query && !setQuery && !viewingFriend && (
+      {!query && !setQuery && (
         <p className="text-sm text-black/60 dark:text-white/60">
-          Search for a Pokemon, filter by set, or both, to see {LANGUAGE_LABELS[language]} cards
-          and mark which ones you own.
+          {viewingFriend
+            ? `Showing everything ${viewingFriend.display_name} owns in ${LANGUAGE_LABELS[language]}. Search for a Pokemon or filter by set to narrow it down.`
+            : `Showing everything you own in ${LANGUAGE_LABELS[language]}. Search for a Pokemon or filter by set to narrow it down, or browse the full catalog by searching for a set.`}
         </p>
       )}
 
-      {!query && !setQuery && viewingFriend && cards.length === 0 && (
+      {!query && !setQuery && cards.length === 0 && (
         <p className="panel text-sm">
-          {viewingFriend.display_name} doesn&apos;t have any {LANGUAGE_LABELS[language]} cards
-          marked as owned yet.
+          {viewingFriend
+            ? `${viewingFriend.display_name} doesn't have any ${LANGUAGE_LABELS[language]} cards marked as owned yet.`
+            : `You haven't marked any ${LANGUAGE_LABELS[language]} cards as owned yet — search for a Pokemon or a set below to start adding them.`}
         </p>
       )}
 
@@ -372,7 +379,7 @@ export default async function CollectionPage({
       {cards.length > 0 && (
         <>
           <p className="text-xs text-black/50 dark:text-white/50">
-            {showingFriendsFullCollection
+            {showingFullCollection
               ? `${cards.length} card${cards.length === 1 ? "" : "s"} owned`
               : `${cards.length} card${cards.length === 1 ? "" : "s"} · ${ownedSet.size} owned`}
           </p>

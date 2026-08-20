@@ -59,8 +59,23 @@ export function CardImageLightbox({
           aria-modal="true"
           aria-label={alt}
         >
+          {/*
+            Bug fixed 2026-08-20: this div used to be `max-h-[85vh] w-auto`
+            with no explicit height. It's a flex item inside the overlay's
+            `flex items-center justify-center`, and its only child (the
+            `fill` Image below) is absolutely positioned — meaning it
+            contributes zero intrinsic size to this box. With `width: auto`
+            on a flex item, sizing falls back to content size, which was
+            zero, so `aspect-[5/7]` had nothing to resolve against and the
+            box collapsed to 0x0. The `fill` image was rendering into a
+            zero-size container — present in the DOM, invisible on screen.
+            Giving the box an explicit `h-[85vh]` anchors the size; the
+            browser derives width from the aspect ratio and clamps it via
+            `max-w-[85vw]` on narrow screens, recomputing height downward
+            to match (standard CSS Sizing 4 behavior in evergreen browsers).
+          */}
           <div
-            className="relative aspect-[5/7] max-h-[85vh] w-auto max-w-[85vw]"
+            className="relative aspect-[5/7] h-[85vh] max-w-[85vw]"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
