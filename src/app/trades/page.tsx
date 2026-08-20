@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TCGDEX_LANGUAGES, type TcgdexLanguage } from "@/lib/tcgdex";
-import { advanceTrade, cancelTrade } from "./actions";
+import { advanceTrade, cancelTrade, resolveGivenCard } from "./actions";
 
 const LANGUAGE_LABELS: Record<TcgdexLanguage, string> = {
   en: "English",
@@ -64,9 +64,18 @@ export default async function TradesPage() {
     tradeIds.length > 0
       ? await supabase
           .from("trade_items")
-          .select("trade_id, card_id, language, offered_by_user_id")
+          .select("id, trade_id, card_id, language, offered_by_user_id, giver_kept_duplicate")
           .in("trade_id", tradeIds)
-      : { data: [] as { trade_id: string; card_id: string; language: string; offered_by_user_id: string }[] };
+      : {
+          data: [] as {
+            id: string;
+            trade_id: string;
+            card_id: string;
+            language: string;
+            offered_by_user_id: string;
+            giver_kept_duplicate: boolean | null;
+          }[],
+        };
 
   // Manual join against `cards` keyed on (id, language) rather than relying
   // on PostgREST to resolve the composite foreign key automatically —
@@ -146,12 +155,43 @@ export default async function TradesPage() {
                     </span>
                   </div>
                   <ul className="mt-2 flex flex-col gap-1 text-sm text-black/70 dark:text-white/70">
-                    {(itemsByTrade.get(t.id) ?? []).map((item, i) => {
+                    {(itemsByTrade.get(t.id) ?? []).map((item) => {
                       const card = cardByKey.get(`${item.card_id}::${item.language}`);
+                      const givenByYou = item.offered_by_user_id === user.id;
                       return (
-                        <li key={i}>
-                          {card?.name ?? item.card_id} {card && `(${card.set_name} #${card.card_number})`} —
-                          offered by {item.offered_by_user_id === user.id ? "you" : "them"}
+                        <li key={item.id} className="flex flex-wrap items-center gap-2">
+                          <span>
+                            {card?.name ?? item.card_id} {card && `(${card.set_name} #${card.card_number})`} —
+                            offered by {givenByYou ? "you" : "them"}
+                          </span>
+                          {t.status === "completed" && !givenByYou && (
+                            <span className="badge bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
+                              Added to your collection
+                            </span>
+                          )}
+                          {t.status === "completed" && givenByYou && item.giver_kept_duplicate === true && (
+                            <span className="badge bg-black/5 dark:bg-white/10">Kept — you have another copy</span>
+                          )}
+                          {t.status === "completed" && givenByYou && item.giver_kept_duplicate === false && (
+                            <span className="badge bg-black/5 dark:bg-white/10">Removed from your collection</span>
+                          )}
+                          {t.status === "completed" && givenByYou && item.giver_kept_duplicate === null && (
+                            <span className="flex items-center gap-1">
+                              <span className="text-xs text-black/50 dark:text-white/50">
+                                Do you still have a copy of this?
+                              </span>
+                              <form action={resolveGivenCard}>
+                                <input type="hidden" name="tradeItemId" value={item.id} />
+                                <input type="hidden" name="keepDuplicate" value="false" />
+                                <button className="btn-secondary btn-sm">No, remove it</button>
+                              </form>
+                              <form action={resolveGivenCard}>
+                                <input type="hidden" name="tradeItemId" value={item.id} />
+                                <input type="hidden" name="keepDuplicate" value="true" />
+                                <button className="btn-secondary btn-sm">Yes, keep it</button>
+                              </form>
+                            </span>
+                          )}
                         </li>
                       );
                     })}

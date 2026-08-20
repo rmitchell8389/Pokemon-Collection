@@ -242,8 +242,25 @@ create table if not exists public.trade_items (
   card_id text not null,
   language text not null,
   offered_by_user_id uuid not null references auth.users (id) on delete cascade,
+  -- Whether the person who GAVE this card away in a completed trade still
+  -- owns a duplicate. null = trade not completed yet, or completed but the
+  -- giver hasn't answered yet. true = they said "I have another copy" (no
+  -- change made to their collection). false = they confirmed they don't,
+  -- and it was removed. This is a deliberate per-card decision by the
+  -- giver, not automatic — collection_entries is a plain have/don't-have
+  -- table with no quantity column, so there's no way to know in advance
+  -- whether removing a traded card would wrongly un-own a card someone has
+  -- spares of. Decided with Ross 2026-08-20: confirm at completion rather
+  -- than build real quantity tracking, since it ships without a bigger
+  -- schema/UI change and never silently guesses wrong. See spec doc.
+  giver_kept_duplicate boolean,
   foreign key (card_id, language) references public.cards (id, language) on delete cascade
 );
+
+-- Existing databases already have this table without the column above —
+-- `create table if not exists` is a no-op once the table exists, so this
+-- adds it in place without touching any existing rows. Safe to re-run.
+alter table public.trade_items add column if not exists giver_kept_duplicate boolean;
 
 alter table public.trade_items enable row level security;
 
@@ -267,6 +284,52 @@ create policy "participants can add items to their trades"
     exists (
       select 1 from public.trades t
       where t.id = trade_items.trade_id
+        and (t.proposer_id = auth.uid() or t.recipient_id = auth.uid())
+    )
+  );
+
+-- Only the person who gave a card away can record their own
+-- keep-a-duplicate-or-remove-it decision on it. App-level logic
+-- (resolveGivenCard in trades/actions.ts) additionally checks the trade is
+-- actually completed and the item isn't already resolved before touching
+-- this — this policy is the "can a stranger touch this row at all" floor,
+-- same division of responsibility as advanceTrade's proposer/recipient
+-- check elsewhere in this file.
+drop policy if exists "giver can record their own duplicate decision" on public.trade_items;
+create policy "giver can record their own duplicate decision"
+  on public.trade_items for update
+  to authenticated
+  using (offered_by_user_id = auth.uid())
+  with check (offered_by_user_id = auth.uid());
+
+-- Lets a completed trade auto-add the RECEIVED card to the other
+-- participant's collection (both sides update on completion — Ross
+-- confirmed 2026-08-20 that giving away a card should also mean the
+-- recipient's collection reflects it). Without this, the app-level
+-- upsert in advanceTrade would be blocked: the existing "users manage
+-- their own collection" policy only lets you write rows where
+-- auth.uid() = user_id, and completing a trade often means writing a row
+-- for the OTHER participant. This policy scopes that narrowly — you can
+-- only insert a collection_entries row for someone else if there's a
+-- real completed trade you're both part of, with a matching item that
+-- was offered by the card's new owner's counterpart (i.e. they actually
+-- received this exact card in that trade). Adding a card someone already
+-- owns has no downside, so unlike the removal side above, this doesn't
+-- need a confirmation step.
+drop policy if exists "trade completion adds the received card for both sides" on public.collection_entries;
+create policy "trade completion adds the received card for both sides"
+  on public.collection_entries for insert
+  to authenticated
+  with check (
+    exists (
+      select 1
+      from public.trade_items ti
+      join public.trades t on t.id = ti.trade_id
+      where ti.card_id = collection_entries.card_id
+        and ti.language = collection_entries.language
+        and t.status = 'completed'
+        and ti.offered_by_user_id <> collection_entries.user_id
+        and (t.proposer_id = collection_entries.user_id or t.recipient_id = collection_entries.user_id)
         and (t.proposer_id = auth.uid() or t.recipient_id = auth.uid())
     )
   );
