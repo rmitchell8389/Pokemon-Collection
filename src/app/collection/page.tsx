@@ -1,14 +1,23 @@
 import { redirect } from "next/navigation";
-import Image from "next/image";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TCGDEX_LANGUAGES, type TcgdexLanguage } from "@/lib/tcgdex";
 import { toggleOwned } from "./actions";
+import { PokeballMark } from "@/components/PokeballMark";
+import { CardImageLightbox } from "@/components/CardImageLightbox";
 
 const LANGUAGE_LABELS: Record<TcgdexLanguage, string> = {
   en: "English",
   ja: "Japanese",
   "zh-tw": "Traditional Chinese",
   "zh-cn": "Simplified Chinese",
+};
+
+const LANGUAGE_FLAGS: Record<TcgdexLanguage, string> = {
+  en: "🇺🇸",
+  ja: "🇯🇵",
+  "zh-tw": "🇹🇼",
+  "zh-cn": "🇨🇳",
 };
 
 // `cards.image_url` holds two different shapes depending on where it came
@@ -35,20 +44,49 @@ function compareCardNumbers(a: string, b: string): number {
 export default async function CollectionPage({
   searchParams,
 }: {
-  searchParams: Promise<{ lang?: string; q?: string; set?: string }>;
+  searchParams: Promise<{ lang?: string; q?: string; set?: string; friend?: string }>;
 }) {
-  const { lang, q, set } = await searchParams;
+  const { lang, q, set, friend } = await searchParams;
   const language: TcgdexLanguage = TCGDEX_LANGUAGES.includes(lang as TcgdexLanguage)
     ? (lang as TcgdexLanguage)
     : "en";
   const query = (q ?? "").trim();
   const setQuery = (set ?? "").trim();
+  const friendParam = (friend ?? "").trim();
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  // Viewing a friend's collection (?friend=<id>) reuses this whole page —
+  // same search, same grid — swapping only whose ownership the "owned"
+  // badges reflect. Only accepted friends are viewable; collection_entries
+  // RLS ("friends can view each other's collection" in schema.sql) already
+  // enforces this at the database level too, so this check is about giving
+  // a clear message rather than being the only thing standing in the way.
+  let viewingFriend: { id: string; display_name: string } | null = null;
+  if (friendParam && friendParam !== user.id) {
+    const { data: myAcceptedFriendships } = await supabase
+      .from("friendships")
+      .select("user_id, friend_user_id")
+      .eq("status", "accepted");
+    const isFriend = (myAcceptedFriendships ?? []).some(
+      (f) =>
+        (f.user_id === user.id && f.friend_user_id === friendParam) ||
+        (f.friend_user_id === user.id && f.user_id === friendParam)
+    );
+    if (isFriend) {
+      const { data: friendProfile } = await supabase
+        .from("profiles")
+        .select("id, display_name")
+        .eq("id", friendParam)
+        .maybeSingle();
+      if (friendProfile) viewingFriend = friendProfile;
+    }
+  }
+  const targetUserId = viewingFriend?.id ?? user.id;
 
   // Populate the set-search datalist with every set name that actually has
   // cards in the currently-selected language, so the field is a real
@@ -63,6 +101,11 @@ export default async function CollectionPage({
   type CardRow = { id: string; name: string; set_name: string; card_number: string; image_url: string | null };
   let cards: CardRow[] = [];
   let notReleasedInThisLanguage = false;
+  // When viewing a friend with no search typed yet, default to showing
+  // everything they own instead of an empty "search to begin" prompt — the
+  // whole point of opening someone's collection is browsing it, not
+  // guessing what to search for first.
+  let showingFriendsFullCollection = false;
 
   if (setQuery && !query) {
     // Set-only browsing: no Pokemon name to resolve across languages, so
@@ -174,6 +217,27 @@ export default async function CollectionPage({
         .limit(1);
       notReleasedInThisLanguage = speciesMatchCount > 0 || (enData?.length ?? 0) > 0;
     }
+  } else if (viewingFriend) {
+    // No search typed — show everything the friend owns in this language.
+    const { data: entries } = await supabase
+      .from("collection_entries")
+      .select("card_id")
+      .eq("user_id", viewingFriend.id)
+      .eq("language", language);
+    const ownedCardIds = (entries ?? []).map((e) => e.card_id);
+    if (ownedCardIds.length > 0) {
+      const { data } = await supabase
+        .from("cards")
+        .select("id, name, set_name, card_number, image_url")
+        .eq("language", language)
+        .in("id", ownedCardIds);
+      cards = (data ?? []).sort((a, b) =>
+        a.set_name === b.set_name
+          ? compareCardNumbers(a.card_number, b.card_number)
+          : a.set_name.localeCompare(b.set_name)
+      );
+    }
+    showingFriendsFullCollection = true;
   }
 
   const cardIds = cards.map((c) => c.id);
@@ -182,71 +246,108 @@ export default async function CollectionPage({
       ? await supabase
           .from("collection_entries")
           .select("card_id")
-          .eq("user_id", user.id)
+          .eq("user_id", targetUserId)
           .eq("language", language)
           .in("card_id", cardIds)
       : { data: [] as { card_id: string }[] };
   const ownedSet = new Set((ownedRows ?? []).map((r) => r.card_id));
 
+  // Every internal link on this page needs to carry `friend` along so
+  // switching language or searching doesn't silently kick you back to your
+  // own collection.
+  function hrefWithFriend(extra: Record<string, string>): string {
+    const params = new URLSearchParams(extra);
+    if (viewingFriend) params.set("friend", viewingFriend.id);
+    return `/collection?${params.toString()}`;
+  }
+
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-semibold">Collection</h1>
+      <h1 className="text-2xl font-bold tracking-tight">
+        {viewingFriend ? (
+          <>
+            {viewingFriend.display_name}
+            <span className="font-normal text-black/50 dark:text-white/50">&rsquo;s collection</span>
+          </>
+        ) : (
+          "Collection"
+        )}
+      </h1>
+
+      {friendParam && !viewingFriend && (
+        <p className="panel text-sm">
+          You can only view the collection of an accepted friend. If this is a new friendship,
+          make sure the request has been accepted on both sides.
+        </p>
+      )}
+
+      {viewingFriend && (
+        <div className="panel flex items-center justify-between border-l-4 border-l-violet-400 text-sm">
+          <span>
+            Viewing <strong>{viewingFriend.display_name}</strong>&rsquo;s collection — read only.
+          </span>
+          <Link href="/collection" className="btn-secondary btn-sm">
+            Back to my collection
+          </Link>
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-2">
         {TCGDEX_LANGUAGES.map((l) => {
-          const params = new URLSearchParams({ lang: l });
-          if (query) params.set("q", query);
-          if (setQuery) params.set("set", setQuery);
+          const extra: Record<string, string> = { lang: l };
+          if (query) extra.q = query;
+          if (setQuery) extra.set = setQuery;
           return (
-            <a
-              key={l}
-              href={`/collection?${params.toString()}`}
-              className={`rounded-full px-3 py-1 text-sm ${
-                l === language
-                  ? "bg-red-600 text-white"
-                  : "border border-black/15 dark:border-white/20"
-              }`}
-            >
+            <a key={l} href={hrefWithFriend(extra)} className={l === language ? "pill-active" : "pill-inactive"}>
+              <span className="mr-1">{LANGUAGE_FLAGS[l]}</span>
               {LANGUAGE_LABELS[l]}
             </a>
           );
         })}
       </div>
 
-      <form action="/collection" className="flex flex-wrap gap-2">
+      <form action="/collection" className="panel flex flex-wrap gap-2">
         <input type="hidden" name="lang" value={language} />
+        {viewingFriend && <input type="hidden" name="friend" value={viewingFriend.id} />}
         <input
           name="q"
           defaultValue={query}
           placeholder="Search a Pokemon, e.g. Charizard"
-          className="min-w-[200px] flex-1 rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
+          className="input min-w-[200px] flex-1"
         />
         <input
           name="set"
           list="set-names"
           defaultValue={setQuery}
           placeholder="Filter by set, e.g. Skyridge"
-          className="min-w-[200px] flex-1 rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
+          className="input min-w-[200px] flex-1"
         />
         <datalist id="set-names">
           {setNames.map((name) => (
             <option key={name} value={name} />
           ))}
         </datalist>
-        <button type="submit" className="rounded bg-red-600 px-4 py-2 font-medium text-white">
+        <button type="submit" className="btn-primary">
           Search
         </button>
       </form>
 
-      {!query && !setQuery && (
+      {!query && !setQuery && !viewingFriend && (
         <p className="text-sm text-black/60 dark:text-white/60">
           Search for a Pokemon, filter by set, or both, to see {LANGUAGE_LABELS[language]} cards
           and mark which ones you own.
         </p>
       )}
 
+      {!query && !setQuery && viewingFriend && cards.length === 0 && (
+        <p className="panel text-sm">
+          {viewingFriend.display_name} doesn&apos;t have any {LANGUAGE_LABELS[language]} cards
+          marked as owned yet.
+        </p>
+      )}
+
       {query && cards.length === 0 && notReleasedInThisLanguage && (
-        <p className="rounded bg-black/5 p-3 text-sm dark:bg-white/10">
+        <p className="panel text-sm">
           &ldquo;{query}&rdquo; hasn&apos;t been released in {LANGUAGE_LABELS[language]} as far as
           the synced card data shows. That&apos;s not a bug — some sets, especially in
           Simplified Chinese, genuinely haven&apos;t been printed there.
@@ -254,7 +355,7 @@ export default async function CollectionPage({
       )}
 
       {query && cards.length === 0 && !notReleasedInThisLanguage && (
-        <p className="rounded bg-black/5 p-3 text-sm dark:bg-white/10">
+        <p className="panel text-sm">
           No cards found matching &ldquo;{query}&rdquo;
           {setQuery && <> in a set matching &ldquo;{setQuery}&rdquo;</>}. Check the spelling, or
           the card catalog may not be synced yet — see the sync script in the README.
@@ -262,62 +363,85 @@ export default async function CollectionPage({
       )}
 
       {!query && setQuery && cards.length === 0 && (
-        <p className="rounded bg-black/5 p-3 text-sm dark:bg-white/10">
+        <p className="panel text-sm">
           No set matching &ldquo;{setQuery}&rdquo; found in {LANGUAGE_LABELS[language]}. Pick one
           from the suggestions as you type, or check the spelling.
         </p>
       )}
 
       {cards.length > 0 && (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-          {cards.map((card) => {
-            const owned = ownedSet.has(card.id);
-            return (
-              <div
-                key={card.id}
-                className={`flex flex-col gap-2 rounded border p-2 ${
-                  owned
-                    ? "border-green-600/40 bg-green-50 dark:bg-green-950/30"
-                    : "border-black/10 dark:border-white/10"
-                }`}
-              >
-                {card.image_url ? (
-                  <Image
-                    src={resolveImageSrc(card.image_url)}
-                    alt={card.name}
-                    width={200}
-                    height={280}
-                    className="w-full rounded object-cover"
-                    unoptimized
-                  />
-                ) : (
-                  <div className="flex aspect-[5/7] items-center justify-center rounded bg-black/5 text-xs text-black/40 dark:bg-white/10">
-                    No image
+        <>
+          <p className="text-xs text-black/50 dark:text-white/50">
+            {showingFriendsFullCollection
+              ? `${cards.length} card${cards.length === 1 ? "" : "s"} owned`
+              : `${cards.length} card${cards.length === 1 ? "" : "s"} · ${ownedSet.size} owned`}
+          </p>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+            {cards.map((card) => {
+              const owned = ownedSet.has(card.id);
+              const thumbnailClassName = `w-full rounded-lg object-cover shadow-sm transition-all duration-300 ${
+                owned ? "" : "opacity-80 grayscale-[0.65] group-hover:opacity-100 group-hover:grayscale-0"
+              }`;
+              return (
+                <div
+                  key={card.id}
+                  className={`group relative flex flex-col gap-2 rounded-xl border p-2 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md ${
+                    owned
+                      ? "card-holo border-emerald-600/40 bg-gradient-to-b from-emerald-50 to-emerald-50/40 dark:border-emerald-500/30 dark:from-emerald-950/40 dark:to-emerald-950/10"
+                      : "border-black/10 bg-white/60 dark:border-white/10 dark:bg-white/[0.02]"
+                  }`}
+                >
+                  <div className="relative">
+                    {card.image_url ? (
+                      <CardImageLightbox
+                        src={resolveImageSrc(card.image_url)}
+                        alt={card.name}
+                        thumbnailClassName={thumbnailClassName}
+                      />
+                    ) : (
+                      <div className="card-back-pattern relative flex aspect-[5/7] items-center justify-center overflow-hidden rounded-lg bg-black/5 dark:bg-white/10">
+                        <PokeballMark className="h-10 w-10 opacity-20" />
+                        <span className="absolute bottom-1.5 text-[10px] text-black/40 dark:text-white/40">
+                          No image
+                        </span>
+                      </div>
+                    )}
+                    {owned && (
+                      <span className="badge absolute right-1.5 top-1.5 bg-emerald-600 text-white shadow-sm">
+                        ✓ Owned
+                      </span>
+                    )}
                   </div>
-                )}
-                <div className="text-xs font-medium">{card.name}</div>
-                <div className="text-xs text-black/50 dark:text-white/50">
-                  {card.set_name} · #{card.card_number}
+                  <div className="text-xs font-medium">{card.name}</div>
+                  <div className="text-xs text-black/50 dark:text-white/50">
+                    {card.set_name} · #{card.card_number}
+                  </div>
+                  {viewingFriend ? (
+                    // Read-only when browsing someone else's collection —
+                    // no toggle, just the badge above (or its absence).
+                    !owned && (
+                      <div className="rounded-lg px-2 py-1 text-center text-xs text-black/40 dark:text-white/40">
+                        Not owned
+                      </div>
+                    )
+                  ) : (
+                    <form action={toggleOwned}>
+                      <input type="hidden" name="cardId" value={card.id} />
+                      <input type="hidden" name="language" value={language} />
+                      <input type="hidden" name="owned" value={String(owned)} />
+                      <button
+                        type="submit"
+                        className={`btn-sm w-full ${owned ? "btn-secondary" : "btn-success"}`}
+                      >
+                        {owned ? "Remove" : "Mark as owned"}
+                      </button>
+                    </form>
+                  )}
                 </div>
-                <form action={toggleOwned}>
-                  <input type="hidden" name="cardId" value={card.id} />
-                  <input type="hidden" name="language" value={language} />
-                  <input type="hidden" name="owned" value={String(owned)} />
-                  <button
-                    type="submit"
-                    className={`w-full rounded px-2 py-1 text-xs font-medium ${
-                      owned
-                        ? "bg-green-600 text-white"
-                        : "border border-black/15 dark:border-white/20"
-                    }`}
-                  >
-                    {owned ? "Owned ✓" : "Mark as owned"}
-                  </button>
-                </form>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );

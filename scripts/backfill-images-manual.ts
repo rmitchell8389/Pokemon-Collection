@@ -34,6 +34,20 @@
 //      by hand, visually, against the real card) — add an entry there rather
 //      than trying to make the regexes above cover a single weird file.
 //
+// There's also a faster path for sourcing a whole set at once (added
+// 2026-08-19 after doing McDonald's Collection 2024 one filename at a time):
+// make a subfolder inside MANUAL_CARD_IMAGES_PATH named after an entry in
+// SUBFOLDER_SETS below (e.g. "mcd2014/"), and drop images in it named just
+// the card number — "1.jpg", "2.jpg", "12.png", whatever the extension.
+// No prefix, no card name needed, since the folder itself already says which
+// set. Meant for exactly this situation: TCGplayer (or similar) shows a full
+// price-guide grid for a set in card-number order, so saving each thumbnail
+// and typing a bare number as you go is close to as fast as this gets
+// without scraping the page outright — which isn't available from here (no
+// live browser/JS-rendering access in this environment, and TCGplayer's
+// price-guide pages don't render without JavaScript, so a plain fetch can't
+// read them either).
+//
 // Same safety policy as the other two backfill scripts: only ever writes a
 // row that's still missing an image AND has exactly one unambiguous DB
 // match for that (set, number-or-name) pair. Zero matches or more than one
@@ -102,6 +116,17 @@ const PROMO_CODES: Record<string, SetInfo> = {
   XY: { setName: "XY Black Star Promos", numberPrefix: "XY" },
 };
 
+// Subfolder-per-set convention (see header comment). Keys are subfolder
+// names, matched case-insensitively. Every image file directly inside one of
+// these folders is treated as "the card numbered <filename-without-extension>
+// in <setName>" — no filename parsing beyond stripping the extension.
+const SUBFOLDER_SETS: Record<string, SetInfo> = {
+  mcd2014: { setName: "McDonald's Collection 2014" },
+  mcd2015: { setName: "McDonald's Collection 2015" },
+  mcd2017: { setName: "McDonald's Collection 2017" },
+  mcd2018: { setName: "McDonald's Collection 2018" },
+};
+
 // Convention 4: exact filenames (matched case-insensitively) that don't fit
 // any pattern above — identified by hand against the real card image.
 const MANUAL_OVERRIDES: Record<string, { setName: string; cardNumber: string }> = {
@@ -109,6 +134,30 @@ const MANUAL_OVERRIDES: Record<string, { setName: string; cardNumber: string }> 
   // Visually confirmed: Pikachu, "Scrappy Spark", World Championships 2025
   // logo, "SVP EN 225" stamp printed on the card itself.
   "648631_in_1000x1000.webp": { setName: "SVP Black Star Promos", cardNumber: "225" },
+
+  // McDonald's Collection 2024 — Ross sourced all 15 himself after this set
+  // was written off as a dead end (see spec doc, pre-2026-08-19). Visually
+  // confirmed 001/015 (Charizard) and 009/015 (Umbreon): correct M24EN
+  // stamp, correct "©2024 Pokémon/Nintendo/Creatures/GAME FREAK" line, real
+  // illustrator credits — these are legitimate fronts, not another
+  // pokemontcg.io back-image situation. Filenames set the number; matched
+  // by number only (not name), so a mismatched Pokémon name in the filename
+  // is harmless as long as the number's right.
+  "mcd2024_001_charizard.jpg": { setName: "McDonald's Collection 2024", cardNumber: "1" },
+  "mcd2024_002_pikachu.jpg": { setName: "McDonald's Collection 2024", cardNumber: "2" },
+  "mcd2024_003_miraidon.jpg": { setName: "McDonald's Collection 2024", cardNumber: "3" },
+  "mcd2024_004_jigglypuff.jpg": { setName: "McDonald's Collection 2024", cardNumber: "4" },
+  "mcd2024_005_hatenna.jpg": { setName: "McDonald's Collection 2024", cardNumber: "5" },
+  "mcd2024_006_dragapult.jpg": { setName: "McDonald's Collection 2024", cardNumber: "6" },
+  "mcd2024_007_quagsire.jpg": { setName: "McDonald's Collection 2024", cardNumber: "7" },
+  "mcd2024_008_koraidon.jpg": { setName: "McDonald's Collection 2024", cardNumber: "8" },
+  "mcd2024_009_umbreon.jpg": { setName: "McDonald's Collection 2024", cardNumber: "9" },
+  "mcd2024_010_hydreigon.jpg": { setName: "McDonald's Collection 2024", cardNumber: "10" },
+  "mcd2024_011_roaring_moon.jpg": { setName: "McDonald's Collection 2024", cardNumber: "11" },
+  "mcd2024_012_dragonite.jpg": { setName: "McDonald's Collection 2024", cardNumber: "12" },
+  "mcd2024_013_eevee.jpg": { setName: "McDonald's Collection 2024", cardNumber: "13" },
+  "mcd2024_014_rayquaza.jpg": { setName: "McDonald's Collection 2024", cardNumber: "14" },
+  "mcd2024_015_drampa.jpg": { setName: "McDonald's Collection 2024", cardNumber: "15" },
 };
 
 type CardRow = { id: string; set_name: string; card_number: string; name: string };
@@ -117,7 +166,11 @@ type MatchKey =
   | { kind: "number"; setName: string; number: string }
   | { kind: "name"; setName: string; name: string };
 
-type Parsed = { filePath: string; matchKey: MatchKey };
+// storageName is what gets used as both the log label and the Supabase
+// Storage object name. Defaults to the bare filename for flat files; for
+// subfolder-sourced files it's prefixed with the folder name so "1.jpg" in
+// both mcd2014/ and mcd2015/ don't collide in storage.
+type Parsed = { filePath: string; matchKey: MatchKey; storageName: string };
 
 function normalizeCardNumber(number: string): string {
   const match = number.match(/^([a-zA-Z]*)0*(\d+)([a-zA-Z]*)$/);
@@ -241,12 +294,17 @@ async function main() {
     throw new Error(`Failed to create/verify storage bucket: ${bucketError.message}`);
   }
 
-  const files = fs
-    .readdirSync(folderPath, { withFileTypes: true })
+  const topLevel = fs.readdirSync(folderPath, { withFileTypes: true });
+
+  const files = topLevel
     .filter((e) => e.isFile() && IMAGE_EXTENSION_RE.test(e.name))
     .map((e) => path.join(folderPath, e.name));
 
-  console.log(`Found ${files.length} image file(s) in ${folderPath}`);
+  const subfolders = topLevel.filter((e) => e.isDirectory());
+
+  console.log(
+    `Found ${files.length} image file(s) directly in ${folderPath}, plus ${subfolders.length} subfolder(s)`
+  );
 
   const parsed: Parsed[] = [];
   let totalSkippedNoMatch = 0;
@@ -266,7 +324,32 @@ async function main() {
       totalSkippedNoMatch++;
       continue;
     }
-    parsed.push({ filePath, matchKey });
+    parsed.push({ filePath, matchKey, storageName: filename });
+  }
+
+  for (const dirent of subfolders) {
+    const setInfo = SUBFOLDER_SETS[dirent.name.toLowerCase()];
+    if (!setInfo) {
+      console.log(`  ! subfolder "${dirent.name}" doesn't match any entry in SUBFOLDER_SETS — skipped entirely`);
+      continue;
+    }
+
+    const subfolderPath = path.join(folderPath, dirent.name);
+    const subfolderFiles = fs
+      .readdirSync(subfolderPath, { withFileTypes: true })
+      .filter((e) => e.isFile() && IMAGE_EXTENSION_RE.test(e.name));
+
+    for (const fileEntry of subfolderFiles) {
+      const filename = fileEntry.name;
+      const rawNumber = path.basename(filename, path.extname(filename));
+      const fullNumber = (setInfo.numberPrefix ?? "") + rawNumber;
+      parsed.push({
+        filePath: path.join(subfolderPath, filename),
+        matchKey: { kind: "number", setName: setInfo.setName, number: normalizeCardNumber(fullNumber) },
+        storageName: `${dirent.name}_${filename}`,
+      });
+    }
+    console.log(`  ${dirent.name}/ -> ${setInfo.setName}: ${subfolderFiles.length} image(s) found`);
   }
 
   if (parsed.length === 0) {
@@ -294,22 +377,22 @@ async function main() {
   let totalSkippedAmbiguous = 0;
   let totalSkippedUploadError = 0;
 
-  for (const { filePath, matchKey } of parsed) {
-    const filename = path.basename(filePath);
+  for (const { filePath, matchKey, storageName } of parsed) {
+    const label = path.basename(filePath);
     const key = `${matchKey.setName}::${matchKey.kind === "number" ? matchKey.number : matchKey.name}`;
-    const label =
+    const matchLabel =
       matchKey.kind === "number" ? `${matchKey.setName} #${matchKey.number}` : `${matchKey.setName} "${matchKey.name}"`;
     const candidates = matchKey.kind === "number" ? cardsByNumberKey.get(key) : cardsByNameKey.get(key);
 
     if (!candidates || candidates.length === 0) {
       console.log(
-        `  ! "${filename}" -> ${label}: no still-missing DB row matches (already filled, or set/number/name is wrong)`
+        `  ! "${label}" -> ${matchLabel}: no still-missing DB row matches (already filled, or set/number/name is wrong)`
       );
       totalSkippedAlreadyFilled++;
       continue;
     }
     if (candidates.length > 1) {
-      console.log(`  ! "${filename}" -> ${label}: ${candidates.length} DB rows match, ambiguous — skipped`);
+      console.log(`  ! "${label}" -> ${matchLabel}: ${candidates.length} DB rows match, ambiguous — skipped`);
       totalSkippedAmbiguous++;
       continue;
     }
@@ -318,14 +401,14 @@ async function main() {
 
     try {
       const fileBuffer = fs.readFileSync(filePath);
-      const storagePath = `english/manual/${filename}`;
+      const storagePath = `english/manual/${storageName}`;
 
       const { error: uploadError } = await supabase.storage
         .from(STORAGE_BUCKET)
         .upload(storagePath, fileBuffer, { contentType: guessContentType(filePath), upsert: true });
 
       if (uploadError) {
-        console.log(`    ! failed to upload ${filename}: ${uploadError.message}`);
+        console.log(`    ! failed to upload ${label}: ${uploadError.message}`);
         totalSkippedUploadError++;
         continue;
       }
@@ -344,10 +427,10 @@ async function main() {
         continue;
       }
 
-      console.log(`  ${filename} -> ${matchKey.setName} #${card.card_number} (${card.name}): filled`);
+      console.log(`  ${label} -> ${matchKey.setName} #${card.card_number} (${card.name}): filled`);
       totalUploaded++;
     } catch (err) {
-      console.log(`    ! error processing ${filename}: ${(err as Error).message}`);
+      console.log(`    ! error processing ${label}: ${(err as Error).message}`);
       totalSkippedUploadError++;
     }
   }

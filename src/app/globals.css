@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf9f7;
+  --foreground: #1c1917;
 }
 
 @theme inline {
@@ -12,13 +12,128 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b0d12;
+    --foreground: #f4f4f5;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  /* Faint red/gold glow in the corners — evokes a Pokéball without being
+     loud. Low enough opacity that it reads the same on light and dark. */
+  background-image: radial-gradient(circle at 12% -10%, rgba(227, 53, 13, 0.08), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(250, 204, 21, 0.07), transparent 40%);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Shared component classes so the same button/input/card/pill look stays
+   consistent across every page without repeating long utility strings.
+   Plain Tailwind utilities everywhere else — this is only for things reused
+   on 3+ pages.
+
+   .btn and .pill are declared with @utility rather than inside @layer
+   components: Tailwind v4 only lets @apply reference a class defined that
+   way (a plain @layer components class isn't itself a registered utility,
+   so a second class trying to `@apply btn` fails the build with "Cannot
+   apply unknown utility class `btn`" — confirmed the hard way via a failed
+   `npm run build`). Classes that don't get @apply'd by another custom class
+   (.input, .panel, .badge) stay in @layer components as before. */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold
+    transition-all duration-150 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+}
+@utility pill {
+  @apply rounded-full px-3 py-1 text-sm font-medium transition-colors;
+}
+
+@layer components {
+  /* Gradients instead of flat fills on the two loudest buttons — cheap way
+     to add real depth instead of another flat rounded rectangle. */
+  .btn-primary {
+    @apply btn bg-gradient-to-b from-red-500 to-red-600 text-white shadow-sm shadow-red-600/40
+      hover:from-red-500 hover:to-red-700 hover:shadow-red-600/50;
+  }
+  .btn-secondary {
+    @apply btn border border-black/15 bg-white text-current hover:bg-black/5
+      dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10;
+  }
+  .btn-success {
+    @apply btn bg-gradient-to-b from-emerald-500 to-emerald-600 text-white shadow-sm shadow-emerald-600/40
+      hover:from-emerald-500 hover:to-emerald-700;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-sm shadow-sm outline-none
+      transition placeholder:text-black/40 focus:border-red-500 focus:ring-2 focus:ring-red-500/20
+      dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40;
+  }
+
+  .panel {
+    @apply rounded-xl border border-black/10 bg-white/70 p-4 shadow-sm backdrop-blur-sm
+      dark:border-white/10 dark:bg-white/[0.03];
+  }
+
+  .pill-active {
+    @apply pill bg-gradient-to-b from-red-500 to-red-600 text-white shadow-sm shadow-red-600/40;
+  }
+  .pill-inactive {
+    @apply pill border border-black/15 text-black/70 hover:bg-black/5
+      dark:border-white/15 dark:text-white/70 dark:hover:bg-white/10;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+}
+
+/* Diagonal-stripe "card back" pattern for placeholder tiles where a card
+   has no image yet — reads as a face-down card rather than a blank error
+   box. Paired with a centered, dimmed Pokéball watermark in the markup. */
+.card-back-pattern {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(227, 53, 13, 0.1) 0px,
+    rgba(227, 53, 13, 0.1) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+}
+
+/* Holo-card hover sheen — a diagonal light sweep, the same trick real
+   holographic-card scans use in photos. Scoped to owned cards only (applied
+   conditionally in markup) so the shine reads as "you have this one"
+   rather than firing on every tile. Pure CSS, no JS mouse-tracking. */
+.card-holo {
+  position: relative;
+  overflow: hidden;
+}
+.card-holo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.7) 40%,
+    rgba(250, 204, 21, 0.5) 48%,
+    rgba(227, 53, 13, 0.35) 55%,
+    transparent 65%
+  );
+  background-size: 250% 250%;
+  background-position: 0% 0%;
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    background-position 0.7s ease;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.card-holo:hover::after {
+  opacity: 1;
+  background-position: 100% 100%;
 }

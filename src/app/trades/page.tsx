@@ -11,11 +11,25 @@ const LANGUAGE_LABELS: Record<TcgdexLanguage, string> = {
   "zh-cn": "Simplified Chinese",
 };
 
+const STATUS_STYLES: Record<string, string> = {
+  proposed: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  in_progress: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+  completed: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  cancelled: "bg-black/5 text-black/50 dark:bg-white/10 dark:text-white/50",
+};
+
 const STATUS_LABELS: Record<string, string> = {
   proposed: "Proposed",
   in_progress: "In progress",
   completed: "Completed",
   cancelled: "Cancelled",
+};
+
+const STATUS_BORDERS: Record<string, string> = {
+  proposed: "border-l-4 border-l-amber-400",
+  in_progress: "border-l-4 border-l-blue-400",
+  completed: "border-l-4 border-l-emerald-400",
+  cancelled: "border-l-4 border-l-black/10 dark:border-l-white/10",
 };
 
 export default async function TradesPage() {
@@ -84,21 +98,17 @@ export default async function TradesPage() {
 
   return (
     <div className="flex flex-col gap-8">
-      <h1 className="text-2xl font-semibold">Trades</h1>
+      <h1 className="text-2xl font-bold tracking-tight">Trades</h1>
 
       <section>
-        <h2 className="mb-2 font-medium">Find matches with a friend</h2>
+        <h2 className="mb-2 font-semibold">Find matches with a friend</h2>
         {friendProfiles && friendProfiles.length > 0 ? (
           <div className="flex flex-col gap-2">
             {friendProfiles.map((f) => (
-              <div key={f.id} className="flex flex-wrap items-center gap-2 rounded border border-black/10 p-3 dark:border-white/10">
+              <div key={f.id} className="panel flex flex-wrap items-center gap-2">
                 <span className="mr-2 font-medium">{f.display_name}</span>
                 {TCGDEX_LANGUAGES.map((l) => (
-                  <Link
-                    key={l}
-                    href={`/trades/find?friend=${f.id}&lang=${l}`}
-                    className="rounded-full border border-black/15 px-3 py-1 text-xs dark:border-white/20"
-                  >
+                  <Link key={l} href={`/trades/find?friend=${f.id}&lang=${l}`} className="pill-inactive text-xs">
                     {LANGUAGE_LABELS[l]}
                   </Link>
                 ))}
@@ -113,9 +123,12 @@ export default async function TradesPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 font-medium">Your trades</h2>
+        <h2 className="mb-2 flex items-center gap-2 font-semibold">
+          Your trades
+          {trades && trades.length > 0 && <span className="badge bg-black/5 dark:bg-white/10">{trades.length}</span>}
+        </h2>
         {!trades || trades.length === 0 ? (
-          <p className="text-sm text-black/60 dark:text-white/60">
+          <p className="panel text-sm text-black/60 dark:text-white/60">
             No trades yet. Find a match above and propose one.
           </p>
         ) : (
@@ -123,12 +136,12 @@ export default async function TradesPage() {
             {trades.map((t) => {
               const otherId = t.proposer_id === user.id ? t.recipient_id : t.proposer_id;
               return (
-                <li key={t.id} className="rounded border border-black/10 p-3 dark:border-white/10">
+                <li key={t.id} className={`panel ${STATUS_BORDERS[t.status] ?? ""}`}>
                   <div className="flex items-center justify-between">
                     <span className="font-medium">
                       With {nameById.get(otherId) ?? "Unknown"}
                     </span>
-                    <span className="rounded-full bg-black/5 px-2 py-0.5 text-xs dark:bg-white/10">
+                    <span className={`badge ${STATUS_STYLES[t.status] ?? "bg-black/5 dark:bg-white/10"}`}>
                       {STATUS_LABELS[t.status] ?? t.status}
                     </span>
                   </div>
@@ -149,9 +162,7 @@ export default async function TradesPage() {
                         <form action={advanceTrade}>
                           <input type="hidden" name="tradeId" value={t.id} />
                           <input type="hidden" name="currentStatus" value={t.status} />
-                          <button className="rounded bg-green-600 px-3 py-1 text-xs text-white">
-                            Accept
-                          </button>
+                          <button className="btn-success btn-sm">Accept</button>
                         </form>
                       ) : (
                         // Only the recipient can accept — see actions.ts. The
@@ -162,9 +173,7 @@ export default async function TradesPage() {
                       )}
                       <form action={cancelTrade}>
                         <input type="hidden" name="tradeId" value={t.id} />
-                        <button className="rounded border border-black/15 px-3 py-1 text-xs dark:border-white/20">
-                          Cancel
-                        </button>
+                        <button className="btn-secondary btn-sm">Cancel</button>
                       </form>
                     </div>
                   )}
@@ -174,15 +183,11 @@ export default async function TradesPage() {
                       <form action={advanceTrade}>
                         <input type="hidden" name="tradeId" value={t.id} />
                         <input type="hidden" name="currentStatus" value={t.status} />
-                        <button className="rounded bg-green-600 px-3 py-1 text-xs text-white">
-                          Mark as completed
-                        </button>
+                        <button className="btn-success btn-sm">Mark as completed</button>
                       </form>
                       <form action={cancelTrade}>
                         <input type="hidden" name="tradeId" value={t.id} />
-                        <button className="rounded border border-black/15 px-3 py-1 text-xs dark:border-white/20">
-                          Cancel
-                        </button>
+                        <button className="btn-secondary btn-sm">Cancel</button>
                       </form>
                     </div>
                   )}

@@ -5,8 +5,8 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function sendFriendRequest(formData: FormData) {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
-  if (!email) return;
+  const identifier = String(formData.get("identifier") ?? "").trim();
+  if (!identifier) return;
 
   const supabase = await createClient();
   const {
@@ -14,22 +14,39 @@ export async function sendFriendRequest(formData: FormData) {
   } = await supabase.auth.getUser();
   if (!user) return;
 
-  const { data: target } = await supabase
-    .from("profiles")
-    .select("id")
-    .ilike("email", email)
-    .maybeSingle();
+  // Accept either an email or a display name — whichever the person typed —
+  // rather than forcing email specifically. Two separate ilike queries
+  // (not a single `.or()` filter string) so nothing from the input ever
+  // gets interpolated into a PostgREST filter expression; ilike's own
+  // parameter binding handles arbitrary characters safely either way.
+  const [{ data: byEmail }, { data: byName }] = await Promise.all([
+    supabase.from("profiles").select("id, display_name, email").ilike("email", identifier),
+    supabase.from("profiles").select("id, display_name, email").ilike("display_name", identifier),
+  ]);
+  const matchesById = new Map(
+    [...(byEmail ?? []), ...(byName ?? [])].map((p) => [p.id, p])
+  );
+  const matches = Array.from(matchesById.values());
 
-  if (!target) {
-    redirect(`/friends?error=${encodeURIComponent("No account found with that email.")}`);
+  if (matches.length === 0) {
+    redirect(`/friends?error=${encodeURIComponent("No account found with that email or username.")}`);
   }
-  if (target!.id === user.id) {
+  if (matches.length > 1) {
+    redirect(
+      `/friends?error=${encodeURIComponent(
+        "More than one account matches that username — try their exact email instead."
+      )}`
+    );
+  }
+
+  const target = matches[0];
+  if (target.id === user.id) {
     redirect(`/friends?error=${encodeURIComponent("That's your own account.")}`);
   }
 
   const { error } = await supabase
     .from("friendships")
-    .insert({ user_id: user.id, friend_user_id: target!.id, status: "pending" });
+    .insert({ user_id: user.id, friend_user_id: target.id, status: "pending" });
 
   if (error) {
     const message =

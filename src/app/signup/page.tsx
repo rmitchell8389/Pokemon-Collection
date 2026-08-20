@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signUp } from "../auth/actions";
+import { PokeballMark } from "@/components/PokeballMark";
 
 export default async function SignupPage({
   searchParams,
@@ -9,48 +10,40 @@ export default async function SignupPage({
   const { error } = await searchParams;
 
   return (
-    <div className="mx-auto max-w-sm">
-      <h1 className="mb-6 text-xl font-semibold">Create an account</h1>
+    <div className="mx-auto flex max-w-sm flex-col items-center gap-6 py-8">
+      <PokeballMark className="h-10 w-10" />
+      <div className="panel w-full">
+        <h1 className="mb-6 text-xl font-bold tracking-tight">Create an account</h1>
 
-      {error && (
-        <p className="mb-4 rounded bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">
-          {error}
+        {error && (
+          <p className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">
+            {error}
+          </p>
+        )}
+
+        <form action={signUp} className="flex flex-col gap-3">
+          <input name="displayName" type="text" placeholder="Display name" className="input" />
+          <input name="email" type="email" placeholder="Email" required className="input" />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password (min 6 characters)"
+            required
+            minLength={6}
+            className="input"
+          />
+          <button type="submit" className="btn-primary mt-1">
+            Sign up
+          </button>
+        </form>
+
+        <p className="mt-4 text-sm text-black/60 dark:text-white/60">
+          Already have an account?{" "}
+          <Link href="/login" className="font-medium text-red-600 hover:underline dark:text-red-400">
+            Sign in
+          </Link>
         </p>
-      )}
-
-      <form action={signUp} className="flex flex-col gap-3">
-        <input
-          name="displayName"
-          type="text"
-          placeholder="Display name"
-          className="rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          className="rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password (min 6 characters)"
-          required
-          minLength={6}
-          className="rounded border border-black/15 px-3 py-2 dark:border-white/20 dark:bg-transparent"
-        />
-        <button
-          type="submit"
-          className="rounded bg-red-600 px-3 py-2 font-medium text-white hover:bg-red-700"
-        >
-          Sign up
-        </button>
-      </form>
-
-      <p className="mt-4 text-sm text-black/60 dark:text-white/60">
-        Already have an account? <Link href="/login" className="underline">Sign in</Link>
-      </p>
+      </div>
     </div>
   );
 }

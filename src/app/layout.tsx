@@ -3,6 +3,8 @@ import Link from "next/link";
 import "./globals.css";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "./auth/actions";
+import { PokeballMark } from "@/components/PokeballMark";
+import { NavLinks } from "@/components/NavLinks";
 
 // Deliberately not using next/font/google here — it requires a build-time
 // fetch to fonts.googleapis.com, which is one less external dependency to
@@ -10,14 +12,14 @@ import { signOut } from "./auth/actions";
 // default `font-sans` is fine.
 
 export const metadata: Metadata = {
-  title: "Pokemon Collection Tracker",
+  title: "DexMate",
   description:
     "Track your Pokemon card collection across English, Japanese, Traditional Chinese and Simplified Chinese, and find trades with friends.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "PokeCollection",
+    title: "DexMate",
   },
   icons: {
     icon: [
@@ -32,6 +34,18 @@ export const viewport: Viewport = {
   themeColor: "#dc2626",
 };
 
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="rounded-md px-2 py-1 text-black/70 transition-colors hover:bg-black/5 hover:text-black
+        dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
+    >
+      {children}
+    </Link>
+  );
+}
+
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const supabase = await createClient();
   const {
@@ -41,26 +55,31 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
-        <header className="border-b border-black/10 dark:border-white/10">
+        <header className="sticky top-0 z-10 border-b border-black/10 bg-[var(--background)]/85 backdrop-blur-md dark:border-white/10">
+          <div className="h-[3px] bg-gradient-to-r from-red-600 via-amber-400 to-red-600" />
           <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 text-sm">
-            <Link href="/" className="font-semibold">
-              PokeCollection
+            <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
+              <PokeballMark className="h-6 w-6" />
+              <span>DexMate</span>
             </Link>
             {user ? (
-              <div className="flex items-center gap-4">
-                <Link href="/collection">Collection</Link>
-                <Link href="/friends">Friends</Link>
-                <Link href="/trades">Trades</Link>
-                <form action={signOut}>
-                  <button type="submit" className="text-black/60 dark:text-white/60">
+              <div className="flex items-center gap-1">
+                <NavLinks />
+                <form action={signOut} className="ml-2">
+                  <button
+                    type="submit"
+                    className="rounded-md px-2 py-1 text-black/50 transition-colors hover:bg-black/5 hover:text-black/80 dark:text-white/50 dark:hover:bg-white/10 dark:hover:text-white/80"
+                  >
                     Sign out
                   </button>
                 </form>
               </div>
             ) : (
-              <div className="flex items-center gap-4">
-                <Link href="/login">Sign in</Link>
-                <Link href="/signup">Sign up</Link>
+              <div className="flex items-center gap-2">
+                <NavLink href="/login">Sign in</NavLink>
+                <Link href="/signup" className="btn-primary btn-sm">
+                  Sign up
+                </Link>
               </div>
             )}
           </nav>
