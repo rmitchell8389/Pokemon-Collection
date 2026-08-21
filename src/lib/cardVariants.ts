@@ -56,14 +56,18 @@ function loadIndex(): VariantIndex {
 // Only touches plain all-digit numbers — anything with a letter prefix/
 // suffix (TG03, split numbering, promo codes) is left alone rather than
 // guessed at, same rule tcimageindex.ts / limitlesstcg.ts use.
-function zeroPadCardNumber(cardNumber: string, width = 3): string | null {
+//
+// Exported (2026-08-21) so scripts/dexImport.ts can reuse the exact same
+// tolerant candidate-list approach when matching a Dex CSV row's card
+// number against our own card_number field, instead of re-implementing it.
+export function zeroPadCardNumber(cardNumber: string, width = 3): string | null {
   if (!/^\d+$/.test(cardNumber)) return null;
   if (cardNumber.length >= width) return null;
   const padded = cardNumber.padStart(width, "0");
   return padded === cardNumber ? null : padded;
 }
 
-function stripLeadingZeros(cardNumber: string): string | null {
+export function stripLeadingZeros(cardNumber: string): string | null {
   if (!/^\d+$/.test(cardNumber)) return null;
   const stripped = String(Number(cardNumber));
   return stripped === cardNumber ? null : stripped;

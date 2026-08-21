@@ -181,16 +181,45 @@ create policy "either side can update status (accept/decline)"
 
 -- ---------------------------------------------------------------------------
 -- Collection entries — have / don't-have. A row existing means "owned".
--- No quantity, no condition, per the have/don't-have decision.
+--
+-- UPDATE 2026-08-21: `quantity` added. The original have/don't-have design
+-- deliberately left quantity out (see the giver_kept_duplicate comment on
+-- trade_items below) because there was no way to know a user's existing
+-- duplicate counts — asking at trade-completion time was the only
+-- non-guessing option available. Building the Dex CSV importer removed that
+-- blocker: Dex's own export carries a real per-variant Quantity a user
+-- already tracked over there, so importing it is the first time this app
+-- has a trustworthy source for real counts, not a guess.
+--
+-- Migration-safe by construction: a row's existence still means "owned" —
+-- that hasn't changed. `quantity` only refines "how many". Every existing
+-- row gets `default 1`, which is exactly what it implicitly meant before
+-- this column existed, so no existing row's meaning changes and no
+-- collection_entries reference (trade_items, RLS policies, etc.) needs to
+-- change either. Deliberately NOT touched this pass: the trade-completion
+-- giver_kept_duplicate flow below still works exactly as before — now that
+-- real quantities can exist, revisiting whether trade completion should
+-- decrement quantity instead of asking giver_kept_duplicate is a separate
+-- decision for later, not bundled into this change.
 -- ---------------------------------------------------------------------------
 create table if not exists public.collection_entries (
   user_id uuid not null references auth.users (id) on delete cascade,
   card_id text not null,
   language text not null,
   added_at timestamptz not null default now(),
+  quantity integer not null default 1,
   primary key (user_id, card_id, language),
-  foreign key (card_id, language) references public.cards (id, language) on delete cascade
+  foreign key (card_id, language) references public.cards (id, language) on delete cascade,
+  check (quantity >= 0)
 );
+
+-- Existing databases already have this table without the column above —
+-- `create table if not exists` is a no-op once the table exists, so this
+-- adds it in place without touching any existing rows (each gets the
+-- `default 1`, matching what it already implicitly meant). Safe to re-run.
+alter table public.collection_entries add column if not exists quantity integer not null default 1;
+alter table public.collection_entries drop constraint if exists collection_entries_quantity_check;
+alter table public.collection_entries add constraint collection_entries_quantity_check check (quantity >= 0);
 
 create index if not exists collection_entries_user_idx on public.collection_entries (user_id, language);
 
