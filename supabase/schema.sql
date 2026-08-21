@@ -86,11 +86,26 @@ create table if not exists public.cards (
   rarity text,
   image_url text,
   synced_at timestamptz not null default now(),
+  -- Print variant (holo / reverse holo / 1st edition / etc.) that this ROW
+  -- specifically represents — null means "the card's default/primary print",
+  -- exactly what every row meant before variant tracking existed, so no
+  -- existing row or collection_entries reference needed to change when this
+  -- was added. A non-null value (e.g. "reverse", "holo-1st") is one of
+  -- potentially several ADDITIONAL rows for the same physical card, added by
+  -- scripts/import-card-variants.ts — see that script and
+  -- src/lib/cardVariants.ts for how the value is built and labeled. Real
+  -- possible values come straight from TCGdex's own source data, not a
+  -- fixed enum here, since vintage cards have print-variant categories
+  -- (shadowless, unlimited, 1999-2000 copyright line, etc.) modern sets
+  -- don't.
+  variant text,
   primary key (id, language)
 );
 
 create index if not exists cards_national_dex_no_idx on public.cards (language, national_dex_no);
 create index if not exists cards_name_idx on public.cards (language, lower(name));
+
+alter table public.cards add column if not exists variant text;
 
 alter table public.cards enable row level security;
 

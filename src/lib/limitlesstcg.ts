@@ -68,8 +68,28 @@
 // numbering issue. SET_ID_OVERRIDES exists for exactly this — add an entry
 // here (TCGdex's set_id -> Limitless's set code) if another set turns up
 // with the same kind of mismatch, rather than guessing at variations live.
+//
+// UPDATE 2026-08-21: reused the 11 id-mismatch overrides found while
+// wiring up the Japanese card-data importer (see
+// LIMITLESS_SET_ID_OVERRIDES in limitlessCardImport.ts for how each one
+// was confirmed against real Limitless set names). Not separately
+// re-verified for the image CDN specifically — but limitlessImageExists
+// always does a real HTTP check before any URL gets used, so an entry
+// that's wrong for images just means no candidate matches, not a bad
+// write, same safety net as every other candidate here.
 const SET_ID_OVERRIDES: Record<string, string> = {
   "M-P": "MP",
+  "SM1+": "SM1p",
+  "sm2+": "SM2p",
+  "SM3+": "SM3p",
+  "SM4+": "SM4p",
+  "SM5+": "SM5p",
+  XY1a: "XY1x",
+  XY1b: "XY1y",
+  XY5a: "XY5g",
+  XY5b: "XY5t",
+  sn10a: "SM10a",
+  sn11: "SM11",
 };
 
 const LIMITLESS_CDN_BASE = "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/tpc";
