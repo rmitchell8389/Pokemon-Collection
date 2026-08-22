@@ -142,6 +142,11 @@ async function main() {
 
       console.log(`  ${fullSet.id} (${fullSet.name}) — ${fullSet.cards.length} card(s)`);
 
+      // Belongs to the set, not the individual card — read once per set
+      // rather than refetched per card. See the `serie` field comment on
+      // TcgdexSetFull in src/lib/tcgdex.ts.
+      const seriesName = fullSet.serie?.name ?? null;
+
       const rows = await mapWithConcurrency(fullSet.cards, CONCURRENCY, async (brief) => {
         try {
           const card = await getCard(language, brief.id);
@@ -157,6 +162,7 @@ async function main() {
             artist: card.illustrator ?? null,
             category: card.category ?? null,
             types: card.types ?? null,
+            series: seriesName,
             image_url: card.image ?? null,
             synced_at: new Date().toISOString(),
           };

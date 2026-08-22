@@ -31,6 +31,14 @@ export interface TcgdexCardBrief {
 
 export interface TcgdexSetFull extends TcgdexSetBrief {
   cards: TcgdexCardBrief[];
+  // Which broader era/serie this set belongs to (e.g. "Scarlet & Violet",
+  // "Sword & Shield") — TCGdex's documented v2 convention, same
+  // not-live-verified caveat as the rest of this file. Used to populate
+  // `cards.series` for the /search page's Series filter — see
+  // scripts/sync-cards.ts. If this turns out to be absent/wrong shape on a
+  // real response, that filter just stays empty (same graceful-degradation
+  // handling as category/types already have) rather than breaking anything.
+  serie?: { id: string; name: string };
 }
 
 export interface TcgdexSerieFull {

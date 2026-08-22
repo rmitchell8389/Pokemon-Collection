@@ -39,6 +39,40 @@ function compareCardNumbers(a: string, b: string): number {
 // clearly stated in the UI rather than silently showing a partial list.
 const RESULT_LIMIT = 200;
 
+// "Mechanic" markers (ex, V, GX, EX, Radiant) aren't a separate TCGdex field
+// — they're embedded directly in the card NAME text. Pokemon TCG naming
+// convention keeps these Latin-letter suffixes/prefixes untranslated even on
+// non-English cards (a Japanese card is still named "...ex", not
+// translated), so matching on the name works the same way across all 4
+// languages without needing any new synced data. "ex" (modern, lowercase)
+// and "EX" (2003-2016 era, uppercase) are deliberately distinct — case
+// matters, see mechanicNameTest/mechanicLikeFilter below.
+const MECHANIC_OPTIONS = ["ex", "V", "GX", "EX", "Radiant"] as const;
+type Mechanic = (typeof MECHANIC_OPTIONS)[number];
+
+function isMechanic(value: string): value is Mechanic {
+  return (MECHANIC_OPTIONS as readonly string[]).includes(value);
+}
+
+// PostgREST's `.or()` filter string uses `*` as its LIKE wildcard (not `%`
+// like a plain .like()/.ilike() call) — different escaping convention for
+// the same underlying operator. Deliberately `like`, not `ilike`: needs to
+// stay case-sensitive so "ex" and "EX" don't collide.
+function mechanicLikeFilter(mechanic: Mechanic): string {
+  return mechanic === "Radiant" ? "Radiant *" : `* ${mechanic}`;
+}
+function mechanicNameTest(mechanic: Mechanic): (name: string) => boolean {
+  return mechanic === "Radiant"
+    ? (name) => name.startsWith("Radiant ")
+    : (name) => name.endsWith(` ${mechanic}`);
+}
+
+// The only two card-type values this page's checkboxes offer, per what was
+// asked for — the underlying `category` column may also contain "Energy"
+// (basic/special energy cards), which is left out of this filter on
+// purpose rather than hidden entirely; it just never shows as an option.
+const CARD_TYPE_OPTIONS = ["Pokemon", "Trainer"];
+
 type CardRow = {
   id: string;
   name: string;
@@ -50,9 +84,10 @@ type CardRow = {
   rarity: string | null;
   category: string | null;
   types: string[] | null;
+  series: string | null;
 };
 const CARD_COLUMNS =
-  "id, name, set_name, card_number, image_url, national_dex_no, artist, rarity, category, types";
+  "id, name, set_name, card_number, image_url, national_dex_no, artist, rarity, category, types, series";
 
 // searchParams gives a plain string when a key appears once in the query
 // string, and an array when it appears more than once — which is exactly
@@ -61,6 +96,61 @@ const CARD_COLUMNS =
 function toArray(value: string | string[] | undefined): string[] {
   if (!value) return [];
   return Array.isArray(value) ? value : [value];
+}
+
+// A collapsible checkbox group — plain <details>/<summary>, no client JS,
+// so it works the same with or without JavaScript and needs no extra
+// component. Defaults open when it already has an active selection (e.g.
+// after a page reload) so the person can see what's applied without having
+// to tap it open again.
+function FilterGroup({
+  label,
+  name,
+  options,
+  selected,
+}: {
+  label: string;
+  name: string;
+  options: string[];
+  selected: string[];
+}) {
+  if (options.length === 0) {
+    return (
+      <p className="rounded-lg border border-black/10 px-3 py-2 text-xs text-black/40 dark:border-white/10 dark:text-white/40">
+        {label} filtering needs a fresh sync after the latest schema update — run{" "}
+        <code>npm run sync</code> to enable it.
+      </p>
+    );
+  }
+  return (
+    <details
+      open={selected.length > 0}
+      className="rounded-lg border border-black/10 dark:border-white/10"
+    >
+      <summary className="cursor-pointer select-none px-3 py-2 text-sm font-medium">
+        {label}
+        {selected.length > 0 && (
+          <span className="ml-1 font-normal text-black/50 dark:text-white/50">
+            ({selected.length} selected)
+          </span>
+        )}
+      </summary>
+      <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-black/10 px-3 py-2.5 text-sm dark:border-white/10">
+        {options.map((o) => (
+          <label key={o} className="flex items-center gap-1.5">
+            <input
+              type="checkbox"
+              name={name}
+              value={o}
+              defaultChecked={selected.includes(o)}
+              className="h-4 w-4"
+            />
+            {o}
+          </label>
+        ))}
+      </div>
+    </details>
+  );
 }
 
 export default async function SearchPage({
@@ -72,12 +162,14 @@ export default async function SearchPage({
     set?: string;
     dex?: string;
     artist?: string;
-    rarity?: string;
+    rarity?: string | string[];
     cat?: string | string[];
     etype?: string | string[];
+    series?: string | string[];
+    mech?: string | string[];
   }>;
 }) {
-  const { lang, q, set, dex, artist, rarity, cat, etype } = await searchParams;
+  const { lang, q, set, dex, artist, rarity, cat, etype, series, mech } = await searchParams;
   const language: TcgdexLanguage = TCGDEX_LANGUAGES.includes(lang as TcgdexLanguage)
     ? (lang as TcgdexLanguage)
     : "en";
@@ -85,24 +177,31 @@ export default async function SearchPage({
   const setQuery = (set ?? "").trim();
   const dexQuery = (dex ?? "").trim();
   const artistQuery = (artist ?? "").trim();
-  const rarityQuery = (rarity ?? "").trim();
   // A non-empty dex query that isn't a real number is still shown back in
   // the input (so the person can see what they typed) but doesn't get
   // turned into a filter — dexInvalid drives a small hint instead of
   // silently returning either nothing or the whole catalog.
   const dexNumber = dexQuery && Number.isFinite(Number(dexQuery)) ? Number(dexQuery) : null;
   const dexInvalid = dexQuery !== "" && dexNumber === null;
+  const selectedRarities = toArray(rarity);
   const selectedCategories = toArray(cat);
   const selectedTypes = toArray(etype);
+  const selectedSeries = toArray(series);
+  // Defensive: mech values feed straight into a raw .or() filter string
+  // below, so only ever pass through values from the known-safe list —
+  // never interpolate arbitrary query-string input into that string.
+  const selectedMechanics = toArray(mech).filter(isMechanic);
 
   const hasAnyFilter = Boolean(
     query ||
       setQuery ||
       dexQuery ||
       artistQuery ||
-      rarityQuery ||
+      selectedRarities.length > 0 ||
       selectedCategories.length > 0 ||
-      selectedTypes.length > 0
+      selectedTypes.length > 0 ||
+      selectedSeries.length > 0 ||
+      selectedMechanics.length > 0
   );
 
   const supabase = await createClient();
@@ -111,8 +210,11 @@ export default async function SearchPage({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  // Populate the set/artist/rarity fields with real values from the synced
-  // data for this language, same pattern as the collection page.
+  // Populate every checkbox/datalist group with real values from the
+  // synced data for this language, rather than a hardcoded list — same
+  // pattern throughout, means these just work once a sync has run, and
+  // don't assume TCGdex's exact strings (which may be localized per
+  // language in ways that aren't verified — see src/lib/tcgdex.ts).
   const { data: setNameRows } = await supabase
     .from("cards")
     .select("set_name")
@@ -134,35 +236,19 @@ export default async function SearchPage({
     .from("cards")
     .select("rarity")
     .eq("language", language)
-    .not("rarity", "is", null)
-    .order("rarity");
+    .not("rarity", "is", null);
   const rarities = Array.from(
     new Set((rarityRows ?? []).map((r) => r.rarity).filter((r): r is string => Boolean(r)))
-  );
+  ).sort();
 
-  // category ("Pokemon" / "Trainer" / "Energy") and types (energy colors)
-  // come from a schema + sync-script addition newer than the rest of this
-  // table (see supabase/schema.sql and scripts/sync-cards.ts). Pulling the
-  // checkbox options from whatever's actually in the data — instead of a
-  // hardcoded list — means these filters just work once a sync has run,
-  // and don't assume TCGdex's exact strings (which may even be localized
-  // per language; unverified, see src/lib/tcgdex.ts).
   const { data: categoryRows } = await supabase
     .from("cards")
     .select("category")
     .eq("language", language)
     .not("category", "is", null);
-  const CATEGORY_ORDER = ["Pokemon", "Trainer", "Energy"];
-  const categories = Array.from(
+  const cardTypeOptions = Array.from(
     new Set((categoryRows ?? []).map((r) => r.category).filter((c): c is string => Boolean(c)))
-  ).sort((a, b) => {
-    const ai = CATEGORY_ORDER.indexOf(a);
-    const bi = CATEGORY_ORDER.indexOf(b);
-    if (ai !== -1 && bi !== -1) return ai - bi;
-    if (ai !== -1) return -1;
-    if (bi !== -1) return 1;
-    return a.localeCompare(b);
-  });
+  ).filter((c) => CARD_TYPE_OPTIONS.some((o) => o.toLowerCase() === c.toLowerCase()));
 
   const { data: typeRows } = await supabase
     .from("cards")
@@ -171,6 +257,15 @@ export default async function SearchPage({
     .not("types", "is", null);
   const energyTypes = Array.from(
     new Set((typeRows ?? []).flatMap((r) => r.types ?? []).filter(Boolean))
+  ).sort();
+
+  const { data: seriesRows } = await supabase
+    .from("cards")
+    .select("series")
+    .eq("language", language)
+    .not("series", "is", null);
+  const seriesOptions = Array.from(
+    new Set((seriesRows ?? []).map((r) => r.series).filter((s): s is string => Boolean(s)))
   ).sort();
 
   let cards: CardRow[] = [];
@@ -240,8 +335,8 @@ export default async function SearchPage({
       const artistQueryLower = artistQuery.toLowerCase();
       matched = matched.filter((c) => (c.artist ?? "").toLowerCase().includes(artistQueryLower));
     }
-    if (rarityQuery) {
-      matched = matched.filter((c) => c.rarity === rarityQuery);
+    if (selectedRarities.length > 0) {
+      matched = matched.filter((c) => c.rarity !== null && selectedRarities.includes(c.rarity));
     }
     if (dexNumber !== null) {
       matched = matched.filter((c) => c.national_dex_no === dexNumber);
@@ -251,6 +346,13 @@ export default async function SearchPage({
     }
     if (selectedTypes.length > 0) {
       matched = matched.filter((c) => (c.types ?? []).some((t) => selectedTypes.includes(t)));
+    }
+    if (selectedSeries.length > 0) {
+      matched = matched.filter((c) => c.series !== null && selectedSeries.includes(c.series));
+    }
+    if (selectedMechanics.length > 0) {
+      const tests = selectedMechanics.map(mechanicNameTest);
+      matched = matched.filter((c) => tests.some((test) => test(c.name)));
     }
 
     totalMatches = matched.length;
@@ -280,10 +382,16 @@ export default async function SearchPage({
       .eq("language", language);
     if (setQuery) catalogQuery = catalogQuery.ilike("set_name", `%${setQuery}%`);
     if (artistQuery) catalogQuery = catalogQuery.ilike("artist", `%${artistQuery}%`);
-    if (rarityQuery) catalogQuery = catalogQuery.eq("rarity", rarityQuery);
+    if (selectedRarities.length > 0) catalogQuery = catalogQuery.in("rarity", selectedRarities);
     if (dexNumber !== null) catalogQuery = catalogQuery.eq("national_dex_no", dexNumber);
     if (selectedCategories.length > 0) catalogQuery = catalogQuery.in("category", selectedCategories);
     if (selectedTypes.length > 0) catalogQuery = catalogQuery.overlaps("types", selectedTypes);
+    if (selectedSeries.length > 0) catalogQuery = catalogQuery.in("series", selectedSeries);
+    if (selectedMechanics.length > 0) {
+      catalogQuery = catalogQuery.or(
+        selectedMechanics.map((m) => `name.like.${mechanicLikeFilter(m)}`).join(",")
+      );
+    }
     const { data, count } = await catalogQuery.limit(RESULT_LIMIT);
     totalMatches = count ?? (data ?? []).length;
     cards = (data ?? []).sort((a, b) =>
@@ -317,36 +425,42 @@ export default async function SearchPage({
       : { data: [] as { card_id: string }[] };
   const wantedCardIds = new Set((wishlistRows ?? []).map((r) => r.card_id));
 
+  // Carries every active filter along when switching language, so hopping
+  // between languages doesn't silently drop what was selected.
+  function buildParams(overrides: { lang: TcgdexLanguage }): URLSearchParams {
+    const params = new URLSearchParams();
+    params.set("lang", overrides.lang);
+    if (query) params.set("q", query);
+    if (setQuery) params.set("set", setQuery);
+    if (dexQuery) params.set("dex", dexQuery);
+    if (artistQuery) params.set("artist", artistQuery);
+    selectedRarities.forEach((r) => params.append("rarity", r));
+    selectedCategories.forEach((c) => params.append("cat", c));
+    selectedTypes.forEach((t) => params.append("etype", t));
+    selectedSeries.forEach((s) => params.append("series", s));
+    selectedMechanics.forEach((m) => params.append("mech", m));
+    return params;
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-2xl font-bold tracking-tight">Card search</h1>
       <p className="text-sm text-black/60 dark:text-white/60">
         Search the whole synced catalog, not just your own collection — filter by name, set, dex
-        number, artist, rarity, card type, or energy type, in any combination.
+        number, artist, card type, mechanic, series, rarity, or energy type, in any combination.
       </p>
 
       <div className="flex flex-wrap gap-2">
-        {TCGDEX_LANGUAGES.map((l) => {
-          const params = new URLSearchParams();
-          params.set("lang", l);
-          if (query) params.set("q", query);
-          if (setQuery) params.set("set", setQuery);
-          if (dexQuery) params.set("dex", dexQuery);
-          if (artistQuery) params.set("artist", artistQuery);
-          if (rarityQuery) params.set("rarity", rarityQuery);
-          selectedCategories.forEach((c) => params.append("cat", c));
-          selectedTypes.forEach((t) => params.append("etype", t));
-          return (
-            <a
-              key={l}
-              href={`/search?${params.toString()}`}
-              className={l === language ? "pill-active" : "pill-inactive"}
-            >
-              <span className="mr-1">{LANGUAGE_FLAGS[l]}</span>
-              {LANGUAGE_LABELS[l]}
-            </a>
-          );
-        })}
+        {TCGDEX_LANGUAGES.map((l) => (
+          <a
+            key={l}
+            href={`/search?${buildParams({ lang: l }).toString()}`}
+            className={l === language ? "pill-active" : "pill-inactive"}
+          >
+            <span className="mr-1">{LANGUAGE_FLAGS[l]}</span>
+            {LANGUAGE_LABELS[l]}
+          </a>
+        ))}
       </div>
 
       <form action="/search" className="panel flex flex-col gap-3">
@@ -389,65 +503,29 @@ export default async function SearchPage({
               <option key={name} value={name} />
             ))}
           </datalist>
-          <select name="rarity" defaultValue={rarityQuery} className="input w-auto">
-            <option value="">Any rarity</option>
-            {rarities.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
         </div>
 
-        {categories.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="text-black/50 dark:text-white/50">Card type:</span>
-            {categories.map((c) => (
-              <label key={c} className="flex items-center gap-1.5">
-                <input
-                  type="checkbox"
-                  name="cat"
-                  value={c}
-                  defaultChecked={selectedCategories.includes(c)}
-                  className="h-4 w-4"
-                />
-                {c}
-              </label>
-            ))}
-          </div>
-        ) : (
-          <p className="text-xs text-black/40 dark:text-white/40">
-            Card type filtering needs a fresh sync after the latest schema update — run{" "}
-            <code>npm run sync</code> to enable it.
-          </p>
-        )}
+        {/* Collapsible on purpose — five checkbox groups shown open at once
+            would be a huge wall on a phone screen. Each stays collapsed
+            until tapped, unless it already has a selection. */}
+        <div className="flex flex-col gap-2">
+          <FilterGroup label="Card type" name="cat" options={cardTypeOptions} selected={selectedCategories} />
+          <FilterGroup label="Mechanic" name="mech" options={[...MECHANIC_OPTIONS]} selected={selectedMechanics} />
+          <FilterGroup label="Series" name="series" options={seriesOptions} selected={selectedSeries} />
+          <FilterGroup label="Rarity" name="rarity" options={rarities} selected={selectedRarities} />
+          <FilterGroup label="Energy type" name="etype" options={energyTypes} selected={selectedTypes} />
+        </div>
 
-        {energyTypes.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="text-black/50 dark:text-white/50">Energy type:</span>
-            {energyTypes.map((t) => (
-              <label key={t} className="flex items-center gap-1.5">
-                <input
-                  type="checkbox"
-                  name="etype"
-                  value={t}
-                  defaultChecked={selectedTypes.includes(t)}
-                  className="h-4 w-4"
-                />
-                {t}
-              </label>
-            ))}
-          </div>
-        ) : (
-          <p className="text-xs text-black/40 dark:text-white/40">
-            Energy type filtering needs a fresh sync after the latest schema update — run{" "}
-            <code>npm run sync</code> to enable it.
-          </p>
-        )}
-
-        <button type="submit" className="btn-primary self-start">
-          Search
-        </button>
+        <div className="flex items-center gap-3">
+          <button type="submit" className="btn-primary">
+            Search
+          </button>
+          {hasAnyFilter && (
+            <a href={`/search?lang=${language}`} className="text-sm text-black/50 underline dark:text-white/50">
+              Clear all filters
+            </a>
+          )}
+        </div>
       </form>
 
       {dexInvalid && (

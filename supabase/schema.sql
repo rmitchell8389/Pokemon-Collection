@@ -113,6 +113,11 @@ create table if not exists public.cards (
   -- above.
   category text,
   types text[],
+  -- Broader era/serie this card's set belongs to (e.g. "Scarlet & Violet"),
+  -- from TCGdex's `serie` field on the set. Added 2026-08-22 for the
+  -- /search page's Series filter. Same backfill-on-next-sync story as
+  -- artist/category/types above.
+  series text,
   primary key (id, language)
 );
 
@@ -125,12 +130,14 @@ alter table public.cards add column if not exists variant text;
 alter table public.cards add column if not exists artist text;
 alter table public.cards add column if not exists category text;
 alter table public.cards add column if not exists types text[];
+alter table public.cards add column if not exists series text;
 
 create index if not exists cards_national_dex_no_idx on public.cards (language, national_dex_no);
 create index if not exists cards_name_idx on public.cards (language, lower(name));
 create index if not exists cards_artist_idx on public.cards (language, lower(artist));
 create index if not exists cards_rarity_idx on public.cards (language, rarity);
 create index if not exists cards_category_idx on public.cards (language, category);
+create index if not exists cards_series_idx on public.cards (language, series);
 -- GIN index for the `types` array — supports the energy-type filter's
 -- overlap query (`types && ARRAY[...]`, done via .overlaps() in
 -- src/app/search/page.tsx) efficiently instead of a full table scan.
