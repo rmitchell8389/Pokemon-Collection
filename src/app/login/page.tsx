@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signIn } from "../auth/actions";
 import { PokeballMark } from "@/components/PokeballMark";
+import { PasswordField } from "@/components/PasswordField";
 
 export default async function LoginPage({
   searchParams,
@@ -29,7 +30,7 @@ export default async function LoginPage({
 
         <form action={signIn} className="flex flex-col gap-3">
           <input name="email" type="email" placeholder="Email" required className="input" />
-          <input name="password" type="password" placeholder="Password" required className="input" />
+          <PasswordField name="password" placeholder="Password" required />
           <button type="submit" className="btn-primary mt-1">
             Sign in
           </button>

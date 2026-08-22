@@ -99,13 +99,28 @@ create table if not exists public.cards (
   -- (shadowless, unlimited, 1999-2000 copyright line, etc.) modern sets
   -- don't.
   variant text,
+  -- Illustrator/artist credit — TCGdex's documented v2 card response field
+  -- is `illustrator` (see src/lib/tcgdex.ts). Added 2026-08-22 so
+  -- collection search/filter can include it; existing rows are null until
+  -- a full `npm run sync` re-run backfills them (the sync script upserts
+  -- every card it fetches, so a plain re-run is the backfill — no separate
+  -- migration script needed).
+  artist text,
   primary key (id, language)
 );
 
+-- These two must run BEFORE the indexes below — on a database where
+-- `cards` already existed prior to 2026-08-22, `create table if not
+-- exists` above is a no-op and never adds the `artist` column, so an index
+-- on it created before this line fails with "column does not exist". Learned
+-- the hard way: this file originally had the index statements first.
+alter table public.cards add column if not exists variant text;
+alter table public.cards add column if not exists artist text;
+
 create index if not exists cards_national_dex_no_idx on public.cards (language, national_dex_no);
 create index if not exists cards_name_idx on public.cards (language, lower(name));
-
-alter table public.cards add column if not exists variant text;
+create index if not exists cards_artist_idx on public.cards (language, lower(artist));
+create index if not exists cards_rarity_idx on public.cards (language, rarity);
 
 alter table public.cards enable row level security;
 
@@ -243,6 +258,60 @@ create policy "friends can view each other's collection"
       where f.status = 'accepted'
         and ((f.user_id = auth.uid() and f.friend_user_id = collection_entries.user_id)
           or (f.friend_user_id = auth.uid() and f.user_id = collection_entries.user_id))
+    )
+  );
+
+-- "Mark for trade" — a per-card flag on a card you already own, saying
+-- you're willing to give it up. Deliberately just a boolean on the existing
+-- row rather than a separate table: unlike a wishlist entry (below), a
+-- for-trade flag only ever makes sense attached to a card you actually own,
+-- so it lives right on collection_entries and rides the same RLS policies
+-- above (you manage your own, friends can view yours) with no extra policy
+-- needed — column-level, not row-level, so nothing else to write.
+alter table public.collection_entries add column if not exists for_trade boolean not null default false;
+
+-- ---------------------------------------------------------------------------
+-- Wishlist — cards a user wants but doesn't own. Deliberately a separate
+-- table from collection_entries rather than a flag on it: a wishlist entry
+-- by definition has no ownership row to attach a flag to (you can still
+-- want a card you already own zero of one more copy of — same idea as
+-- collection_entries' quantity column, but that's a future refinement, not
+-- needed for the first version of this).
+-- ---------------------------------------------------------------------------
+create table if not exists public.wishlist_entries (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  card_id text not null,
+  language text not null,
+  added_at timestamptz not null default now(),
+  primary key (user_id, card_id, language),
+  foreign key (card_id, language) references public.cards (id, language) on delete cascade
+);
+
+create index if not exists wishlist_entries_user_idx on public.wishlist_entries (user_id, language);
+
+alter table public.wishlist_entries enable row level security;
+
+drop policy if exists "users manage their own wishlist" on public.wishlist_entries;
+create policy "users manage their own wishlist"
+  on public.wishlist_entries for all
+  to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+-- Same "friends can see each other's" shape as collection_entries — the
+-- whole point of a visible wishlist is that a friend browsing your
+-- collection can see what you're after and bring it to a trade.
+drop policy if exists "friends can view each other's wishlist" on public.wishlist_entries;
+create policy "friends can view each other's wishlist"
+  on public.wishlist_entries for select
+  to authenticated
+  using (
+    auth.uid() = user_id
+    or exists (
+      select 1 from public.friendships f
+      where f.status = 'accepted'
+        and ((f.user_id = auth.uid() and f.friend_user_id = wishlist_entries.user_id)
+          or (f.friend_user_id = auth.uid() and f.user_id = wishlist_entries.user_id))
     )
   );
 

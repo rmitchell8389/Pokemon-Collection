@@ -1,0 +1,78 @@
+◇ injected env (3) from .env.local // tip: ⌘ enable debugging { debug: true }
+
+=== A. Gym Event Promo Pack — broader search ===
+
+--- generalSearch("道馆活动特典包") ---
+SV-P特典卡（TCG）, SM-P印尼文版特典卡（TCG）, 宝可梦官方卡牌道馆, SM-P特典卡（TCG）, S-P特典卡（TCG）, XY-P特典卡（TCG）, SM-P泰文版特典卡（TCG）, DPt-P特典卡（TCG）, SV-P简体中文版特典卡（TCG）, BW-P特典卡（TCG）, 无编号特典卡（TCG）, S-P简体中文版特典卡（TCG）, M-P繁体中文版特典卡（TCG）, SV-P繁体中文版特典卡（TCG）, 皮卡丘（SV-P 120）, SM-P韩文版特典卡（TCG）, 地点编号（第九世代）, 对战嘉年华, 胜利证章（TCG）, 宝可梦 钻石／珍珠 对战庆典★2006
+
+--- generalSearch("道馆活动 特典包 TCG") ---
+SM-P印尼文版特典卡（TCG）, SV-P特典卡（TCG）, SM-P特典卡（TCG）, XY-P特典卡（TCG）, SM-P泰文版特典卡（TCG）, DPt-P特典卡（TCG）, S-P特典卡（TCG）, 无编号特典卡（TCG）, BW-P特典卡（TCG）, SV-P简体中文版特典卡（TCG）, S-P简体中文版特典卡（TCG）, 宝可梦官方卡牌道馆, M-P繁体中文版特典卡（TCG）, 皮卡丘（SV-P 120）, SV-P繁体中文版特典卡（TCG）, SM-P韩文版特典卡（TCG）, 胜利证章（TCG）, 威世智 黑色之星（TCG）, 对战嘉年华, 辣味香料咖喱（TCG）
+
+--- generalSearch("道馆赛事 特典 礼包") ---
+S-P简体中文版特典卡（TCG）, 2025宝可梦世界锦标赛开幕典礼宣传片, 諸島巡禮, 宝可梦竞技场金银, 地点编号（第九世代）, 火箭队（TCG）, 主页, 奖牌列表（黑２／白２）, 大师赛（TCG）, 骷髏隊, 最大等级提升（道具）, Nintendo Switch 宝可梦 朱／紫+零之秘宝 超级音乐收藏, 宝可梦卡牌GB, SM-P韩文版特典卡（TCG）, 瑪奧（動畫）, 隊長, 寶可夢 白金, 岛屿之王和岛屿女王, 宝可梦联盟大会, 影虎
+
+--- generalSearch("Gym Event Promo Pack 简体中文") ---
+(0 hits)
+
+--- insourceSearch("gymsc") — icon key reused across gym-activity-sourced entries ---
+3 page(s): SM-P简体中文版特典卡（TCG）, S-P简体中文版特典卡（TCG）, SV-P简体中文版特典卡（TCG）
+
+=== B. CSM2DC / CSM1DC starter decks + 16 Battle Party codes ===
+
+--- current live DB coverage ---
+    CSM2DC: 49 row(s) in DB, "GX起始卡组 交相辉映"
+    CSM1DC: 59 row(s) in DB, "GX起始卡组 横空出世"
+    CSMPgC: 8 row(s) in DB, "对战派对组合 恶"
+    CSMPpC: 0 rows in DB
+    CSMPfC: 7 row(s) in DB, "对战派对组合 斗"
+    CSMPoC: 2 row(s) in DB, "对战派对组合 改造包 斗"
+    CSMPbC: 9 row(s) in DB, "对战派对组合 火"
+    CSMPkC: 4 row(s) in DB, "对战派对组合 改造包 火属性"
+    CSMPaC: 10 row(s) in DB, "对战派对组合 草"
+    CSMPjC: 3 row(s) in DB, "对战派对组合 改造包 草"
+    CSMPdC: 5 row(s) in DB, "对战派对组合 雷"
+    CSMPmC: 1 row(s) in DB, "对战派对组合 改造包 雷属性"
+    CSMPhC: 5 row(s) in DB, "对战派对组合 钢"
+    CSMPqC: 3 row(s) in DB, "对战派对组合 改造包 钢"
+    CSMPeC: 8 row(s) in DB, "对战派对组合"
+    CSMPnC: 4 row(s) in DB, "对战派对组合"
+    CSMPcC: 6 row(s) in DB, "对战派对组合 水"
+    CSMPlC: 3 row(s) in DB, "对战派对组合 改造包 水"
+
+--- insourceSearch (exact-text, not relevance) for the bare codes ---
+  CSM2DC: 50 page(s): GX起始卡组 交相辉映（TCG）, 学习装置（TCG）, 裁判（TCG）, 能量转移（TCG）, 宝可梦交替（TCG）, 伤药（TCG）, 宝可梦捕捉器（TCG）, 粉碎之锤（TCG）, 捕虫少年（TCG）, 模仿少女（TCG）, 逃脱滑板（TCG）, 订购平板（TCG）, 火焰鸟（SM7a）, 莉莉艾的皮皮玩偶（TCG）, 反击捕捉器（TCG）, 北尚与南厦（TCG）, 讲究头带（TCG）, 多重置換（TCG）, 古兹马（TCG）, 超级球（TCG）, 宝可梦发烧友俱乐部（TCG）, 巢穴球（TCG）, 除虫喷雾（TCG）, 玛奥（TCG）, 神奇糖果（TCG）, 宝可梦超级回收（TCG）, 哞哞鲜奶（TCG）, 宝可装置3.0（TCG）, 离洞绳（TCG）, 复活草（TCG）, 改造之锤（TCG）, 打火石（TCG）, 反击增幅器（TCG）, 能量循环装置（TCG）, 古兹马&哈拉（TCG）, 凤王（SM6b）, 电视记者（TCG）, 干劲腰带（TCG）, 小枫与小南（TCG）, 诅咒之符（TCG）, 智挥猩（SM1M）, 波克比&皮宝宝&宝宝丁GX（SM12a）, 莉佳（TCG）, 讲究头盔（TCG）, 基拉祈（SM8a）, 种子铁球（SM8a）, 坚果哑铃（SM8a）, 能量回收（TCG）, 朋友手册（TCG）, 高级球（TCG）
+  CSM1DC: 60 page(s): 凯罗斯（SM7a）, 飞天螳螂（SM8）, 蛋蛋（SM4A）, GX起始卡组 横空出世（TCG）, 巨蔓藤（SM3N）, 蔓藤怪（SM3N）, 伊利马（TCG）, 学习装置（TCG）, 裁判（TCG）, 能量转移（TCG）, 宝可梦交替（TCG）, 伤药（TCG）, 宝可梦捕捉器（TCG）, 粉碎之锤（TCG）, 模仿少女（TCG）, 订购平板（TCG）, 大吾的决断（TCG）, 巨钳螳螂GX（SM6b）, 妙蛙草（SM3+）, 反击捕捉器（TCG）, 北尚与南厦（TCG）, 阿蜜（TCG）, 精灵球（TCG）, 讲究头带（TCG）, 大嘴娃（SM4S）, 古兹马（TCG）, 卡奇（TCG）, 妙蛙种子（SM3+）, 场地吹风机（TCG）, 超级球（TCG）, 地底探险队（TCG）, 宝可梦发烧友俱乐部（TCG）, 宝可梦中心的姐姐（TCG）, 巢穴球（TCG）, 月轮祭坛（TCG）, 除虫喷雾（TCG）, 派拉斯（SM1S）, 派拉斯特（SM1S）, 日轮祭坛（TCG）, 卡璞・蝶蝶GX（SM2L）, 玛奥（TCG）, 神奇糖果（TCG）, 宝可梦超级回收（TCG）, 离洞绳（TCG）, 复活草（TCG）, 木木枭（SMA）, 狙射树枭GX（SMA）, 妙蛙花（SM3+）, 打火石（TCG）, 宝可导航（TCG）, 胡帕（SM6）, 反击增幅器（TCG）, 能量循环装置（TCG）, 电视记者（TCG）, 小枫与小南（TCG）, 谢米（SM3+）, 讲究头盔（TCG）, 能量回收（TCG）, 朋友手册（TCG）, 高级球（TCG）
+
+--- generalSearch for likely product-name terms ---
+  "高手对战套牌 简体中文 TCG": 共逐荣光 相关产品（TCG）, 水晶灯火灵（S9a）, SV-P简体中文版特典卡（TCG）, 罗丝雷朵（S9a）, 基拉祈（SV3a）, 鐵包袱（SV4M）, 讲究腰带（TCG）, 闪电鸟（S10b）, 厉害钓竿（TCG）, 大狼犬（S9a）, 劈斧螳螂（S9a）, 咕咕（S9a）, 诡角鹿（S9a）, 奇树（TCG）, 道馆挑战赛（TCG）, 高级球（TCG）, 官方主播的卡组乐园（TCG）, 小火龙（SV2a）, 美纳斯（S11a）, 火恐龙（SV4a）
+  "起始套牌 GX 简体中文": 巢穴球（TCG）, 伊布GX套装礼盒（TCG）, 反击捕捉器（TCG）, 高级球（TCG）, 专题包 龙之再临（TCG）, 宝可梦集换式卡牌游戏列表, 太阳&月亮系列（TCG）, 裁判（TCG）, 阿尔宙斯&帝牙卢卡&帕路奇亚GX卡组构筑进阶礼盒（TCG）, 莉莉艾的声援专属礼盒（TCG）, 宝可梦捕捉器（TCG）, 学习装置（TCG）, 伊布进阶礼盒（TCG）, 对战精英（TCG）, 辉金能量专题包（TCG）, 精灵球礼盒：闪耀宝可梦（TCG）, 炫奇争胜（TCG）, 剑&盾系列（TCG）, 对战派对组合（TCG）, 横空出世 赫（TCG）
+  "闪耀协力 套牌": 嘉奖回合（TCG）, 阿響, 哲尔尼亚斯牌组30（TCG）, 莎莉娜, 伊裴尔塔尔牌组30（TCG）, 宝可梦大集结, 琉琪亞, 对战通行证, 宮門競技場, 遊戲漏洞（第四世代）, 小光, 也慈, 瑪俐, 彩子, 小優, 宝可梦不可思议迷宫 救助队DX, 小剛, 米可利, 明耀, 宝可梦30周年
+  "暴风来袭 套牌": 火箭队的逆袭（TCG）, 宝可梦集换式卡牌游戏列表, PCG系列（TCG）, 青草旋风（TCG）, 迷途起源 构筑＆对战之盒（TCG）, 红宝石（TCG）, 丹帝, 心灵游戏（TCG）, 正电拍拍主题牌组（TCG）, EX 熔岩队（TCG）, 许愿星（TCG）, 护林神（TCG）, EX 绿宝石（TCG）, 地裂破荒（TCG）, 火暴兽ex史诗收藏牌组（TCG）, 负电拍拍主题牌组（TCG）, 大竺葵ex史诗收藏牌组（TCG）, 大力鳄ex史诗收藏牌组（TCG）, EX 训练家装备组（TCG）, EX 火箭队回归（TCG）
+
+=== C. Happy Set / CSVM2 ===
+
+--- current live DB coverage (CSVH line + CSVM2) ---
+    CSVH1C: 26 row(s) in DB, "嗨皮组合 皮卡丘&皮皮&草苗龟&索财灵"
+    CSVH2C: 27 row(s) in DB, "嗨皮组合 路卡利欧&甲贺忍蛙&藏玛然特&獒教父"
+    CSVH3C: 27 row(s) in DB, "嗨皮组合 七夕青鸟&拉帝欧斯&烈焰猴&一家鼠"
+    CSVH4C: 3 row(s) in DB, "嗨皮组合 狙射树枭&美录梅塔&故勒顿&密勒顿"
+    CSVH5C: 0 rows in DB
+    CSVM2: 0 rows in DB
+    CSVM2C: 0 rows in DB
+    CSVM1aC: 19 row(s) in DB, "大师战略卡组构筑套装 喷火龙ex"
+    CSVM1bC: 12 row(s) in DB, "大师战略卡组构筑套装 沙奈朵ex"
+    CSVM1cC: 26 row(s) in DB, "大师战略卡组构筑套装 密勒顿ex"
+    CSVM2aC: 0 rows in DB
+    CSVM2bC: 0 rows in DB
+    CSVM2cC: 0 rows in DB
+
+--- bare insource search (not scoped to cnicon=) ---
+  CSVM2: 1 page(s): 大师战略卡组构筑套装 猛雷鼓ex · 多龙巴鲁托ex · 赛富豪ex（TCG）
+  CSVM2C: 1 page(s): 大师战略卡组构筑套装 猛雷鼓ex · 多龙巴鲁托ex · 赛富豪ex（TCG）
+
+--- alternate Chinese translations of 'Happy Set' ---
+  "欢乐礼盒 TCG": 牌组构筑BOX 乐园腾龙（TCG）, 乱斗！宝可梦大乱战（TCG）, 假日日历（TCG）, 四方联结礼盒（TCG）, 倒计时日历（TCG）, 勇魅群星 卡组构筑礼盒（TCG）, 宝可梦集换式卡牌游戏经典版（TCG）, 宝可梦集换式卡牌游戏 Classic（TCG）, Ex特別組合ver.2（TCG）, 假日日历2023（TCG）, 专题包 辉耀能量（TCG）, 朱紫 黑色之星（TCG）, Ex特別組合 太晶屬性：星晶 仙子伊布ex（TCG）, Ex特別組合 太晶屬性：星晶 蒼炎刃鬼ex（TCG）, 挑战赛（TCG）, Ex特别组合（TCG）, 礼物箱（TCG）, 牌组构筑BOX 对战搭档（TCG）, 终末炎舞（TCG）, VSTAR特别组合（TCG）
+  "开心礼盒 TCG": 大家都开心对战牌组（TCG）, 快速入门礼盒（TCG）, 礼物箱（TCG）, 礼物箱 绿宝石ver.（TCG）, 大师套件（TCG）, 惊喜日历（TCG）, 等离子队礼物之组（TCG）, 袋兽（扩充片 绿版）, 礼物箱 梦幻·路卡利欧ver.（TCG）, 凯罗斯（扩充片 蓝版）, 精灵球（TCG）, ADV系列（TCG）, PCG系列（TCG）, 专题包 龙之再临（TCG）, SV-P简体中文版特典卡（TCG）, 乱斗！宝可梦大乱战（TCG）, 彩虹能量（TCG）, 宝可梦集换式卡牌游戏列表, 任天堂 黑色之星（TCG）, 最初系列（TCG）
+  "幸福礼盒 TCG": 洪荒演武 茂（TCG）, 吉利蛋（扩充片 蓝版）, 霜奶仙（S8b）, 皮卡丘V（SN）, 伊布V（SN）, 皮卡丘VMAX（S4）, 终末炎舞（TCG）, 水伊布VMAX（SP4）, 莫鲁贝可V-UNION（S8b）, 水君V（S7D）, 雷公V（SI）, 炎帝V（SI）, 龙王蝎V（S11）, 火伊布V（S6a）, 水伊布V（S6a）, 颤弦蝾螈V（SSBSP）, 伊布VMAX（S-P）, 卡比兽V（S1H）, 巨石丁V（S1W）, 果然翁V（S1W）
+
+Done. Paste this whole output back (or save to a file and send it — a file is more reliable for long output, same lesson as last time).

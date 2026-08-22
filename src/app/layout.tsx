@@ -85,6 +85,19 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           </nav>
         </header>
         <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-6">{children}</main>
+        <footer className="border-t border-black/10 py-4 dark:border-white/10">
+          <div className="mx-auto flex max-w-4xl justify-center px-4">
+            <a
+              href="https://ko-fi.com/scottishgruff"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md px-2 py-1 text-sm text-black/50 transition-colors hover:bg-black/5 hover:text-black/80
+                dark:text-white/50 dark:hover:bg-white/10 dark:hover:text-white/80"
+            >
+              ☕ Support DexMate on Ko-fi
+            </a>
+          </div>
+        </footer>
       </body>
     </html>
   );

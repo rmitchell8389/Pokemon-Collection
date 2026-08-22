@@ -46,6 +46,11 @@ export interface TcgdexCardFull {
   image?: string;
   category: string; // "Pokemon" | "Trainer" | "Energy"
   rarity?: string;
+  // Illustrator credit — same "documented v2 convention, not fetched live
+  // from this sandbox" caveat as the rest of this file (see the top-of-file
+  // note). Absent on a handful of very old/promo cards TCGdex hasn't
+  // credited, per their own docs.
+  illustrator?: string;
   set: { id: string; name: string };
   dexId?: number[]; // National Pokedex numbers — absent for Trainer/Energy cards
 }

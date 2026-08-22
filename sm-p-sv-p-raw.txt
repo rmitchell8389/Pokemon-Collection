@@ -1,0 +1,656 @@
+
+=== SM-P简体中文版特典卡（TCG） ===
+{{ExpansionPrevNext|月亮|红宝石|prev=|next=S-P简体中文版特典卡}}
+{{快捷方式|SM-P}}
+'''SM-P特典卡'''是简体中文版[[宝可梦集换式卡牌游戏]]中{{TCG|太阳&月亮系列}}中的特典卡，在中国大陆以特殊形式发放。日文、英文和繁体中文版的对应收录特典卡版本分别为{{TCG|SM-P特典卡}}、{{TCG|太阳月亮 黑色之星}}和{{TCG|SM-P繁体中文版特典卡}}。
+
+==卡牌列表==
+{{卡牌列表/header|tablecol=7DC3E3|bordercol=2C9BCE|cellcol=BF0109|promo=yes|symbol=yes|image=SetSymbolSM-P.png}}
+{{卡牌列表/entryjp|001/SM-P|{{C|谢米|SM5S}}|草|||H|横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|002/SM-P|{{C|焰后蜥|SM2L}}|火||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|003/SM-P|{{C|阿罗拉 六尾|SM7b}}|水||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|004/SM-P|{{C|刺龙王|SM3H}}|水|||H|横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|005/SM-P|{{C|正电拍拍|SM3+}}|雷||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}	
+{{卡牌列表/entryjp|006/SM-P|{{C|果然翁|SM8}}|超||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|007/SM-P|{{C|鬃岩狼人GX|SMP1}}|斗|||H|横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|008/SM-P|{{C|玛狃拉|SM2+}}|惡||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}	
+{{卡牌列表/entryjp|009/SM-P|{{C|帝王拿波|SM5+}}|鋼||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|010/SM-P|{{C|咚咚鼠|SM6}}|妖||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|011/SM-P|{{C|爆焰龟兽|SM6a}}|龍||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|012/SM-P|{{TCG|退货标签}}|物品卡||||横空出世 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|013/SM-P|{{C|火斑喵|SM-P 259}}|火||||横空出世挑战赛|}}
+{{卡牌列表/entryjp|014/SM-P|{{C|哈力栗|SM-P}}|草||||横空出世挑战赛|}}
+{{卡牌列表/entryjp|015/SM-P|{{C|好啦鱿|SM-P}}|超||||横空出世挑战赛|}}
+{{卡牌列表/entryjp|016/SM-P|{{C|时拉比◇|SM8}}|草|||H|横空出世挑战赛、对战精英线上交流赛参与奖|}}
+{{卡牌列表/entryjp|017/SM-P|{{C|自爆磁怪|SM5+}}|雷||||横空出世挑战赛、对战精英线上交流赛参与奖|}}
+{{卡牌列表/entryjp|018/SM-P|{{C|谜拟Ｑ|SM-P 198}}|妖||||横空出世挑战赛、对战精英线上交流赛参与奖|}}
+{{卡牌列表/entryjp|019/SM-P|{{C|向日种子|SM12}}|草||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|020/SM-P|{{C|向日花怪|SM12}}|草||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|021/SM-P|{{C|叶伊布|SM-P}}|草||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|022/SM-P|{{C|玛狃拉|SM11b}}|水||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|023/SM-P|{{C|泥巴鱼|SM10a}}|雷||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|024/SM-P|{{C|超梦GX|SML}}|超|||H|交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|025/SM-P|{{C|梦妖|SM10}}|超||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|026/SM-P|{{C|梦妖魔|S-P}}|超||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|027/SM-P|{{C|由克希|SM10b}}|超|||H|交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|028/SM-P|{{C|玛夏多|SM11a}}|超||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|029/SM-P|{{C|小卡比兽|SM10a}}|无色||||交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|030/SM-P|{{C|雷吉奇卡斯|SM-P}}|无色|||H|交相辉映 {{TCG|集換式卡牌遊戲道館|道館活動}}|gymsc}}
+{{卡牌列表/entryjp|031/SM-P|{{C|菊草叶|SM-P}}|草||||官方商城赠送、上海宝可梦卡牌精灵球主题快闪店<ref>[https://www.pokemon.cn/tcg/event/post_63.html 精灵球空降静安大悦城，宝可梦卡牌带您玩转快乐周末]</ref>、[https://www.pokemon.cn/tcg/event/copy_7.html#heading-002 2023大师赛·广州活动特别包]、超级赛·青岛活动特别包|}}
+{{卡牌列表/entryjp|032/SM-P|{{C|火斑喵|SM-P 374}}|火||||官方商城赠送、上海宝可梦卡牌精灵球主题快闪店、大师赛·广州活动特别包、[https://www.pokemon.cn/tcg/event/copy_13.html#heading-002 超级赛·青岛活动特别包]|}}
+{{卡牌列表/entryjp|033/SM-P|{{C|喵喵|SM-P}}|无色||||官方商城赠送、上海宝可梦卡牌精灵球主题快闪店、大师赛·广州活动特别包、超级赛·青岛活动特别包|}}
+{{卡牌列表/entryjp|034/SM-P|{{C|比克提尼|SM11a}}|火|||H|交相辉映挑战赛、广州大师赛、青岛超级赛|}}
+{{卡牌列表/entryjp|035/SM-P|{{C|双弹瓦斯|SM10}}|超||||交相辉映挑战赛、广州大师赛、青岛超级赛|}}
+{{卡牌列表/entryjp|036/SM-P|{{TCG|娜姿&哈奇库}}|支援者卡||||交相辉映挑战赛、广州大师赛、青岛超级赛|}}
+{{卡牌列表/entryjp|037/SM-P|{{C|皮卡丘|SM3N}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|038/SM-P|{{C|阿罗拉 小拳石|SM2L}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|039/SM-P|{{C|阿罗拉 隆隆石|SM2L}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|040/SM-P|{{C|阿罗拉 隆隆岩GX|SM4S}}|雷|||H|宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|041/SM-P|{{C|电飞鼠|SM4S}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|042/SM-P|{{C|麻麻小鱼|SM3N}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|043/SM-P|{{C|麻麻鳗|SM3N}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|044/SM-P|{{C|麻麻鳗鱼王|SM3N}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|045/SM-P|{{C|捷克罗姆|SM3+}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|046/SM-P|{{C|花舞鸟|SM1+ 022}}|雷||||宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|047/SM-P|{{TCG|基本雷能量}}|能量卡|雷|宝可梦&[[上汽大众]]联名活动|}}
+{{卡牌列表/entryjp|048/SM-P|{{TCG|皇家蒙面人}}|支援者卡||||{{TCG|对战派对组合|对战派对}}王者争夺战参与奖|}}
+{{卡牌列表/entryjp|049/SM-P|{{TCG|皇家蒙面人}}|支援者卡|||H|{{TCG|对战派对组合|对战派对}}王者争夺战冠军奖|}}
+{{卡牌列表/entryjp|050/SM-P|{{C|木木枭|SM12 007}}|草||||上海图书馆开卷有梦活动赠送|}}
+{{卡牌列表/footer|cellcol=BF0109}}
+
+===没有编号===
+{{卡牌列表/header|tablecol=7DC3E3
+|bordercol=2C9BCE|cellcol=EE993C|promo=yes|symbol=yes|image=SetSymbolSM-P.png}}
+{{卡牌列表/entryjp|SM-P|{{TCG|超级球}}64强|物品卡|||H|青岛{{TCG|超级赛}}全部组别最终排名前64名|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|超级球}}8强|物品卡|||H|青岛{{TCG|超级赛}}全部组别最终排名3-8名|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|超级球}}亚军|物品卡|||H|青岛{{TCG|超级赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|超级球}}冠军|物品卡|||H|青岛{{TCG|超级赛}}全部组别冠军|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|神奇糖果}}|物品卡|||H|广州{{TCG|大师赛}}公开组预选赛5胜及以上、少年组预选赛3胜及以上、儿童组预选赛3胜及以上|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|神奇糖果}}64强|物品卡|||H|广州{{TCG|大师赛}}公开组最终排名前9-64名|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|神奇糖果}}8强|物品卡|||H|广州{{TCG|大师赛}}全部组别最终排名5-8名|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|神奇糖果}}4强|物品卡|||H|广州{{TCG|大师赛}}全部组别最终排名四强|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|胜利勋章}}4强|物品卡|||H|广州{{TCG|大师赛}}全部组别最终排名四强|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|神奇糖果}}亚军|物品卡|||H|广州{{TCG|大师赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|胜利勋章}}亚军|物品卡|||H|广州{{TCG|大师赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|神奇糖果}}冠军|物品卡|||H|广州{{TCG|大师赛}}全部组别冠军|}}
+{{卡牌列表/entryjp|SM-P|{{TCG|胜利勋章}}冠军|物品卡|||H|广州{{TCG|大师赛}}全部组别冠军|}}
+{{卡牌列表/footer|cellcol=EE993C}}
+
+==细节==
+
+{{PTCG版本导航/太阳&月亮系列简中}}
+{{神奇宝贝百科卡牌工程}}
+
+[[Category:太阳&月亮系列（TCG）]]
+[[Category:SM-P简体中文版特典卡（TCG）|*]]
+
+=== SV-P ===
+'''SV-P'''可以表示多篇文章：
+
+* 如果您在寻找[[宝可梦集换式卡牌游戏]]{{TCG|朱&紫系列}}中的特典卡版本
+** 日文版请进入'''[[SV-P特典卡（TCG）]]'''。
+** 繁体中文版请进入'''[[SV-P繁体中文版特典卡（TCG）]]'''。
+** 简体中文版请进入'''[[SV-P简体中文版特典卡（TCG）]]'''。
+** 印尼文版请进入'''[[SV-P印尼文版特典卡（TCG）]]'''。
+
+{{消歧義}}
+
+=== SV-P简体中文版特典卡（TCG） ===
+{{ExpansionPrevNext|朱|紫|prev=S-P简体中文版特典卡|next=M-P简体中文版特典卡}}
+{{快捷方式|SV-P}}
+'''SV-P特典卡'''是简体中文版[[宝可梦集换式卡牌游戏]]中{{TCG|朱&紫系列}}中的特典卡，仅在中国大陆地区通过特殊途径兑换发放。日文、英文和繁体中文版的对应收录特典卡版本分别为{{TCG|SV-P特典卡}}、[[朱紫 黑色之星（TCG）|朱紫 黑色之星]]和{{TCG|SV-P繁體中文版特典卡}}。
+
+==卡牌列表==
+{{卡牌列表/header|朱|帕底亚|紫|promo=yes|symbol=yes|image=SetSymbolSV-P.png}}
+{{卡牌列表/entryjp|001/SV-P|{{C|皮卡丘|SV-P 120}}|雷||||[https://www.pokemon.cn/tcg/event/2024072602.html 道馆活动]，庆祝[[WCS2024|2024宝可梦世界锦标赛]]|}}
+{{卡牌列表/entryjp|002/SV-P|{{C|皮卡丘|SV-P 120}}|雷||||[https://www.pokemon.cn/tcg/event/2025073001.html 道馆活动]，庆祝[[WCS2025|2025宝可梦世界锦标赛]]|[[File:2025 World Championships Logo.png|18px]]}}
+{{卡牌列表/entryjp|003/SV-P|{{C|梦幻ex|SV2a}}|超|||全|[https://www.bilibili.com/opus/1025509568923303940 参加15场道馆活动参与抽选]，共1510张|}}
+{{卡牌列表/entryjp|004/SV-P|{{C|皮卡丘|SV-P}}|雷|||全|购买“{{TCG|宝石包|宝可梦卡牌 宝石包}}”第一弹30包或2整盒，共25万张|}}
+{{卡牌列表/entryjp|005/SV-P|{{C|原野水母|SV1V 009}}|草||||[https://www.pokemon.cn/tcg/other/2025031402.html 任务奖赏包 第一弹]|mpsc}}
+{{卡牌列表/entryjp|006/SV-P|{{C|卡蒂狗|SV1V}}|火||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|007/SV-P|{{C|海地鼠|SV4K 023}}|水||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|008/SV-P|{{C|布拨|SV-P}}|雷||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|009/SV-P|{{C|电海燕|SV1a 031}}|雷||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|010/SV-P|{{C|大电海燕|SV4a}}|雷||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|011/SV-P|{{C|密勒顿ex|SV1V}}|雷||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|012/SV-P|{{C|索财灵|SV4a}}|超||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|013/SV-P|{{TCG|古老的贝壳化石}}|物品卡||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|014/SV-P|{{TCG|陈旧的甲壳化石}}|物品卡||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|015/SV-P|{{TCG|陈旧的秘密琥珀}}|物品卡||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|016/SV-P|{{C|电海燕|SV1a 031}}|雷||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|017/SV-P|{{C|大电海燕|SV4a}}|雷||||任务奖赏包 第一弹|mpsc}}
+{{卡牌列表/entryjp|018/SV-P|{{C|闪电鸟ex|SV2a}}|雷||||2025广州大师赛购物站纪念特典卡，{{tt|共5000张|广州大师赛购物站4200张，宝可梦官方旗舰店 广州大师赛能量站800张，合计5000张}}|[[File:TCG 大师赛 广州.png|18px]]}}
+{{卡牌列表/entryjp|019/SV-P|{{C|赫拉克罗斯|SV2D}}|草|||全|[https://www.pokemon.cn/tcg/product/20250500.html 宝可梦金属卡组收纳盒套装]|}}
+{{卡牌列表/entryjp|020/SV-P|{{C|狠辣椒|SV1V}}|草|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|021/SV-P|{{C|九尾|SV3}}|火|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|022/SV-P|{{C|火箭雀|SV2D}}|火|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|023/SV-P|{{C|红莲铠骑|SV1S}}|火|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|024/SV-P|{{C|鲤鱼王|SV1a}}|水|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|025/SV-P|{{C|冰砌鹅|SV2P}}|水|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|026/SV-P|{{C|皮宝宝|SV3}}|超|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|027/SV-P|{{C|班基拉斯|SV2D}}|恶|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|028/SV-P|{{C|仆刀将军|SV1S}}|恶|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|029/SV-P|{{C|巨钳螳螂|SV3}}|钢|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|030/SV-P|{{C|一家鼠|SV2D}}|无色|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|031/SV-P|{{C|密勒顿|SV-P}}|雷|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|032/SV-P|{{C|故勒顿|SV-P}}|斗|||全|宝可梦金属卡组收纳盒套装|}}
+{{卡牌列表/entryjp|033/SV-P|{{C|新叶喵|SVBSP 191}}|草||||《宝可梦 地平线》主题快闪 联动活动包|svsc}}
+{{卡牌列表/entryjp|034/SV-P|{{C|呆火鳄|SVBSP 192}}|火||||《宝可梦 地平线》主题快闪 联动活动包|svsc}}
+{{卡牌列表/entryjp|035/SV-P|{{C|新叶喵|SV1a 004}}|草||||《宝可梦 地平线》主题快闪 联动活动包|svsc}}
+{{卡牌列表/entryjp|036/SV-P|{{C|呆火鳄|SV1a 017}}|火||||《宝可梦 地平线》主题快闪 联动活动包|svsc}}
+{{卡牌列表/entryjp|037/SV-P|{{C|润水鸭|SV1a 028}}|水||||《宝可梦 地平线》主题快闪 联动活动包|svsc}}
+{{卡牌列表/entryjp|038/SV-P|{{C|魔幻假面喵ex|SV1a}}|草||||[https://www.pokemon.cn/tcg/other/2025051001.html 任务奖赏包 第二弹]|mpsc}}
+{{卡牌列表/entryjp|039/SV-P|{{C|团珠蛛|SV2D 008}}|草||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|040/SV-P|{{C|炭小侍|SV2D 015}}|火||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|041/SV-P|{{C|波普海豚|SV3 030}}|水||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|042/SV-P|{{C|来悲茶|SV2P}}|超||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|043/SV-P|{{C|小锻匠|SV4M 035}}|超||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|044/SV-P|{{C|泥泥鳅|SV2D}}|斗||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|045/SV-P|{{C|黑暗鸦|SV2P}}|恶||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|046/SV-P|{{C|噗隆隆|SV4a}}|钢||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|047/SV-P|{{C|普隆隆姆|SV1S}}|钢||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|048/SV-P|{{C|一对鼠|SV4M 056}}|无色||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|049/SV-P|{{C|噗隆隆|SV4a}}|钢||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|050/SV-P|{{C|普隆隆姆|SV1S}}|钢||||任务奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|051/SV-P|{{C|迷你芙|SV1S 006}}|草||||[https://www.pokemon.cn/tcg/other/2025070403.html 任务奖赏包 第三弹]|mpsc}}
+{{卡牌列表/entryjp|052/SV-P|{{C|卡蒂狗|SVAL}}|火||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|053/SV-P|{{C|海地鼠|SV1S 018}}|水||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|054/SV-P|{{C|三海地鼠|SV1S}}|水||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|055/SV-P|{{C|凉脊龙|SV4a}}|水||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|056/SV-P|{{C|冻脊龙|SV2P}}|水||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|057/SV-P|{{C|布拨|SV1V 033}}|雷||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|058/SV-P|{{C|巴布土拨|SV1V}}|雷||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|059/SV-P|{{C|飘飘雏|SVAW}}|超||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|060/SV-P|{{C|袋兽ex|SV2a}}|无色||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|061/SV-P|{{C|伊布|SV-P 031}}|无色||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|062/SV-P|{{C|海地鼠|SV1S 018}}|水||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|063/SV-P|{{C|三海地鼠|SV1S}}|水||||任务奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|064/SV-P|{{C|古剑豹ex|SV2P}}|水||||2025杭州大师赛购物站纪念特典卡，{{tt|共5000张|杭州大师赛购物站3500张，宝可梦官方卡牌道馆-杭州 700张，“宝可梦官方旗舰店 收集啦151主题快闪 (杭州滨江宝龙城)” 、“宝可梦官方旗舰店 念力！烦恼消散主题快闪 (杭州湖滨88)”各400张，合计5000张}}|[[File:TCG 大师赛 杭州.png|18px]]}}
+{{卡牌列表/entryjp|065/SV-P|{{C|角金鱼|SV2a}}|水||||[https://www.pokemon.cn/tcg/campaign/2025070802.html 宝可梦官方卡牌道馆-杭州 开业活动]，共1万张|[[File:宝可梦官方卡牌道馆-杭州.png|18px]]}}
+{{卡牌列表/entryjp|066/SV-P|{{C|妙蛙种子|SV-P}}|草|||H|[https://www.pokemon.cn/tcg/product/2025072501.html 收集啦151 最初的伙伴展示套装]（99%）|}}
+{{卡牌列表/entryjp|067/SV-P|{{C|小火龙|SV-P}}|火|||H|收集啦151 最初的伙伴展示套装（99%）|}}
+{{卡牌列表/entryjp|068/SV-P|{{C|杰尼龟|SV-P}}|水|||H|收集啦151 最初的伙伴展示套装（99%）|}}
+{{卡牌列表/entryjp|069/SV-P|{{C|妙蛙种子|SV-P}}|草|||H|收集啦151 最初的伙伴展示套装（1%）|}}
+{{卡牌列表/entryjp|070/SV-P|{{C|小火龙|SV-P}}|火|||H|收集啦151 最初的伙伴展示套装（1%）|}}
+{{卡牌列表/entryjp|071/SV-P|{{C|杰尼龟|SV-P}}|水|||H|收集啦151 最初的伙伴展示套装（1%）|}}
+{{卡牌列表/entryjp|072/SV-P|{{C|豪力|SV2a}}|斗|||全|[https://www.pokemon.cn/tcg/product/2025103101.html 绘梦点睛 收集啦151手办套装]|}}
+{{卡牌列表/entryjp|073/SV-P|{{C|团珠蛛|SVAM}}|草||||[https://www.pokemon.cn/tcg/other/2025090202.html 任务奖赏包 第四弹]|mpsc}}
+{{卡牌列表/entryjp|074/SV-P|{{C|小猫怪|SVC}}|雷||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|075/SV-P|{{C|电音婴|SV3}}|雷||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|076/SV-P|{{C|光蚪仔|SV2D 024}}|雷||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|077/SV-P|{{C|天然雀|SVEM}}|超||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|078/SV-P|{{C|天然鸟|SVEM}}|超||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|079/SV-P|{{C|摔角鹰人|SV1S}}|斗||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|080/SV-P|{{C|盐石宝|SV4K 038}}|斗||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|081/SV-P|{{C|黑鲁加ex|SVD}}|恶||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|082/SV-P|{{C|爱吃豚|SV1S 067}}|无色||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|083/SV-P|{{C|一对鼠|SV2D 063}}|无色||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|084/SV-P|{{C|天然雀|SVEM}}|超||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|085/SV-P|{{C|天然鸟|SVEM}}|超||||任务奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|086/SV-P|{{C|大岩蛇|SV2a}}|斗||||[https://www.pokemon.cn/tcg/campaign/2025090501.html 宝可梦官方卡牌道馆-北京 开业活动]，共35000张|[[File:宝可梦官方卡牌道馆-北京.png|18px]]}}
+{{卡牌列表/entryjp|087/SV-P|{{TCG|奇树}}|支援者卡|||全|[https://www.pokemon.cn/tcg/campaign/2025071801.html 特别的兑奖活动“奇树的悠长假期”]，共1500张|}}
+{{卡牌列表/entryjp|088/SV-P|{{TCG|辛俐}}|支援者卡|||全|[https://www.pokemon.cn/tcg/campaign/2025090503.html 特别的兑奖活动“辛俐的午后时光”]，共1500张|}}
+{{卡牌列表/entryjp|089/SV-P|{{C|喷火龙ex|SV3}}|恶||||2025北京大师赛购物站纪念特典卡，{{tt|共7000张|北京大师赛购物站4000张，宝可梦官方卡牌道馆-北京 2000张，宝可梦官方旗舰店 北京大师赛能量站1000张，合计7000张}}|[[File:TCG 大师赛 北京.png|18px]]}}
+{{卡牌列表/entryjp|090/SV-P|{{C|皮卡丘|SV2a}}|雷|||全|[https://www.pokemon.cn/tcg/product/2025112801.html 蹭蹭脸颊毛绒玩具卡牌展示礼盒]|}}
+{{卡牌列表/entryjp|091/SV-P|{{C|雷丘|SV2D}}|雷|||全|蹭蹭脸颊毛绒玩具卡牌展示礼盒|}}
+{{卡牌列表/entryjp|092/SV-P|{{C|正电拍拍|SV3a}}|雷|||全|蹭蹭脸颊毛绒玩具卡牌展示礼盒|}}
+{{卡牌列表/entryjp|093/SV-P|{{C|负电拍拍|SV3a}}|雷|||全|蹭蹭脸颊毛绒玩具卡牌展示礼盒|}}
+{{卡牌列表/entryjp|094/SV-P|{{C|帕奇利兹|SV1V}}|雷|||全|蹭蹭脸颊毛绒玩具卡牌展示礼盒|}}
+{{卡牌列表/entryjp|095/SV-P|{{C|巴布土拨|SV1V}}|雷|||全|蹭蹭脸颊毛绒玩具卡牌展示礼盒|}}
+{{卡牌列表/entryjp|096/SV-P|{{C|布拨|SV1V 034}}|雷|||全|蹭蹭脸颊毛绒玩具卡牌展示礼盒|}}
+{{卡牌列表/entryjp|097/SV-P|{{C|妙蛙种子|SV2a}}|草|||全|[https://www.pokemon.cn/tcg/product/2025092101.html 收集啦151 最初的伙伴精品礼盒]|}}
+{{卡牌列表/entryjp|098/SV-P|{{C|小火龙|SV3}}|火|||全|收集啦151 最初的伙伴精品礼盒|}}
+{{卡牌列表/entryjp|099/SV-P|{{C|杰尼龟|SV2a}}|水|||全|收集啦151 最初的伙伴精品礼盒}}
+{{卡牌列表/entryjp|100/SV-P|{{C|火恐龙|SV3}}|火||||[https://www.pokemon.cn/tcg/other/2025102301.html 任务奖赏包 第五弹]|mpsc}}
+{{卡牌列表/entryjp|101/SV-P|{{C|烈咬陆鲨ex|SV3a}}|水||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|102/SV-P|{{C|小磁怪|SVC}}|雷||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|103/SV-P|{{C|墓仔狗|SV1V 047}}|超||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|104/SV-P|{{C|墓扬犬|SV-P}}|超||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|105/SV-P|{{C|索财灵|SV3a 020}}|超||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|106/SV-P|{{C|晶光芽|SV3 063}}|斗||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|107/SV-P|{{C|帕底亚 乌波|SV3 068}}|恶||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|108/SV-P|{{C|滋汁鼹|SV2D 053}}|恶||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|109/SV-P|{{C|涂标客|SV2D}}|恶||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|110/SV-P|{{C|爱吃豚|SV3 097}}|无色||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|111/SV-P|{{C|滋汁鼹|SV2D 053}}|恶||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|112/SV-P|{{C|涂标客|SV2D}}|恶||||任务奖赏包 第五弹|mpsc}}
+{{卡牌列表/entryjp|113/SV-P|{{C|比克提尼ex|SVD}}|火|||全|[https://www.pokemon.cn/tcg/event/2025092301.html 胜利星期五冠军]|}}
+{{卡牌列表/entryjp|114/SV-P|{{C|比克提尼ex|SVD}}|火|||全|[https://www.pokemon.cn/tcg/event/2025082201.html 道馆之星选拔赛冠军]|}}
+{{卡牌列表/entryjp|115/SV-P|{{C|轻身鳕|SV2P}}|水||||[https://www.pokemon.cn/tcg/campaign/2025102401.html#heading-001 宝可梦官方卡牌道馆-上海 五角场（轻身鳕） 开业活动]，共35000张|[[File:宝可梦官方卡牌道馆-上海 五角场.png|18px]]}}
+{{卡牌列表/entryjp|116/SV-P|{{C|火箭雀|SV2D}}|火||||[https://www.pokemon.cn/tcg/campaign/2025111401.html 宝可梦官方卡牌道馆-重庆 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-重庆.png|18px]]}}
+{{卡牌列表/entryjp|117/SV-P|{{C|轰鸣月ex|SV4K}}|恶||||2025深圳大师赛购物站纪念特典卡，{{tt|共8000张|深圳大师赛主会场3500张，宝可梦官方卡牌道馆-深圳合计3500张，宝可梦官方旗舰店 深圳大师赛能量站1000张，合计8000张}}|[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|118/SV-P|{{C|新叶喵|SVBSP}}|草|||H|[https://www.pokemon.cn/tcg/product/19753.html 宝石包徽章套装]|[[File:TCG 朱&紫 宝石包 logo.png|18px]]}}
+{{卡牌列表/entryjp|119/SV-P|{{C|呆火鳄|SVBSP}}|火|||H|宝石包徽章套装|[[File:TCG 朱&紫 宝石包 logo.png|18px]]}}
+{{卡牌列表/entryjp|120/SV-P|{{C|润水鸭|SVBSP}}|水|||H|宝石包徽章套装|[[File:TCG 朱&紫 宝石包 logo.png|18px]]}}
+{{卡牌列表/entryjp|121/SV-P|{{C|冰砌鹅|SV2P}}|水||||[https://www.pokemon.cn/tcg/campaign/19958.html#heading-001 宝可梦官方卡牌道馆-沈阳 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-沈阳.png|18px]]}}
+{{卡牌列表/entryjp|122/SV-P|{{C|狠辣椒|SV3}}|草||||[https://www.pokemon.cn/tcg/campaign/19958.html#heading-001 宝可梦官方卡牌道馆-长沙 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-长沙.png|18px]]}}
+{{卡牌列表/entryjp|123/SV-P|{{C|密勒顿|SV-P}}|雷||||[https://www.pokemon.cn/tcg/event/19661.html 古代未来道馆特别包]|gymsc}}
+{{卡牌列表/entryjp|124/SV-P|{{C|故勒顿|SV-P}}|斗||||古代未来道馆特别包|gymsc}}
+{{卡牌列表/entryjp|126/SV-P|{{C|凯罗斯|SV5a}}|草||||[https://www.pokemon.cn/tcg/event/20397.html#heading-002 活动特别包 第一弹]|mpsc}}
+{{卡牌列表/entryjp|127/SV-P|{{C|萨戮德|SV-P}}|草||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|128/SV-P|{{C|陆地水母ex|SVP1}}|草||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|129/SV-P|{{C|小火马|SVHK}}|火||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|130/SV-P|{{C|烈焰马|SVHK}}|火||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|131/SV-P|{{C|火红不倒翁|SV3}}|火||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|132/SV-P|{{C|达摩狒狒|SV3}}|火||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|133/SV-P|{{C|铁炮鱼|SV3a}}|水||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|134/SV-P|{{C|章鱼桶|SV3a}}|水||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|135/SV-P|{{C|雷吉艾斯|SVM}}|水||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|136/SV-P|{{C|海地鼠|SV4K 024}}|水||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|137/SV-P|{{C|三海地鼠|SV4K}}|水||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|138/SV-P|{{C|帕奇利兹|SV-P}}|雷||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|139/SV-P|{{C|雷电斑马|SV-P}}|雷||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|140/SV-P|{{C|魔尼尼|SV4a}}|超||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|141/SV-P|{{C|捣蛋小妖|SVM}}|超||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|142/SV-P|{{C|诈唬魔|SVM}}|超||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|143/SV-P|{{C|长毛巨魔|SVM}}|超||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|144/SV-P|{{C|原野水母|SVM}}|斗||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|145/SV-P|{{C|陆地水母|SVM}}|斗||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|146/SV-P|{{C|雄伟牙ex|SV4a}}|斗||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|147/SV-P|{{C|阿勃梭鲁ex|SV3}}|恶||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|148/SV-P|{{C|巨钳螳螂ex|SV5M}}|钢||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|149/SV-P|{{C|铁辙迹ex|SV4a}}|钢||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|150/SV-P|{{C|袋兽|SV-P}}|无色||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|151/SV-P|{{TCG|厉害钓竿}}|物品卡||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|152/SV-P|{{TCG|大地容器}}|物品卡||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|153/SV-P|{{TCG|招式学习器机}}|物品卡||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|154/SV-P|{{TCG|奇树}}|支援者卡||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|155/SV-P|{{TCG|枇琶}}|支援者卡||||活动特别包 第一弹|mpsc}}
+{{卡牌列表/entryjp|156/SV-P|{{C|榛果球|SV2D}}|草||||[https://www.pokemon.cn/tcg/other/20454.html#heading-001 任务奖赏包 第六弹]|mpsc}}
+{{卡牌列表/entryjp|157/SV-P|{{C|炭小侍|SV2D 014}}|火||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|158/SV-P|{{C|茸茸羊|SV-P}}|雷||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|159/SV-P|{{C|小锻匠|SV1a 041}}|超||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|160/SV-P|{{C|巨锻匠|SV1a}}|超||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|161/SV-P|{{C|铁武者ex|SV4M}}|超||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|162/SV-P|{{C|盐石宝|SV2D 045}}|斗||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|163/SV-P|{{C|噗隆隆|SV1S 059}}|钢||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|164/SV-P|{{C|贪心栗鼠|SV1V}}|无色||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|165/SV-P|{{C|藏饱栗鼠|SV1V}}|无色||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|166/SV-P|{{C|一对鼠|SV4M 055}}|无色||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|167/SV-P|{{C|贪心栗鼠|SV1V}}|无色||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|168/SV-P|{{C|藏饱栗鼠|SV1V}}|无色||||任务奖赏包 第六弹|mpsc}}
+{{卡牌列表/entryjp|169/SV-P|{{C|虫电宝|SV5M}}|雷||||[https://www.pokemon.cn/tcg/campaign/19670.html#heading-001 宝可梦官方卡牌道馆-深圳 龙华（虫电宝） 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-深圳 龙华.png|18px]]}}
+{{卡牌列表/entryjp|170/SV-P|{{C|古月鸟|SV5a}}|水||||[https://www.pokemon.cn/tcg/campaign/20479.html 宝可梦官方卡牌道馆-上海 中山公园（古月鸟） 焕新活动]，共30000张|[[File:宝可梦官方卡牌道馆-上海.png|18px]]}}
+{{卡牌列表/entryjp|171/SV-P|{{C|榛果球|SV5M}}|草||||[https://www.pokemon.cn/tcg/event/20814.html#heading-001 活动特别包 第二弹]|mpsc}}
+{{卡牌列表/entryjp|172/SV-P|{{C|草苗龟|SV5K}}|草||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|173/SV-P|{{C|树林龟|SV5K}}|草||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|174/SV-P|{{C|土台龟ex|SV5K}}|草||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|175/SV-P|{{C|火斑喵|SV5M}}|火||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|176/SV-P|{{C|炎热喵|SV5M}}|火||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|177/SV-P|{{C|炽焰咆哮虎ex|SV5M}}|火||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|178/SV-P|{{C|蚊香蝌蚪|SV6}}|水||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|179/SV-P|{{C|蚊香君|SV6}}|水||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|180/SV-P|{{C|蚊香泳士|SV6}}|水||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|181/SV-P|{{C|波荡水ex|SV5K}}|水||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|182/SV-P|{{C|密勒顿ex|SVD}}|雷||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|183/SV-P|{{C|铜镜怪|SV5K}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|184/SV-P|{{C|青铜钟|SV5K}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|185/SV-P|{{C|花蓓蓓|SV5a}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|186/SV-P|{{C|花叶蒂|SV5a}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|187/SV-P|{{C|花洁夫人|SV5a}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|188/SV-P|{{C|沙丘娃|SV6}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|189/SV-P|{{C|噬沙堡爷|SV6}}|超||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|190/SV-P|{{C|沙河马|SV-P}}|斗||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|191/SV-P|{{C|河马兽|SV-P}}|斗||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|192/SV-P|{{C|铁磐岩ex|SV5M}}|斗||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|193/SV-P|{{C|佛烈托斯|SV5M}}|无色||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|194/SV-P|{{C|贪心栗鼠|SVM}}|无色||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|195/SV-P|{{C|藏饱栗鼠|SVM}}|无色||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|196/SV-P|{{TCG|友好宝芬}}|物品卡||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|197/SV-P|{{TCG|紧急滑板}}|宝可梦道具||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|198/SV-P|{{TCG|暗码迷的解读}}|支援者卡||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|199/SV-P|{{TCG|水莲的照顾}}|支援者卡||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|200/SV-P|{{TCG|夜间学院}}|竞技场卡||||活动特别包 第二弹|mpsc}}
+{{卡牌列表/entryjp|201/SV-P|{{TCG|青木}}|支援者卡|||H|[https://www.pokemon.cn/tcg/product/19701.html 帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒]|}}
+{{卡牌列表/entryjp|202/SV-P|{{TCG|古鲁夏}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|203/SV-P|{{TCG|寇沙}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|204/SV-P|{{TCG|辛俐}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|205/SV-P|{{TCG|奇树}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|206/SV-P|{{TCG|妮莫}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|207/SV-P|{{TCG|派帕}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|208/SV-P|{{TCG|牡丹}}|支援者卡|||H|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|209/SV-P|{{TCG|帕底亚的学生}}|支援者卡|||全|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|210/SV-P|{{TCG|帕底亚的学生}}|支援者卡|||全|帕底亚训练家合影卡挂件套装、帕底亚训练家对战礼盒|}}
+{{卡牌列表/entryjp|211/SV-P|{{C|皮宝宝|SV3}}|超||||[https://www.pokemon.cn/tcg/event/20397.html#heading-003 活动奖赏包]|mpsc}}
+{{卡牌列表/entryjp|212/SV-P|{{C|鬼斯|SV5K}}|恶||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|213/SV-P|{{C|鬼斯通|SV5K}}|恶||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|214/SV-P|{{C|耿鬼ex|SV5K}}|恶||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|215/SV-P|{{C|基拉祈|SV3a}}|钢||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|216/SV-P|{{TCG|巢穴球}}|物品卡||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|217/SV-P|{{TCG|高级球}}|物品卡||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|218/SV-P|{{TCG|派帕}}|支援者卡||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|219/SV-P|{{TCG|老大的指令 魁奇思}}|支援者卡||||活动奖赏包|mpsc}}
+{{卡牌列表/entryjp|220/SV-P|{{C|甜竹竹|SV4K}}|草||||[https://www.pokemon.cn/tcg/other/20814.html#heading-001 任务奖赏包 第七弹]|mpsc}}
+{{卡牌列表/entryjp|221/SV-P|{{C|甜舞妮|SV4K}}|草||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|222/SV-P|{{C|卡璞・哞哞|SV6a}}|草||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|223/SV-P|{{C|铁斑叶ex|SV5M}}|草||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|224/SV-P|{{C|甜冷美后ex|SV4K}}|草||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|225/SV-P|{{C|铁包袱|SV6}}|水||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|226/SV-P|{{C|风铃铃|SV6}}|超||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|227/SV-P|{{C|螺钉地鼠|SV5M}}|斗||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|228/SV-P|{{C|龙头地鼠|SV5M}}|斗||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|229/SV-P|{{C|密勒顿|SV5M}}|龙||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|230/SV-P|{{TCG|巢穴球}}|物品卡||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|231/SV-P|{{TCG|神奇糖果}}|物品卡||||任务奖赏包 第七弹|mpsc}}
+{{卡牌列表/entryjp|232/SV-P|{{C|铁包袱|SV4M}}|水||||[https://www.pokemon.cn/tcg/other/20814.html#heading-001 活动奖赏包 第二弹]|mpsc}}
+{{卡牌列表/entryjp|233/SV-P|{{C|电海燕|SV6}}|雷||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|234/SV-P|{{C|大电海燕ex|SV-P}}|雷||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|235/SV-P|{{TCG|能量回收}}|物品卡||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|236/SV-P|{{TCG|超级能量回收}}|物品卡||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|237/SV-P|{{TCG|宝可梦捕捉器}}|物品卡||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|238/SV-P|{{TCG|奥琳博士的气魄}}|支援者卡||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|239/SV-P|{{TCG|丹瑜}}|支援者卡||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|240/SV-P|{{TCG|弗图博士的剧本}}|支援者卡||||活动奖赏包 第二弹|mpsc}}
+{{卡牌列表/entryjp|241/SV-P|{{C|吼鲸王|SV9}}|水|||全|[https://www.pokemon.cn/tcg/product/20463.html 绘梦点睛 水生态手办套装]|}}
+{{卡牌列表/entryjp|242/SV-P|{{C|幼基拉斯|SV3}}|斗||||[https://www.pokemon.cn/tcg/campaign/20494.html 宝可梦官方卡牌道馆-北京 中关村 （幼基拉斯） 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-北京 中关村.png|18px]]}}
+{{卡牌列表/entryjp|243/SV-P|{{C|晃晃斑|SV4K}}|无色||||[https://www.pokemon.cn/tcg/campaign/21816.html 宝可梦官方卡牌道馆-成都 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-成都.jpg|18px]]}}
+{{卡牌列表/entryjp|244/SV-P|{{C|由克希|SV8}}|超||||[https://www.pokemon.cn/tcg/campaign/21706.html 宝可梦官方卡牌道馆-宁波 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-宁波.png|18px]]}}
+{{卡牌列表/entryjp|245/SV-P|{{C|粉香香|SVM}}|超||||[https://www.pokemon.cn/tcg/campaign/21721.html 宝可梦官方卡牌道馆-福州 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-福州.png|18px]]}}
+{{卡牌列表/entryjp|246/SV-P|{{C|熔蚁兽|SV5K}}|火||||[https://www.pokemon.cn/tcg/other/21726.html#heading-001 任务奖赏包 第八弹]|mpsc}}
+{{卡牌列表/entryjp|247/SV-P|{{C|呱呱泡蛙|SV5a}}|水||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|248/SV-P|{{C|呱头蛙|SV5a}}|水||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|249/SV-P|{{C|铁荆棘|SV5M}}|雷||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|250/SV-P|{{C|铁荆棘ex|SV5a}}|雷||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|251/SV-P|{{C|铁武者|SV5M}}|超||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|252/SV-P|{{C|甲贺忍蛙ex|SV5a}}|斗||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|253/SV-P|{{C|雄伟牙|SV5K}}|斗||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|254/SV-P|{{C|铁辙迹|SV5M}}|钢||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|255/SV-P|{{C|故勒顿|SV5K}}|龙||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|256/SV-P|{{TCG|驱劲能量 古代}}|宝可梦道具||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|257/SV-P|{{TCG|驱劲能量 未来}}|宝可梦道具||||任务奖赏包 第八弹|mpsc}}
+{{卡牌列表/entryjp|258/SV-P|{{C|墨海马|SV6a}}|水||||[https://www.pokemon.cn/tcg/other/21726.html#heading-001 活动特别包 第三弹]|mpsc}}
+{{卡牌列表/entryjp|259/SV-P|{{C|海刺龙|SV6a}}|水||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|260/SV-P|{{C|刺龙王ex|SV6a}}|水||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|261/SV-P|{{C|暗黑酋雷姆ex|SV7a}}|水||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|262/SV-P|{{C|托戈德玛尔|SV7}}|雷||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|263/SV-P|{{C|破破舵轮|SVM}}|超||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|264/SV-P|{{C|飘飘雏|SV7a}}|超||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|265/SV-P|{{C|超能艳鸵|SV7a}}|超||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|266/SV-P|{{C|玛沙那|SV7}}|斗||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|267/SV-P|{{C|恰雷姆ex|SV7}}|斗||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|268/SV-P|{{C|大颚蚁|SV7a}}|斗||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|269/SV-P|{{C|超音波幼虫|SV7a}}|斗||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|270/SV-P|{{C|沙漠蜻蜓ex|SV7a}}|斗||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|271/SV-P|{{C|投掷猴|SV7a}}|斗||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|272/SV-P|{{C|滑滑小子|SV-P}}|恶||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|273/SV-P|{{C|头巾混混|SV-P}}|恶||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|274/SV-P|{{C|好啦鱿|SV6a}}|恶||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|275/SV-P|{{C|乌贼王|SV6a}}|恶||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|276/SV-P|{{C|伊裴尔塔尔|SV6a}}|恶||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|277/SV-P|{{C|卡比兽|SVLN}}|无色||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|278/SV-P|{{C|变隐龙|SVM}}|无色||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|279/SV-P|{{C|差不多娃娃|SVM}}|无色||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|280/SV-P|{{C|伞电蜥|SV8}}|无色||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|281/SV-P|{{C|光电伞蜥|SV8}}|无色||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|282/SV-P|{{C|摩托蜥ex|SV7a}}|无色||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|283/SV-P|{{TCG|玻璃喇叭}}|物品卡||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|284/SV-P|{{TCG|夜间担架}}|物品卡||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|285/SV-P|{{TCG|泰姆}}|支援者卡||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|286/SV-P|{{TCG|毅万与馥好}}|支援者卡||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|287/SV-P|{{TCG|阻碍之塔}}|竞技场卡||||活动特别包 第三弹|mpsc}}
+{{卡牌列表/entryjp|288/SV-P|{{C|轻身鳕ex|SV-P}}|水||||[https://www.pokemon.cn/tcg/other/21726.html#heading-001 活动奖赏包 第三弹]|mpsc}}
+{{卡牌列表/entryjp|289/SV-P|{{C|摔角鹰人|SV1S}}|斗||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|290/SV-P|{{C|酋雷姆|SV6a}}|龙||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|291/SV-P|{{C|猫头夜鹰|SV7}}|无色||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|292/SV-P|{{C|旋转洛托姆|SV7}}|无色||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|293/SV-P|{{TCG|能量转移}}|物品卡||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|294/SV-P|{{TCG|宝可梦交替}}|物品卡||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|295/SV-P|{{TCG|勇气护符}}|宝可梦道具||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|296/SV-P|{{TCG|吉尼亚}}|支援者卡||||活动奖赏包 第三弹|mpsc}}
+{{卡牌列表/entryjp|297/SV-P|{{C|太阳伊布ex|SV8a}}|超|||全|[https://www.pokemon.cn/tcg/product/19731.html 伊布“们”的专属礼盒]|}}
+{{卡牌列表/entryjp|298/SV-P|{{C|月亮伊布ex|SV8a}}|恶|||全|伊布“们”的专属礼盒|}}
+{{卡牌列表/entryjp|299/SV-P|{{C|伊布|SVLN}}|无色|||全|[https://www.pokemon.cn/tcg/product/20466.html 绘梦点睛 伊布“们”的手办套装]|}}
+{{卡牌列表/entryjp|300/SV-P|{{C|青铜钟|SV2P}}|钢||||[https://www.pokemon.cn/tcg/campaign/21718.html 宝可梦官方卡牌道馆-武汉 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-武汉.png|18px]]}}
+{{卡牌列表/entryjp|301/SV-P|{{C|莲叶童子|SV9}}|水||||[https://www.pokemon.cn/tcg/other/22725.html#heading-001 任务奖赏包 第九弹]|mpsc}}
+{{卡牌列表/entryjp|302/SV-P|{{C|莲帽小童|SV9}}|水||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|303/SV-P|{{C|乐天河童|SV9}}|水||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|304/SV-P|{{C|丑丑鱼|SV8}}|水||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|305/SV-P|{{C|美纳斯ex|SV8}}|水||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|306/SV-P|{{C|索罗亚|SV6a}}|恶||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|307/SV-P|{{C|索罗亚克|SV6a}}|恶||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|308/SV-P|{{C|喵喵|SV6a}}|无色||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|309/SV-P|{{C|猫老大|SV6a}}|无色||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|310/SV-P|{{C|吉利蛋|SV6}}|无色||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|311/SV-P|{{C|幸福蛋ex|SV6}}|无色||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|312/SV-P|{{TCG|重力之玉}}|宝可梦道具||||任务奖赏包 第九弹|mpsc}}
+{{卡牌列表/entryjp|313/SV-P|{{C|蜻蜻蜓|SV-P}}|草||||[https://www.pokemon.cn/tcg/other/22725.html#heading-001 活动特别包 第四弹]|mpsc}}
+{{卡牌列表/entryjp|314/SV-P|{{C|远古巨蜓|SV-P}}|草||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|315/SV-P|{{C|远古巨蜓ex|SV9a}}|草||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|316/SV-P|{{C|切割洛托姆|SV10}}|草||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|317/SV-P|{{C|木棉球|SV5K}}|草||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|318/SV-P|{{C|风妖精|SV5K}}|草||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|319/SV-P|{{C|厄诡椪 碧草面具|SV9a}}|草||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|320/SV-P|{{C|加热洛托姆|SV10}}|火||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|321/SV-P|{{C|波尔凯尼恩ex|SV9}}|火||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|322/SV-P|{{C|厄诡椪 火灶面具|SV9a}}|火||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|323/SV-P|{{C|乌波|SV-P}}|水||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|324/SV-P|{{C|沼王|SV-P}}|水||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|325/SV-P|{{C|清洗洛托姆|SV10}}|水||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|326/SV-P|{{C|吃吼霸ex|SV9a}}|水||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|327/SV-P|{{C|厄诡椪 水井面具|SV9a}}|水||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|328/SV-P|{{C|泥驴仔|SV9a}}|斗||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|329/SV-P|{{C|重泥挽马|SV9a}}|斗||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|330/SV-P|{{C|毛崖蟹|SV9}}|斗||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|331/SV-P|{{C|厄诡椪 础石面具|SV9a}}|斗||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|332/SV-P|{{C|瓦斯弹|SV9}}|恶||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|333/SV-P|{{C|双弹瓦斯|SV9}}|恶||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|334/SV-P|{{C|够赞狗ex|SV6a}}|恶||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|335/SV-P|{{C|尾立|SV9}}|无色||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|336/SV-P|{{C|大尾立|SV9}}|无色||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|337/SV-P|{{C|土龙节节ex|SV9}}|无色||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|338/SV-P|{{TCG|洛拍棒}}|物品卡||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|339/SV-P|{{TCG|赤松}}|支援者卡||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|340/SV-P|{{TCG|白蕾雅}}|支援者卡||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|341/SV-P|{{TCG|宝可梦中心的姐姐}}|支援者卡||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|342/SV-P|{{TCG|零之大空洞}}|竞技场卡||||活动特别包 第四弹|mpsc}}
+{{卡牌列表/entryjp|343/SV-P|{{C|谢米|SV9a}}|草||||[https://www.pokemon.cn/tcg/other/22725.html#heading-001 活动奖赏包 第四弹]|mpsc}}
+{{卡牌列表/entryjp|344/SV-P|{{C|虫滚泥|SV5M}}|草||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|345/SV-P|{{C|虫甲圣ex|SV-P}}|草||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|346/SV-P|{{C|夜巡灵|SV6a}}|超||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|347/SV-P|{{C|彷徨夜灵|SV6a}}|超||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|348/SV-P|{{C|黑夜魔灵|SV6a}}|超||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|349/SV-P|{{TCG|朋友手册}}|物品卡||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|350/SV-P|{{TCG|招式学习器 进化}}|宝可梦道具||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|351/SV-P|{{TCG|小刚的发掘}}|支援者卡||||活动奖赏包 第四弹|mpsc}}
+{{卡牌列表/entryjp|352/SV-P|{{TCG|琉琪亚的展现}}|支援者卡|||全|[https://www.pokemon.cn/tcg/product/20904.html 琉琪亚的闪耀专属礼盒]|}}
+{{卡牌列表/entryjp|353/SV-P|{{C|喷火龙ex|SV3}}|火|||全|[https://www.pokemon.cn/tcg/event/21675.html#heading-003 胜利星期五第二季冠军]|}}
+{{卡牌列表/entryjp|354/SV-P|{{C|火箭队的超梦ex|SV10}}|超||||[https://www.pokemon.cn/tcg/product/21019.html 火箭队的宏图专属礼盒]|}}
+{{卡牌列表/entryjp|365/SV-P|{{C|齿轮组|SV7}}|钢||||[https://www.pokemon.cn/tcg/campaign/22494.html#heading-001 宝可梦官方卡牌道馆-武汉 光谷 （齿轮组） 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-武汉 光谷.png|18px]]}}
+{{卡牌列表/entryjp|366/SV-P|{{C|大舌贝|SV2a}}|水||||[https://www.pokemon.cn/tcg/campaign/22781.html 宝可梦官方卡牌道馆-大连 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-大连.png|18px]]}}
+{{卡牌列表/entryjp|367/SV-P|{{C|波克基斯|SV8}}|超||||[https://www.pokemon.cn/tcg/campaign/23472.html#heading-001 宝可梦官方卡牌道馆-南京 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-南京.png|18px]]}}
+{{卡牌列表/entryjp|421/SV-P|{{C|耿鬼ex|SV5K}}|恶|||全|[https://www.pokemon.cn/tcg/event/23393.html#heading-003 胜利星期五第三季冠军]|}}
+{{卡牌列表/entryjp|423/SV-P|{{C|铁哑铃|SV5M}}|钢||||[https://www.pokemon.cn/tcg/campaign/23103.html#heading-001 宝可梦官方卡牌道馆-东莞 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-东莞.png|18px]]}}
+{{卡牌列表/entryjp|424/SV-P|{{C|海星星|SV2a}}|水||||[https://www.pokemon.cn/tcg/campaign/23243.html#heading-001 宝可梦官方卡牌道馆-青岛 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-青岛.png|18px]]}}
+{{卡牌列表/entryjp|425/SV-P|{{C|火神蛾|SVM}}|火||||宝可梦官方卡牌道馆-重庆 朝天门 （火神蛾） 开业活动|[[File:宝可梦官方卡牌道馆-重庆 朝天门.png|18px]]}}
+{{卡牌列表/entryjp|426/SV-P|{{C|蚊香君|SV6}}|水||||宝可梦官方卡牌道馆-上海 南翔 （蚊香君） 开业活动|[[File:宝可梦官方卡牌道馆-上海 南翔.png|18px]]}}
+{{卡牌列表/entryjp|427/SV-P|{{C|溜溜糖球|SV4M}}|草||||宝可梦官方卡牌道馆-杭州 拱墅 （溜溜糖球） 开业活动|[[File:宝可梦官方卡牌道馆-杭州 拱墅.png|18px]]}}
+{{卡牌列表/entryjp|428/SV-P|{{C|朝北鼻|SV5a}}|斗||||宝可梦官方卡牌道馆-北京 朝阳 （朝北鼻） 开业活动|[[File:宝可梦官方卡牌道馆-北京 朝阳.png|18px]]}}
+{{卡牌列表/entryjp|429/SV-P|{{C|懒人獭|SV8}}|无色||||宝可梦官方卡牌道馆-成都 金牛 （懒人獭） 开业活动|[[File:宝可梦官方卡牌道馆-成都 金牛.png|18px]]}}
+{{卡牌列表/entryjp|430/SV-P|{{C|聒噪鸟|SV5K}}|无色||||宝可梦官方卡牌道馆-天津 开业活动|[[File:宝可梦官方卡牌道馆-天津.png|18px]]}}
+{{卡牌列表/entryjp|433/SV-P|{{C|急冻鸟|SV9}}|水||||[https://www.pokemon.cn/tcg/campaign/23484.html#heading-001 宝可梦官方卡牌道馆-哈尔滨 开业活动]，共30000张|[[File:宝可梦官方卡牌道馆-哈尔滨.png|18px]]}}
+{{卡牌列表/entryjp|434/SV-P|{{C|太阳岩|SV3}}|超||||宝可梦官方卡牌道馆-合肥 开业活动|[[File:宝可梦官方卡牌道馆-合肥.png|18px]]}}
+{{卡牌列表/footer|cellcol=帕底亚}}
+
+===没有编号===
+{{卡牌列表/header|朱|帕底亚|紫|promo=yes|symbol=yes|image=SetSymbolS-P.png}}
+{{卡牌列表/entryjp|SV-P|{{TCG|乐园度假地}}|竞技场卡||||[[WCS2024|2024宝可梦世界锦标赛]]特典、[[WCS2025|2025宝可梦世界锦标赛]]特典|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|精灵球}} 8强|物品卡|||H|{{TCG|城市赛}}个人赛标准赛制、开放赛制各场最终排名3~8位|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|精灵球}} 亚军|物品卡|||H|{{TCG|城市赛}}个人赛亚军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|精灵球}} 冠军|物品卡|||H|{{TCG|城市赛}}个人赛冠军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|朋友手册}} 8强|物品卡|||H|{{TCG|城市赛}}团队赛最终排名3~8位的战队成员|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|朋友手册}} 亚军|物品卡|||H|{{TCG|城市赛}}团队赛亚军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|朋友手册}} 冠军|物品卡|||H|{{TCG|城市赛}}团队赛冠军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|超级球}} 64强|物品卡|||H|{{TCG|超级赛}}公开组最终排名前64名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|超级球}} 8强|物品卡|||H|{{TCG|超级赛}}全部组别最终排名3~8位|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|超级球}} 亚军|物品卡|||H|{{TCG|超级赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|超级球}} 冠军|物品卡|||H|{{TCG|超级赛}}全部组别冠军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|高级球}} |物品卡|||H|{{TCG|高级赛}}公开组预赛前3000名、少年组预赛获得4胜、儿童组预赛获得3胜|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|高级球}} 64强|物品卡|||H|{{TCG|高级赛}}公开组最终排名前9~64名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|高级球}} 8强|物品卡|||H|{{TCG|高级赛}}全部组别最终排名5~8名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|高级球}} 季军|物品卡|||H|{{TCG|高级赛}}全部组别最终排名3~4名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|高级球}} 亚军|物品卡|||H|{{TCG|高级赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|高级球}} 冠军|物品卡|||H|{{TCG|高级赛}}全部组别冠军|}}
+{{卡牌列表/entryjp|GRA|{{TCG|基本草能量}}|能量卡|草|||[https://www.pokemon.cn/tcg/event/2025031701.html#heading-010 2025广州大师赛活动特别包]<br>[https://www.pokemon.cn/tcg/event/2025070202.html#heading-008 2025杭州大师赛活动特别包]<br>[https://www.pokemon.cn/tcg/event/2025082701.html#heading-010 2025北京大师赛活动特别包]<br>[https://www.pokemon.cn/tcg/event/2025111201.html#heading-013 2025深圳大师赛活动特别包]|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|FIG|{{TCG|基本火能量}}|能量卡|火|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|WAT|{{TCG|基本水能量}}|能量卡|水|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|LIG|{{TCG|基本雷能量}}|能量卡|雷|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|PSY|{{TCG|基本超能量}}|能量卡|超|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|FIG|{{TCG|基本斗能量}}|能量卡|斗|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|DAR|{{TCG|基本恶能量}}|能量卡|恶|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|MET|{{TCG|基本鋼能量}}|能量卡|鋼|||2025广州大师赛活动特别包<br>2025杭州大师赛活动特别包<br>2025北京大师赛活动特别包<br>2025深圳大师赛活动特别包|[[File:TCG 大师赛 广州.png|18px]]<br>[[File:TCG 大师赛 杭州.png|18px]]<br>[[File:TCG 大师赛 北京.png|18px]]<br>[[File:TCG 大师赛 深圳.png|18px]]}}
+{{卡牌列表/entryjp|SV-P|{{TCG|神奇糖果}}|物品卡|||H|{{TCG|大师赛}}公开组最终排名{{tt|前5000名|2025广州大师赛}}/{{tt|前3000名|2025杭州/北京大师赛}}/{{tt|前800名|2025深圳大师赛}}，少年组预赛获得4胜，儿童组突破赛获得3胜|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|神奇糖果}} 64强|物品卡|||H|{{TCG|大师赛}}公开组最终排名{{tt|前64名|2025广州大师赛}}/{{tt|前9-64名|2025杭州/北京/深圳大师赛}}|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|神奇糖果}} 8强|物品卡|||H|{{TCG|大师赛}}全部组最终排名{{tt|4-8名|2025广州大师赛}}/{{tt|前5-8名|2025杭州/北京/深圳大师赛}}、少年组&儿童组最终排名5-8名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|神奇糖果}} 季军|物品卡|||H|{{TCG|大师赛}}公开组{{tt|季军|2025广州大师赛}}/最终排名{{tt|3-4名|2025杭州/北京/深圳大师赛}}、少年组&儿童组最终排名3-4名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|勝利之證|胜利之印}} 季军|物品卡|||H|{{TCG|高级赛}}全部组别3~4名、{{TCG|大师赛}}公开组{{tt|季军|2025广州大师赛}}/最终排名{{tt|3-4名|2025杭州/北京/深圳大师赛}}、少年组&儿童组最终排名3-4名|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|神奇糖果}} 亚军|物品卡|||H|{{TCG|大师赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|勝利之證|胜利之印}} 亚军|物品卡|||H|{{TCG|高级赛}}全部组别亚军、{{TCG|大师赛}}全部组别亚军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|神奇糖果}} 冠军|物品卡|||H|{{TCG|大师赛}}全部组别冠军|}}
+{{卡牌列表/entryjp|SV-P|{{TCG|勝利之證|胜利之印}} 冠军|物品卡|||H|{{TCG|高级赛}}全部组别冠军、{{TCG|大师赛}}全部组别冠军|}}
+{{卡牌列表/footer|cellcol=帕底亚}}
+
+==图册==
+===任务奖赏包===
+获取方式：完成“新手任务”中的“启航任务”，以及“常规任务”中的“每周任务”“每月任务”和“生涯任务”
+<gallery>
+TCG 朱&紫 简中任务奖赏包 第一弹.png|任务奖赏包 第一弹
+TCG 朱&紫 简中任务奖赏包 第二弹.png|任务奖赏包 第二弹
+TCG 朱&紫 简中任务奖赏包 第三弹.png|任务奖赏包 第三弹
+TCG 朱&紫 简中任务奖赏包 第四弹.png|任务奖赏包 第四弹
+TCG 朱&紫 简中任务奖赏包 第五弹.png|任务奖赏包 第五弹
+TCG 朱&紫 简中任务奖赏包 第六弹.png|任务奖赏包 第六弹
+TCG 朱&紫 简中任务奖赏包 第七弹.png|任务奖赏包 第七弹
+TCG 朱&紫 简中任务奖赏包 第八弹.png|任务奖赏包 第八弹
+TCG 朱&紫 简中任务奖赏包 第九弹.png|任务奖赏包 第九弹
+TCG 朱&紫 简中任务奖赏包 图标.png|“任务奖赏包”、“活动特别包”及“活动奖赏包”图标
+</gallery>
+===活动特别包===
+获取方式：完成“常规任务”中的“每月任务”、线下参加宝可梦卡牌道馆举办的活动
+<gallery>
+TCG 朱&紫 活动特别包 第一弹.png|活动特别包 第一弹
+TCG 朱&紫 活动特别包 第二弹.png|活动特别包 第二弹
+TCG 朱&紫 活动特别包 第三弹.png|活动特别包 第三弹
+TCG 朱&紫 活动特别包 第四弹.png|活动特别包 第四弹
+</gallery>
+===活动奖赏包===
+获取方式：线下参加宝可梦卡牌道馆举办的活动
+<gallery>
+TCG 朱&紫 活动奖赏包.png|活动奖赏包
+TCG 朱&紫 活动奖赏包 第二弹.png|活动奖赏包 第二弹
+TCG 朱&紫 活动奖赏包 第三弹.png|活动奖赏包 第三弹
+TCG 朱&紫 活动奖赏包 第四弹.png|活动奖赏包 第四弹
+</gallery>
+
+===其他===
+<gallery>
+TCG 朱&紫 宝石包 第1弹 特典卡包.png|宝石包 第1弹 活动特典卡
+<!--TCG 朱&紫 宝可梦地平线 联动活动包.png|《宝可梦 地平线》联动活动包-->
+TCG 朱&紫 简中古代未来道馆特别包.png|古代未来道馆特别包
+</gallery>
+
+==细节==
+{{PTCG版本导航/朱&紫系列简中}}
+{{神奇宝贝百科卡牌工程}}
+
+[[Category:朱&紫系列（TCG）]]
+[[Category:SV-P简体中文版特典卡（TCG）]]
+
+[[en:SV-P Promotional cards (SCTCG)]]
+
+=== SM-P繁体中文版特典卡（TCG） ===
+{{ExpansionPrevNext|太阳|月亮|prev=|next=S-P繁体中文版特典卡}}
+{{快捷方式|SM-P}}
+'''SM-P特典卡'''是繁体中文版[[宝可梦集换式卡牌游戏]]中{{TCG|太阳&月亮系列}}中的特典卡，僅在台灣及香港地區通过特殊途径兌換發放，列表中的獲得方式一欄若無特殊指明則為台灣及香港地區統一實行的兌換方式。日文、英文和简体中文版的对应收录特典卡版本分别为{{TCG|SM-P特典卡}}、{{TCG|太阳月亮 黑色之星}}和{{TCG|SM-P简体中文版特典卡}}。
+
+==卡牌列表==
+{{卡牌列表/header|tablecol=7DC3E3|bordercol=2C9BCE|cellcol=EE993C|promo=yes|symbol=yes|image=SetSymbolSM-P.png}}
+{{卡牌列表/entryjp|001/SM-P|{{C|皮卡丘|SM0}}|雷||||【台灣】寶可夢集換式卡牌遊戲發售紀念大會（2019/10/11~2019/10/13）集點兌換獎品}}
+{{卡牌列表/entryjp|002/SM-P|{{C|谜拟Ｑ|SM2L}}|超||||【台灣】寶可夢集換式卡牌遊戲發售紀念大會（2019/10/11~2019/10/13）集點兌換獎品}}
+{{卡牌列表/entryjp|003/SM-P|{{C|伊布|SM1M}}|无色||||【台灣】寶可夢集換式卡牌遊戲發售紀念大會（2019/10/11~2019/10/13）集點兌換獎品}}
+{{卡牌列表/entryjp|004/SM-P|{{C|甜冷美后|SM1S}}|草||||眾星雲集組合篇 寶可夢卡牌日}}
+{{卡牌列表/entryjp|005/SM-P|{{C|鳳王GX|SM3H}}|火||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|006/SM-P|{{C|鍬農炮蟲|SM1M}}|雷||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|007/SM-P|{{C|卡璞・鳴鳴GX|SM2K}}|雷||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|008/SM-P|{{C|破破舵輪|SM2L}}|超||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|009/SM-P|{{C|瑪夏多|SM3+}}|超||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|010/SM-P|{{C|爆肌蚊GX|SM4S}}|斗||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|011/SM-P|{{C|三首惡龍|SM4A}}|恶||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|012/SM-P|{{C|仙子伊布GX|SM1+}}|妖||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|013/SM-P|{{C|智揮猩|SM1M}}|无色||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|014/SM-P|{{TCG|巢穴球}}|物品卡||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|015/SM-P|{{TCG|高級球}}|物品卡||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|016/SM-P|{{TCG|神奇糖果}}|物品卡||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|017/SM-P|{{TCG|寶可夢交替}}|物品卡||||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|018/SM-P|{{TCG|講究頭帶}}|物品卡||||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|019/SM-P|{{TCG|祈願接力棒}}|物品卡||眾星雲集組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}}}
+{{卡牌列表/entryjp|020/SM-P|{{TCG|哈烏}}|支援者卡||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|021/SM-P|{{TCG|莉莉艾}}|支援者卡||眾星雲集組合篇 寶可夢卡牌日}}	
+{{卡牌列表/entryjp|022/SM-P|{{C|葉伊布GX|SM5S}}|草||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|023/SM-P|{{C|呆呆獸|SM8}}|水||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|024/SM-P|{{C|水君|SM7a}}|水||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|025/SM-P|{{C|蓋歐卡|SM7}}|水||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|026/SM-P|{{C|冰伊布GX|SM5M}}|水||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|027/SM-P|{{C|雷電獸|SM7}}|雷||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|028/SM-P|{{C|騎拉帝納|SM7b}}|超||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|029/SM-P|{{C|烏賊王|SM6}}|超||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|030/SM-P|{{C|奈克洛茲瑪 拂曉之翼GX|SM5M}}|超||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|031/SM-P|{{C|瑪狃拉|SM5S}}|恶||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|032/SM-P|{{C|阿羅拉 地鼠|SM5S}}|钢||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|033/SM-P|{{C|卡璞・蝶蝶|SM7b}}|妖||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|034/SM-P|{{C|七夕青鸟|SM6a}}|龙||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|035/SM-P|{{C|究極奈克洛茲瑪GX|SM6}}|龙||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|036/SM-P|{{TCG|捕網球}}|物品卡||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|037/SM-P|{{TCG|神秘珍寶}}|物品卡||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|038/SM-P|{{TCG|觀光客}}|支援者卡||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|039/SM-P|{{TCG|竹蘭}}|支援者卡||||美夢成真組合篇 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|040/SM-P|{{TCG|電次}}|支援者卡||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|041/SM-P|{{TCG|究極空間}}|竞技场卡||||美夢成真組合篇 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|042/SM-P|{{C|基拉祈|SM8a}}|钢||||【台灣】地區聯盟賽（2019/12/29）參加獎<br>道館賽重啟紀念特典卡（2020/6/19~2020/7/2）|RL}}
+{{卡牌列表/entryjp|043/SM-P|{{C|時拉比&妙蛙花GX|SM9}}|草||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|044/SM-P|{{C|噴火龍|SM9}}|火||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|045/SM-P|{{C|水晶燈火靈|SM10a}}|火||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|046/SM-P|{{C|波尔凯尼恩|SM10}}|火||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|047/SM-P|{{C|水箭龜GX|SM9b}}|水||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|048/SM-P|{{C|尼多后|SM9}}|超||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|049/SM-P|{{C|超夢|SM10}}|超||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|050/SM-P|{{C|瑪夏多|SM9a}}|超||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|051/SM-P|{{C|瑪夏多&怪力GX|SM10}}|斗||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|052/SM-P|{{C|壘磊石|SM9b}}|斗||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|053/SM-P|{{C|伊布&卡比兽GX|SM9}}|无色||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|054/SM-P|{{C|貓老大|SM10}}|无色||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|055/SM-P|{{TCG|聯手切換}}|物品卡||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|056/SM-P|{{TCG|火之結晶}}|物品卡||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|057/SM-P|{{TCG|隱密風帽}}|物品卡||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|058/SM-P|{{TCG|肌力護膝}}|物品卡||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|059/SM-P|{{TCG|阿杏}}|支援者卡||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|060/SM-P|{{TCG|教練訓練家}}|支援者卡||||雙倍爆擊 寶可夢卡牌日|gym}}
+{{卡牌列表/entryjp|061/SM-P|{{TCG|碧藍的探索}}|支援者卡||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|062/SM-P|{{TCG|常青森林}}|竞技场卡||||雙倍爆擊 {{TCG|集換式卡牌遊戲道館|道館賽}}|gym}}
+{{卡牌列表/entryjp|064/SM-P|{{C|噴火龍GX|SML}}|火||||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|066/SM-P|{{C|水箭龜&波加曼GX|SM11a}}|水||||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|073/SM-P|{{C|快龍GX|SM11}}|龙||||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|074/SM-P|{{C|超級長耳兔&胖丁GX|SM12}}|无色||||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|083/SM-P|{{TCG|基本草能量}}|能量卡|草|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|084/SM-P|{{TCG|基本火能量}}|能量卡|火|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|085/SM-P|{{TCG|基本水能量}}|能量卡|水|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|086/SM-P|{{TCG|基本雷能量}}|能量卡|雷|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|087/SM-P|{{TCG|基本超能量}}|能量卡|超|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|088/SM-P|{{TCG|基本斗能量}}|能量卡|斗|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|089/SM-P|{{TCG|基本恶能量}}|能量卡|恶|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|090/SM-P|{{TCG|基本鋼能量}}|能量卡|鋼|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|091/SM-P|{{TCG|基本妖能量}}|能量卡|妖|||聯手升級，全力突破！（2020/5/1~2020/5/31）特典卡|gym}}
+{{卡牌列表/entryjp|092/SM-P|{{C|咚咚鼠GX|SM9a}}|雷||||道館賽重啟紀念特典卡（2020/7/3~2020/7/16）<br>寶可夢卡牌四天王決勝賽（2020/7/18）參加獎|RL}}
+{{卡牌列表/entryjp|093/SM-P|{{C|卡璞・蝶蝶GX|SM2L}}|超||||道館賽重啟紀念特典卡（2020/7/17~2020/7/30）<br>寶可夢卡牌四天王決勝賽（2020/7/18）三十二強優勝獎勵|gym}}
+{{卡牌列表/entryjp|094/SM-P|{{C|伊布GX|SMI}}|无色||||报名[[Pokémon Medallion Battle]]伊布排名挑战（2020/8/25~2020/9/30）|PMB}}
+{{卡牌列表/footer|cellcol=EE993C}}
+
+==细节==
+
+{{PTCG版本导航/太阳&月亮系列繁中}}
+{{神奇宝贝百科卡牌工程}}
+
+[[Category:太阳&月亮系列（TCG）]]
+
+[[en:SM-P Promotional cards (TCTCG)]]
+
+Done. Paste this whole output back.
