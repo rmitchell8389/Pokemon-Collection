@@ -53,6 +53,15 @@ export interface TcgdexCardFull {
   illustrator?: string;
   set: { id: string; name: string };
   dexId?: number[]; // National Pokedex numbers — absent for Trainer/Energy cards
+  // Energy color(s) for a Pokemon card, e.g. ["Fire"] — absent for
+  // Trainer/Energy cards. Same "documented v2 convention, not fetched live
+  // from this sandbox" caveat as the rest of this file. Whether TCGdex
+  // localizes these strings per language (e.g. returns something other than
+  // English "Fire" for a ja/zh-cn card) is unverified — the search page that
+  // filters on this (src/app/search/page.tsx) deliberately builds its
+  // checkbox options from whatever's actually in the synced data instead of
+  // a hardcoded English list, so it doesn't matter which way that turns out.
+  types?: string[];
 }
 
 async function tcgdexFetch<T>(path: string): Promise<T> {

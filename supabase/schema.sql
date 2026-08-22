@@ -106,21 +106,35 @@ create table if not exists public.cards (
   -- every card it fetches, so a plain re-run is the backfill — no separate
   -- migration script needed).
   artist text,
+  -- Card type ("Pokemon" | "Trainer" | "Energy" per TCGdex's `category`
+  -- field) and energy color(s) (TCGdex's `types`, e.g. {Fire}, absent for
+  -- non-Pokemon cards). Added 2026-08-22 for the /search page's card-type
+  -- and energy-type filters — same backfill-on-next-sync story as `artist`
+  -- above.
+  category text,
+  types text[],
   primary key (id, language)
 );
 
--- These two must run BEFORE the indexes below — on a database where
+-- These must all run BEFORE the indexes below — on a database where
 -- `cards` already existed prior to 2026-08-22, `create table if not
--- exists` above is a no-op and never adds the `artist` column, so an index
--- on it created before this line fails with "column does not exist". Learned
+-- exists` above is a no-op and never adds new columns, so an index on one
+-- created before this line fails with "column does not exist". Learned
 -- the hard way: this file originally had the index statements first.
 alter table public.cards add column if not exists variant text;
 alter table public.cards add column if not exists artist text;
+alter table public.cards add column if not exists category text;
+alter table public.cards add column if not exists types text[];
 
 create index if not exists cards_national_dex_no_idx on public.cards (language, national_dex_no);
 create index if not exists cards_name_idx on public.cards (language, lower(name));
 create index if not exists cards_artist_idx on public.cards (language, lower(artist));
 create index if not exists cards_rarity_idx on public.cards (language, rarity);
+create index if not exists cards_category_idx on public.cards (language, category);
+-- GIN index for the `types` array — supports the energy-type filter's
+-- overlap query (`types && ARRAY[...]`, done via .overlaps() in
+-- src/app/search/page.tsx) efficiently instead of a full table scan.
+create index if not exists cards_types_idx on public.cards using gin (types);
 
 alter table public.cards enable row level security;
 

@@ -155,6 +155,8 @@ async function main() {
             national_dex_no: card.dexId?.[0] ?? null,
             rarity: card.rarity ?? null,
             artist: card.illustrator ?? null,
+            category: card.category ?? null,
+            types: card.types ?? null,
             image_url: card.image ?? null,
             synced_at: new Date().toISOString(),
           };

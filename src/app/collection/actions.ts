@@ -39,7 +39,12 @@ export async function toggleOwned(formData: FormData) {
       .eq("language", language);
   }
 
+  // Both pages show owned/wishlist/for-trade status on the same cards
+  // table, so a toggle from either one needs to refresh both — otherwise
+  // whichever page you didn't act from shows stale badges until a manual
+  // reload.
   revalidatePath("/collection");
+  revalidatePath("/search");
 }
 
 // Marks an already-owned card as available to trade away, or clears that
@@ -65,6 +70,7 @@ export async function toggleForTrade(formData: FormData) {
     .eq("language", language);
 
   revalidatePath("/collection");
+  revalidatePath("/search");
 }
 
 // Adds or removes a card from the caller's wishlist. Refuses to add a card
@@ -106,4 +112,5 @@ export async function toggleWishlist(formData: FormData) {
   }
 
   revalidatePath("/collection");
+  revalidatePath("/search");
 }
