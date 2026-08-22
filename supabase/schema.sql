@@ -493,6 +493,41 @@ create policy "trade completion adds the received card for both sides"
   );
 
 -- ---------------------------------------------------------------------------
+-- Feature requests — a board where any signed-in user can suggest a feature
+-- and see what others have asked for. Deliberately no in-app admin UI for
+-- changing `status`: Ross reviews requests and updates status directly in
+-- the Supabase table editor, which runs as the postgres role and bypasses
+-- RLS entirely, so no update/delete policy is needed for that at all. The
+-- "Coming Soon" page (src/app/coming-soon/page.tsx) is just a filtered view
+-- of this same table (status = 'planned' or 'in_progress'), not a second,
+-- separately maintained page.
+-- ---------------------------------------------------------------------------
+create table if not exists public.feature_requests (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users (id) on delete cascade,
+  title text not null,
+  description text,
+  status text not null default 'open' check (status in ('open', 'planned', 'in_progress', 'done', 'declined')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists feature_requests_status_idx on public.feature_requests (status, created_at desc);
+
+alter table public.feature_requests enable row level security;
+
+drop policy if exists "feature requests are readable by any signed-in user" on public.feature_requests;
+create policy "feature requests are readable by any signed-in user"
+  on public.feature_requests for select
+  to authenticated
+  using (true);
+
+drop policy if exists "users can submit their own feature requests" on public.feature_requests;
+create policy "users can submit their own feature requests"
+  on public.feature_requests for insert
+  to authenticated
+  with check (auth.uid() = user_id);
+
+-- ---------------------------------------------------------------------------
 -- Shipping addresses — one per user, for postal trades. Deliberately a
 -- SEPARATE table from `profiles`, not a column on it: `profiles` has a
 -- blanket "readable by any signed-in user" policy (see above), so adding an

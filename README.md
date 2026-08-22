@@ -201,6 +201,61 @@ holds up across the full archive, not just the folders spot-checked by hand.
   on a phone will offer "Add to Home Screen" (Android/Chrome) or it can be
   added manually via the share sheet (iOS/Safari) — no app store involved.
 
+## Fixing "email rate limit exceeded" on signup
+
+Every new Supabase project starts on Supabase's own built-in email sender
+for confirmation emails, password resets, etc. It's meant for development
+and is capped hard — a handful of emails per hour, shared across every
+signup and password-reset request the project sends. Once a few friends
+sign up in the same evening, everyone after the first few gets "Email rate
+limit exceeded" and can't confirm their account. This isn't a bug in this
+app's code — it's a Supabase project setting — so there's nothing to fix in
+a script or a page here. Two real fixes, in order of effort:
+
+1. **Fastest unblock — turn off email confirmation.** For a small
+   friends-and-family app like this one, requiring email confirmation
+   before someone can sign in isn't buying much. In the Supabase dashboard:
+   Authentication → Sign In / Providers → Email → turn off "Confirm email".
+   New signups get a usable session immediately, no email involved, no rate
+   limit to hit. Anyone who's already stuck on an unconfirmed account can
+   just sign up again once this is off (or you can confirm them directly:
+   Authentication → Users → find the user → the "..." menu → Confirm
+   email).
+2. **Proper fix — custom SMTP.** In the Supabase dashboard: Project
+   Settings → Authentication → SMTP Settings, and point it at a real
+   transactional email provider (Resend, Postmark, SendGrid all have a free
+   tier that's more than enough for a small user base). This removes the
+   rate limit entirely and is worth doing if email confirmation matters to
+   you long-term — just more setup than option 1.
+
+Either change is made in the Supabase dashboard, takes a couple of minutes,
+and needs no redeploy of this app.
+
+## Getting emailed when someone submits a feature request
+
+The `/feedback` page (feature request board) emails you the moment someone
+submits a request, via Resend's API — but only once `RESEND_API_KEY` is set.
+Without it, requests still save fine, you just won't get the email.
+
+1. Sign up for a free account at [resend.com](https://resend.com) using
+   your own email address — the one you want notifications sent to.
+2. Create an API key (Resend dashboard → API Keys) and copy it.
+3. Add it to `.env.local`: `RESEND_API_KEY=re_...`. For the live site, add
+   the same variable in Vercel (Project → Settings → Environment Variables)
+   and redeploy.
+
+No custom domain or DNS setup needed for this — Resend's shared sandbox
+sender (`onboarding@resend.dev`) is allowed to deliver to the same address
+the account was signed up with, which is exactly this use case (you
+notifying yourself). If you later want the "from" address to look like it
+came from your own domain instead, that needs a verified domain in Resend —
+optional, not required for this to work.
+
+This is a separate thing from the SMTP setup in the section above — that
+one controls Supabase Auth's own emails (signup confirmations, password
+resets); this one is a direct API call this app makes for its own
+notification, unrelated to Supabase.
+
 ## Things that need verifying before you rely on this — flagging honestly
 
 A few pieces were built against TCGdex's documented conventions rather than
@@ -284,4 +339,3 @@ scripts/backfill-images.ts               pokemontcg.io → Supabase missing-imag
 scripts/backfill-images-from-archive.ts  local archive → Supabase Storage missing-image backfill
 supabase/schema.sql      Full database schema, run once in Supabase's SQL editor
 ```
-"# Pokemon-Collection" 
