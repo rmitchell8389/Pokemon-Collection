@@ -215,58 +215,47 @@ export default async function SearchPage({
   // pattern throughout, means these just work once a sync has run, and
   // don't assume TCGdex's exact strings (which may be localized per
   // language in ways that aren't verified — see src/lib/tcgdex.ts).
-  const { data: setNameRows } = await supabase
-    .from("cards")
-    .select("set_name")
-    .eq("language", language)
-    .order("set_name");
-  const setNames = Array.from(new Set((setNameRows ?? []).map((r) => r.set_name)));
-
-  const { data: artistRows } = await supabase
-    .from("cards")
-    .select("artist")
-    .eq("language", language)
-    .not("artist", "is", null)
-    .order("artist");
-  const artistNames = Array.from(
-    new Set((artistRows ?? []).map((r) => r.artist).filter((a): a is string => Boolean(a)))
-  );
-
-  const { data: rarityRows } = await supabase
-    .from("cards")
-    .select("rarity")
-    .eq("language", language)
-    .not("rarity", "is", null);
-  const rarities = Array.from(
-    new Set((rarityRows ?? []).map((r) => r.rarity).filter((r): r is string => Boolean(r)))
-  ).sort();
-
-  const { data: categoryRows } = await supabase
-    .from("cards")
-    .select("category")
-    .eq("language", language)
-    .not("category", "is", null);
-  const cardTypeOptions = Array.from(
-    new Set((categoryRows ?? []).map((r) => r.category).filter((c): c is string => Boolean(c)))
-  ).filter((c) => CARD_TYPE_OPTIONS.some((o) => o.toLowerCase() === c.toLowerCase()));
-
-  const { data: typeRows } = await supabase
-    .from("cards")
-    .select("types")
-    .eq("language", language)
-    .not("types", "is", null);
-  const energyTypes = Array.from(
-    new Set((typeRows ?? []).flatMap((r) => r.types ?? []).filter(Boolean))
-  ).sort();
-
-  const { data: seriesRows } = await supabase
-    .from("cards")
-    .select("series")
-    .eq("language", language)
-    .not("series", "is", null);
-  const seriesOptions = Array.from(
-    new Set((seriesRows ?? []).map((r) => r.series).filter((s): s is string => Boolean(s)))
-  ).sort();
+  //
+  // These go through the distinct_* RPCs in supabase/schema.sql rather
+  // than a plain "select the column" query — see the long comment on those
+  // functions for why: a plain select with no .range()/.limit() silently
+  // truncates at Supabase's server-side row cap (1000 by default) on a
+  // table this size, which is exactly why this page was showing only 2
+  // series and no "Trainer" card type despite both being real, common
+  // values in the data.
+  // This project doesn't use Supabase's generated Database types, so
+  // .rpc() results come back untyped (`any`) — cast explicitly rather than
+  // let that `any` silently propagate through the rest of this page.
+  const [
+    { data: setNameRows },
+    { data: artistRows },
+    { data: rarityRows },
+    { data: categoryRows },
+    { data: typeRows },
+    { data: seriesRows },
+  ] = (await Promise.all([
+    supabase.rpc("distinct_set_names", { p_language: language }),
+    supabase.rpc("distinct_artists", { p_language: language }),
+    supabase.rpc("distinct_rarities", { p_language: language }),
+    supabase.rpc("distinct_categories", { p_language: language }),
+    supabase.rpc("distinct_energy_types", { p_language: language }),
+    supabase.rpc("distinct_series", { p_language: language }),
+  ])) as [
+    { data: { set_name: string }[] | null },
+    { data: { artist: string }[] | null },
+    { data: { rarity: string }[] | null },
+    { data: { category: string }[] | null },
+    { data: { energy_type: string }[] | null },
+    { data: { series: string }[] | null },
+  ];
+  const setNames = (setNameRows ?? []).map((r: { set_name: string }) => r.set_name);
+  const artistNames = (artistRows ?? []).map((r: { artist: string }) => r.artist);
+  const rarities = (rarityRows ?? []).map((r: { rarity: string }) => r.rarity);
+  const cardTypeOptions = (categoryRows ?? [])
+    .map((r: { category: string }) => r.category)
+    .filter((c: string) => CARD_TYPE_OPTIONS.some((o) => o.toLowerCase() === c.toLowerCase()));
+  const energyTypes = (typeRows ?? []).map((r: { energy_type: string }) => r.energy_type);
+  const seriesOptions = (seriesRows ?? []).map((r: { series: string }) => r.series);
 
   let cards: CardRow[] = [];
   let totalMatches = 0;

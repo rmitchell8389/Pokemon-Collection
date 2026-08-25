@@ -128,28 +128,28 @@ export default async function CollectionPage({
   // autocomplete rather than requiring Ross to remember exact spelling.
   // Same idea for artist (free-text with suggestions) and rarity (a fixed
   // enough list per language to be a real dropdown rather than free text).
-  const { data: setNameRows } = await supabase
-    .from("cards")
-    .select("set_name")
-    .eq("language", language)
-    .order("set_name");
-  const setNames = Array.from(new Set((setNameRows ?? []).map((r) => r.set_name)));
-
-  const { data: artistRows } = await supabase
-    .from("cards")
-    .select("artist")
-    .eq("language", language)
-    .not("artist", "is", null)
-    .order("artist");
-  const artistNames = Array.from(new Set((artistRows ?? []).map((r) => r.artist).filter((a): a is string => Boolean(a))));
-
-  const { data: rarityRows } = await supabase
-    .from("cards")
-    .select("rarity")
-    .eq("language", language)
-    .not("rarity", "is", null)
-    .order("rarity");
-  const rarities = Array.from(new Set((rarityRows ?? []).map((r) => r.rarity).filter((r): r is string => Boolean(r))));
+  //
+  // These go through the distinct_* RPCs in supabase/schema.sql rather
+  // than a plain "select the column" query — a plain select with no
+  // .range()/.limit() silently truncates at Supabase's server-side row cap
+  // (1000 by default) on a table this size, which was quietly under-
+  // populating these three even before it became obviously visible on the
+  // /search page's checkbox filters (fixed there 2026-08-22, same bug).
+  // This project doesn't use Supabase's generated Database types, so
+  // .rpc() results come back untyped (`any`) — cast explicitly rather than
+  // let that `any` silently propagate through the rest of this page.
+  const [{ data: setNameRows }, { data: artistRows }, { data: rarityRows }] = (await Promise.all([
+    supabase.rpc("distinct_set_names", { p_language: language }),
+    supabase.rpc("distinct_artists", { p_language: language }),
+    supabase.rpc("distinct_rarities", { p_language: language }),
+  ])) as [
+    { data: { set_name: string }[] | null },
+    { data: { artist: string }[] | null },
+    { data: { rarity: string }[] | null },
+  ];
+  const setNames = (setNameRows ?? []).map((r: { set_name: string }) => r.set_name);
+  const artistNames = (artistRows ?? []).map((r: { artist: string }) => r.artist);
+  const rarities = (rarityRows ?? []).map((r: { rarity: string }) => r.rarity);
 
   type CardRow = {
     id: string;

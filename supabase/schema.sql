@@ -155,6 +155,87 @@ create policy "cards are readable by any signed-in user"
 -- (using the service role key, which bypasses RLS) writes to this table.
 
 -- ---------------------------------------------------------------------------
+-- Distinct-value lookups for the collection/search filter UIs (set names,
+-- artists, rarities, card types, energy types, series). These used to be
+-- plain `select column ... ` queries with the results deduped in JS
+-- (src/app/collection/page.tsx, src/app/search/page.tsx) — that silently
+-- broke as the `cards` table grew, because Supabase's hosted PostgREST caps
+-- any request with no explicit .range()/.limit() at a server-side max-rows
+-- setting (1000 by default). On a table with 10,000+ English rows, a plain
+-- "select the whole column" query only ever saw an arbitrary first slice of
+-- rows (no ORDER BY on the raw query = no guaranteed order), so the
+-- deduped list silently reflected just that slice — confirmed 2026-08-22
+-- when Ross's real /search page showed only 2 of ~10 real series and was
+-- missing "Trainer" as a card type despite Base Set alone having plenty of
+-- Trainer cards. A real `SELECT DISTINCT ... ORDER BY ...` in the database
+-- has no such problem — it's evaluated over the whole table server-side and
+-- only the (typically small, dozens not thousands) distinct result set
+-- crosses the wire, sidestepping the row cap entirely rather than relying
+-- on guessing the right limit.
+create or replace function public.distinct_set_names(p_language text)
+returns table (set_name text)
+language sql stable as $$
+  select distinct cards.set_name from public.cards
+  where cards.language = p_language
+  order by cards.set_name;
+$$;
+
+create or replace function public.distinct_artists(p_language text)
+returns table (artist text)
+language sql stable as $$
+  select distinct cards.artist from public.cards
+  where cards.language = p_language and cards.artist is not null
+  order by cards.artist;
+$$;
+
+create or replace function public.distinct_rarities(p_language text)
+returns table (rarity text)
+language sql stable as $$
+  select distinct cards.rarity from public.cards
+  where cards.language = p_language and cards.rarity is not null
+  order by cards.rarity;
+$$;
+
+create or replace function public.distinct_categories(p_language text)
+returns table (category text)
+language sql stable as $$
+  select distinct cards.category from public.cards
+  where cards.language = p_language and cards.category is not null
+  order by cards.category;
+$$;
+
+create or replace function public.distinct_series(p_language text)
+returns table (series text)
+language sql stable as $$
+  select distinct cards.series from public.cards
+  where cards.language = p_language and cards.series is not null
+  order by cards.series;
+$$;
+
+-- `types` is an array column (e.g. {Fire}) — unnest it before deduping so
+-- this returns one row per individual energy color, not per array value.
+create or replace function public.distinct_energy_types(p_language text)
+returns table (energy_type text)
+language sql stable as $$
+  select distinct unnest(cards.types) as energy_type from public.cards
+  where cards.language = p_language and cards.types is not null
+  order by 1;
+$$;
+
+-- These run with the CALLER's privileges (no SECURITY DEFINER), so they're
+-- still subject to the "cards are readable by any signed-in user" RLS
+-- policy above — same access as querying the table directly, just a
+-- smarter query. Explicit grants since a function's default execute
+-- privilege isn't guaranteed to include `authenticated` on every Supabase
+-- project.
+grant execute on function public.distinct_set_names(text) to authenticated;
+grant execute on function public.distinct_artists(text) to authenticated;
+grant execute on function public.distinct_rarities(text) to authenticated;
+grant execute on function public.distinct_categories(text) to authenticated;
+grant execute on function public.distinct_series(text) to authenticated;
+grant execute on function public.distinct_energy_types(text) to authenticated;
+
+-- ---------------------------------------------------------------------------
 -- Pokemon species names — dex number -> official name per language, synced
 -- from PokeAPI (see scripts/sync-species-names.ts), NOT from TCGdex. This
 -- exists because TCGdex's own per-card dex-number tagging turned out to be
