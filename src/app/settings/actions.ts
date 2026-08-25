@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
@@ -26,4 +27,35 @@ export async function updateShippingAddress(formData: FormData) {
 
   revalidatePath("/settings");
   revalidatePath("/trades");
+}
+
+// Changing password while already signed in — separate from the
+// /forgot-password -> email link flow (src/app/auth/actions.ts,
+// src/app/reset-password), which exists for someone who's locked out.
+// Supabase's updateUser just needs an active session, no re-entry of the
+// current password — acceptable here since reaching Settings already means
+// a real signed-in session.
+export async function changePassword(formData: FormData) {
+  const password = String(formData.get("password") ?? "");
+  const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+  if (password.length < 6) {
+    redirect("/settings?pwError=" + encodeURIComponent("Password needs to be at least 6 characters."));
+  }
+  if (password !== confirmPassword) {
+    redirect("/settings?pwError=" + encodeURIComponent("Those two passwords don't match."));
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    redirect("/settings?pwError=" + encodeURIComponent(error.message));
+  }
+
+  redirect("/settings?pwSuccess=1");
 }

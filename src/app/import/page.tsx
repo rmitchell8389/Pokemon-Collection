@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { importDexCsv, importPulseTcgCsv } from "./actions";
+import { importDexCsv, importPulseTcgCsv, importSimpleCsv } from "./actions";
 
 interface ImportSearchParams {
   error?: string;
@@ -20,6 +20,7 @@ interface ImportSearchParams {
 const SOURCE_LABELS: Record<string, string> = {
   dex: "Dex",
   pulsetcg: "PulseTCG",
+  simple: "spreadsheet template",
 };
 
 export default async function ImportPage({
@@ -59,6 +60,32 @@ export default async function ImportPage({
           {params.error}
         </p>
       )}
+
+      <section className="panel flex flex-col gap-3">
+        <h2 className="font-semibold">Import from a spreadsheet</h2>
+        <p className="text-sm text-black/60 dark:text-white/60">
+          Don&apos;t use Dex or PulseTCG? Download the blank template, fill in a row per card
+          (set name, card number, and how many you own — see the two example rows already in it),
+          and upload it here. Works in Excel, Google Sheets, or Numbers — just keep it saved as
+          CSV. Re-uploading later is safe, same as the other two options: a card already in your
+          collection just gets its quantity refreshed, never duplicated.
+        </p>
+        <a href="/import/simple-template.csv" className="btn-secondary btn-sm self-start" download>
+          Download blank template (CSV)
+        </a>
+        <form action={importSimpleCsv} className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <input
+            type="file"
+            name="file"
+            accept=".csv"
+            required
+            className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-red-600 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-red-700"
+          />
+          <button type="submit" className="btn-primary self-start">
+            Import
+          </button>
+        </form>
+      </section>
 
       <section className="panel flex flex-col gap-3">
         <h2 className="font-semibold">Import from Dex</h2>

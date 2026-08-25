@@ -31,6 +31,12 @@ export default async function LoginPage({
         <form action={signIn} className="flex flex-col gap-3">
           <input name="email" type="email" placeholder="Email" required className="input" />
           <PasswordField name="password" placeholder="Password" required />
+          <Link
+            href="/forgot-password"
+            className="-mt-1 self-end text-xs font-medium text-red-600 hover:underline dark:text-red-400"
+          >
+            Forgot your password?
+          </Link>
           <button type="submit" className="btn-primary mt-1">
             Sign in
           </button>

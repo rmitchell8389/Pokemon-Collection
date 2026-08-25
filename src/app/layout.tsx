@@ -64,8 +64,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             </Link>
             {user ? (
               <div className="flex items-center gap-1">
-                <NavLinks />
-                <form action={signOut} className="ml-2">
+                <NavLinks signOut={signOut} />
+                {/* Mobile gets its own Sign out entry inside NavLinks'
+                    hamburger dropdown instead — this standalone button is
+                    only shown once the inline links are too (md+). */}
+                <form action={signOut} className="ml-2 hidden md:block">
                   <button
                     type="submit"
                     className="rounded-md px-2 py-1 text-black/50 transition-colors hover:bg-black/5 hover:text-black/80 dark:text-white/50 dark:hover:bg-white/10 dark:hover:text-white/80"
