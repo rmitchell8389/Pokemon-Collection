@@ -61,3 +61,52 @@ export async function notifyNewFeatureRequest(details: {
     throw new Error(`Resend API request failed: ${res.status} ${res.statusText} ${body}`);
   }
 }
+
+// Same idea as notifyNewFeatureRequest, for a submission on /request-card
+// (see src/app/request-card/actions.ts). Approving is a single-column edit
+// in the card_requests table in Supabase's table editor (a trigger there —
+// handle_card_request_approval in schema.sql — does the actual catalog
+// insert), so the email spells out exactly what to change.
+export async function notifyNewCardRequest(details: {
+  setName: string;
+  cardNumber: string;
+  name: string;
+  variant: string;
+  language: string;
+  imageUrl: string;
+  notes: string;
+  submittedBy: string;
+}): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.warn(
+      "RESEND_API_KEY not set — skipping card request email notification. See README for setup."
+    );
+    return;
+  }
+
+  const res = await fetch(RESEND_API_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "DexMate <onboarding@resend.dev>",
+      to: [ADMIN_EMAIL],
+      subject: `New DexMate card request: ${details.name}`,
+      text: `${details.submittedBy} just requested a card that's missing from the catalog:\n\n${
+        details.name
+      }${details.cardNumber ? ` (#${details.cardNumber})` : ""}\n${details.setName}${
+        details.variant ? ` · ${details.variant}` : ""
+      } · ${details.language}\n\n${
+        details.imageUrl ? `Photo/scan: ${details.imageUrl}\n\n` : ""
+      }${details.notes || "(no extra notes)"}\n\nTo add it, open the card_requests table in the Supabase table editor and set this row's status to 'approved' — it's inserted into the shared catalog automatically.`,
+    }),
+  });
+
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Resend API request failed: ${res.status} ${res.statusText} ${body}`);
+  }
+}

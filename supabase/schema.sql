@@ -616,6 +616,105 @@ create policy "users can submit their own feature requests"
   with check (auth.uid() = user_id);
 
 -- ---------------------------------------------------------------------------
+-- Card requests — community-submitted cards that are missing from the
+-- catalog. Deliberately reuses the feature_requests moderation pattern
+-- above: no moderator role, no in-app approval UI. Ross reviews
+-- submissions and approves/rejects them by editing the `status` column
+-- directly in the Supabase table editor (postgres role, which bypasses
+-- RLS). "Auto-adds to the catalog" needs to actually happen with zero
+-- in-app action beyond that one status edit, so a trigger below performs
+-- the catalog insert itself the moment status flips to 'approved' — see
+-- handle_card_request_approval() just below.
+--
+-- Submission is text + an optional link to a photo/scan (not a file
+-- upload) — deliberately avoids needing image storage/hosting infra for
+-- a v1. image_url is just stored and shown as a link for Ross to review;
+-- it's never fetched or executed by the app.
+-- ---------------------------------------------------------------------------
+create table if not exists public.card_requests (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users (id) on delete cascade,
+  set_name text not null,
+  card_number text,
+  name text not null,
+  variant text,
+  language text not null default 'en',
+  image_url text,
+  notes text,
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists card_requests_status_idx on public.card_requests (status, created_at desc);
+
+alter table public.card_requests enable row level security;
+
+drop policy if exists "card requests are readable by any signed-in user" on public.card_requests;
+create policy "card requests are readable by any signed-in user"
+  on public.card_requests for select
+  to authenticated
+  using (true);
+
+drop policy if exists "users can submit their own card requests" on public.card_requests;
+create policy "users can submit their own card requests"
+  on public.card_requests for insert
+  to authenticated
+  with check (auth.uid() = user_id);
+
+-- Fires when a request's status flips to 'approved' (from the table
+-- editor). Builds a synthetic `cards` row out of the submission and
+-- inserts it straight into the shared catalog everyone else reads from —
+-- that insert IS "auto-adds to the catalog", since there's no separate
+-- in-app admin action to hang it off of.
+--
+-- Synthetic id: real rows use TCGdex's own card id (e.g. "swsh3-136"),
+-- which a community submission has no equivalent for. Prefixing with
+-- "community-" plus the request's own uuid gives an id that can never
+-- collide with a real TCGdex id (those never contain "community-") and is
+-- already globally unique on its own — comfortably satisfies the
+-- (id, language) primary key on `cards`. set_id gets the same treatment,
+-- for the same reason; it doesn't need to match any real TCGdex set,
+-- since the /search and /collection "Set" filters dedupe by set_name text,
+-- not set_id (see distinct_set_names above), so this never creates a
+-- duplicate-looking entry there.
+--
+-- `security definer` + fixed search_path so the insert into `cards` runs
+-- as the function owner rather than under RLS as whatever role performed
+-- the update — table editor edits already run as postgres and bypass RLS
+-- regardless, but this keeps the trigger correct if approval is ever done
+-- any other way.
+create or replace function public.handle_card_request_approval()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if new.status = 'approved' and old.status is distinct from 'approved' then
+    insert into public.cards (id, language, set_id, set_name, card_number, name, image_url, variant)
+    values (
+      'community-' || new.id::text,
+      new.language,
+      'community-' || new.id::text,
+      new.set_name,
+      coalesce(new.card_number, '?'),
+      new.name,
+      new.image_url,
+      new.variant
+    )
+    on conflict (id, language) do nothing;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists card_request_approval on public.card_requests;
+create trigger card_request_approval
+  after update on public.card_requests
+  for each row
+  execute function public.handle_card_request_approval();
+
+-- ---------------------------------------------------------------------------
 -- Shipping addresses — one per user, for postal trades. Deliberately a
 -- SEPARATE table from `profiles`, not a column on it: `profiles` has a
 -- blanket "readable by any signed-in user" policy (see above), so adding an
