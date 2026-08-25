@@ -41,25 +41,35 @@ const TCGPLAYER_KEY_ORDER: TcgplayerVariantKey[] = [
 ];
 
 // Best-effort mapping from a `cards.variant` value to the TCGplayer bucket
-// that SHOULD hold this print's price. `cards.variant` is free text sourced
-// from src/lib/cardVariants.ts, which — for vintage cards especially —
-// produces long compound keys TCGdex's pricing object has no matching
-// bucket for (e.g. "holo-1st-shadowless"). Rather than guess wrong, this
-// only maps the handful of clean, common cases and falls back to treating
-// anything else that still contains "holo" as a holofoil print (the
-// closest real bucket) or "1st" as a 1st edition print — still a
-// simplification for the vintage long tail, but a defensible one.
+// that SHOULD hold this print's price. `cards.variant` values come from two
+// different places that use two different vocabularies, both handled here:
+//   - src/lib/cardVariants.ts's own TYPE_PRIORITY list — bare type names
+//     ("normal", "holo", "reverse", "unlimited", "firstEdition",
+//     "lenticular", "metal", "jumbo", "preRelease", "wPromo")
+//   - compound vintage keys built from a type plus stamp segments, e.g.
+//     "holo-1st-shadowless" — TCGdex's pricing object has no bucket that
+//     specific, so this only recognizes the handful of clean, common
+//     signals ("holo", "reverse", "1st", "unlimited") within the compound
+//     key rather than trying to match the whole thing.
+//
+// "firstEdition" (the bare TYPE, used for vintage cards whose 1st-edition
+// print was never holo) is matched by exact/prefix name, not by an "1st"
+// substring search — "firstEdition" doesn't contain "1st" as text, so the
+// substring checks below would otherwise silently miss it and fall through
+// to "normal", which is wrong for a real 1st edition print. Confirmed this
+// was actually happening: real "missing price" cards Ross found were
+// mostly variant rows using exactly this vocabulary (see the 2026-08-25
+// coverage-gap notes on pickCardPrice below).
 //
 // This is only a STARTING GUESS, not the only bucket checked — see
 // pickCardPrice, which falls through every other bucket too when this one
-// is empty. That fallthrough is the actual fix for the 2026-08-25 bug
-// below; this function alone was never enough, because `sync-cards.ts`
-// only ever calls it with variant=null (see that script for why), and a
-// huge share of real cards — anything EX/GX/V, secret rare, full art,
-// promo-only — were NEVER printed as a plain "normal" card at all, so
-// guessing "normal" and stopping there just came up empty for them.
+// is empty. Lenticular/metal/jumbo/preRelease/wPromo have no dedicated
+// TCGplayer bucket at all as far as this integration knows, so they fall
+// through to "normal" as a starting guess and rely entirely on that
+// fallthrough to find whatever TCGplayer actually has, if anything.
 export function mapVariantToTcgplayerKey(variant: string | null): TcgplayerVariantKey {
   if (!variant || variant === "normal") return "normal";
+  if (variant === "firstEdition" || variant.startsWith("firstEdition-")) return "1st-edition";
 
   const is1st = variant.startsWith("1st") || variant.includes("-1st");
   const isUnlimited = variant.startsWith("unlimited");

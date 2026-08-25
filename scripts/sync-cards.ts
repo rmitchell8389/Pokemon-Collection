@@ -22,6 +22,8 @@
 import { config as loadEnv } from "dotenv";
 loadEnv({ path: ".env.local" });
 
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import {
   TCGDEX_LANGUAGES,
@@ -34,6 +36,7 @@ import {
 } from "../src/lib/tcgdex";
 import { pickCardPrice, convertToGbp, type GbpRates } from "../src/lib/cardPricing";
 import { getGbpRates } from "../src/lib/exchangeRates";
+import { lookupVariants, pickPrimaryVariant, type CardVariantLanguage } from "../src/lib/cardVariants";
 
 const CONCURRENCY = 5;
 
@@ -100,6 +103,23 @@ async function main() {
     console.warn("  proceeding without GBP conversion this run — price_gbp will stay unset on every card.");
   }
 
+  // Variant-row pricing (added 2026-08-25, see the long comment inside the
+  // per-card loop below) needs the same local index file
+  // scripts/import-card-variants.ts reads — src/lib/cardVariants.ts throws
+  // if it's missing, which would otherwise take down EVERY card in this
+  // sync, not just skip pricing, since that call happens inside each
+  // card's own try/catch and would make every single one look like a
+  // failed TCGdex fetch. Checked once, up front, instead: if the file
+  // isn't there, variant-row pricing is skipped for the whole run with one
+  // clear warning, and everything else (primary-row pricing, card data)
+  // proceeds completely normally.
+  const variantIndexAvailable = existsSync(join(process.cwd(), "data", "card-variants-index.json"));
+  if (!variantIndexAvailable) {
+    console.warn(
+      "\n! data/card-variants-index.json not found — variant-row pricing (the holo/reverse-holo/1st-edition/etc rows import-card-variants.ts adds) will be SKIPPED this entire run. This is expected if that file was never committed to the repo; check with `git ls-files data/card-variants-index.json` — if it prints nothing, commit it (it's what import-card-variants.ts itself needs too, so it should already be safe to add). Primary-row card data and pricing are unaffected either way."
+    );
+  }
+
   for (const language of languages) {
     console.log(`\n=== ${language} ===`);
 
@@ -160,6 +180,8 @@ async function main() {
       // TcgdexSetFull in src/lib/tcgdex.ts.
       const seriesName = fullSet.serie?.name ?? null;
 
+      let variantRowsPriced = 0;
+
       const rows = await mapWithConcurrency(fullSet.cards, CONCURRENCY, async (brief) => {
         try {
           const card = await getCard(language, brief.id);
@@ -167,15 +189,57 @@ async function main() {
           // always corresponds to the variant=null "primary print" row —
           // scripts/import-card-variants.ts is what adds the
           // "<id>-<variant>" rows for a card's OTHER prints (holo, reverse
-          // holo, etc.), from a local index file with no live TCGdex
-          // fetch of its own. That script doesn't get a price yet — v1
-          // scopes pricing to the primary row only, a known, deliberate
-          // gap rather than a guess at how to fetch/store pricing for
-          // every variant too. See src/lib/cardPricing.ts for the
-          // variant -> TCGdex-pricing-bucket mapping this uses (here,
-          // always the `null`/"normal" bucket).
+          // holo, etc.), from a local index file with no live TCGdex fetch
+          // of its own. See src/lib/cardPricing.ts for the variant ->
+          // TCGdex-pricing-bucket mapping this uses (here, the `null`/
+          // "normal" bucket, for this row specifically).
           const price = pickCardPrice(card.pricing, null);
           const priceGbp = convertToGbp(price, gbpRates);
+
+          // Also price every OTHER variant row for this same physical card
+          // (holo, reverse holo, 1st edition, etc.), reusing the SAME
+          // pricing object just fetched above — zero extra TCGdex requests.
+          // Added 2026-08-25: turned out to be the dominant cause of "too
+          // many cards missing a price" — Ross sampled 15 real "missing"
+          // cards and 14 of the 15 were variant rows this sync script had
+          // never touched at all, only ever pricing the plain/primary row.
+          // A plain `.update()` per row (not part of the main upsert
+          // below) — these rows may not exist yet if
+          // import-card-variants.ts hasn't been run for this set/language,
+          // in which case this is just a no-op (0 rows affected), not an
+          // error; re-running this script after that script has created
+          // them picks the prices up on the next sync.
+          const variants = variantIndexAvailable
+            ? lookupVariants(language as CardVariantLanguage, card.set.id, card.localId)
+            : null;
+          if (variants && variants.length > 1) {
+            const primary = pickPrimaryVariant(variants);
+            for (const variantKey of variants) {
+              if (variantKey === primary) continue; // that's this same card.id row, priced above
+              const vPrice = pickCardPrice(card.pricing, variantKey);
+              const vGbp = convertToGbp(vPrice, gbpRates);
+              const { error: vError, count } = await supabase
+                .from("cards")
+                .update(
+                  {
+                    price_usd: vPrice.usd,
+                    price_eur: vPrice.eur,
+                    price_gbp: vGbp,
+                    price_source: vPrice.source,
+                    price_updated_at: vPrice.source !== null ? new Date().toISOString() : null,
+                  },
+                  { count: "exact" }
+                )
+                .eq("id", `${card.id}-${variantKey}`)
+                .eq("language", language);
+              if (vError) {
+                console.error(`    ! failed to price variant row ${card.id}-${variantKey}: ${vError.message}`);
+              } else if (count) {
+                variantRowsPriced += count;
+              }
+            }
+          }
+
           return {
             id: card.id,
             language,
@@ -202,6 +266,10 @@ async function main() {
           return null;
         }
       });
+
+      if (variantRowsPriced > 0) {
+        console.log(`    priced ${variantRowsPriced} additional variant row(s) for this set`);
+      }
 
       const validRows = rows.filter((r): r is NonNullable<typeof r> => r !== null);
       if (validRows.length === 0) continue;
