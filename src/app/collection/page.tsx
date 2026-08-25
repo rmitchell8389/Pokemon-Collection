@@ -41,6 +41,12 @@ function compareCardNumbers(a: string, b: string): number {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
 }
 
+// £ only — no live FX conversion at render time, that happens once at
+// sync time (see src/lib/exchangeRates.ts). Same helper as /search.
+function formatGbp(price: number): string {
+  return `£${price.toFixed(2)}`;
+}
+
 type ViewMode = "owned" | "wishlist" | "trade";
 const VIEW_MODES: ViewMode[] = ["owned", "wishlist", "trade"];
 const VIEW_LABELS: Record<ViewMode, string> = {
@@ -160,8 +166,10 @@ export default async function CollectionPage({
     national_dex_no: number | null;
     artist: string | null;
     rarity: string | null;
+    price_gbp: number | null;
   };
-  const CARD_COLUMNS = "id, name, set_name, card_number, image_url, national_dex_no, artist, rarity";
+  const CARD_COLUMNS =
+    "id, name, set_name, card_number, image_url, national_dex_no, artist, rarity, price_gbp";
   let cards: CardRow[] = [];
   let notReleasedInThisLanguage = false;
   // With no search typed yet, default to showing everything the target user
@@ -369,6 +377,35 @@ export default async function CollectionPage({
       : { data: [] as { card_id: string }[] };
   const wantedCardIds = new Set((wishlistRows ?? []).map((r) => r.card_id));
 
+  // Total collection value — only computed for the default "My
+  // collection" view with no search/filter active, since that's the one
+  // case where `cards` already represents the FULL owned set rather than
+  // a filtered subset (see showingFullCollection above). Showing a
+  // "total" for a partial/filtered list would be misleading, so it's left
+  // out rather than quietly computed against whatever happens to be on
+  // screen.
+  //
+  // pricedCount/unpricedCount are shown alongside the total on purpose —
+  // TCGdex's pricing coverage has real, known gaps (older EX/full-art
+  // cards, very recent releases, regional exclusives, and ja/zh-tw/zh-cn
+  // cards generally, since TCGplayer/Cardmarket are Western marketplaces —
+  // see src/lib/tcgdex.ts). A bare total with no context reads as "this is
+  // everything", which it usually isn't.
+  let totalValueGbp = 0;
+  let pricedCount = 0;
+  let unpricedCount = 0;
+  if (showingFullCollection && viewMode === "owned") {
+    for (const card of cards) {
+      const quantity = ownedQuantities.get(card.id) ?? 0;
+      if (card.price_gbp !== null) {
+        totalValueGbp += card.price_gbp * quantity;
+        pricedCount++;
+      } else {
+        unpricedCount++;
+      }
+    }
+  }
+
   // Every internal link on this page needs to carry `friend` (and, for the
   // view-mode pills, `view`) along so switching language or searching
   // doesn't silently kick you back to your own collection or the default
@@ -575,6 +612,16 @@ export default async function CollectionPage({
                   : `${cards.length} card${cards.length === 1 ? "" : "s"} owned`
               : `${cards.length} card${cards.length === 1 ? "" : "s"} · ${ownedQuantities.size} owned`}
           </p>
+          {showingFullCollection && viewMode === "owned" && pricedCount > 0 && (
+            <p className="panel text-sm">
+              Estimated collection value: <strong>{formatGbp(totalValueGbp)}</strong>
+              <span className="text-black/50 dark:text-white/50">
+                {" "}
+                ({pricedCount} card{pricedCount === 1 ? "" : "s"} priced
+                {unpricedCount > 0 ? `, ${unpricedCount} with no price data yet` : ""})
+              </span>
+            </p>
+          )}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
             {cards.map((card) => {
               const owned = ownedQuantities.has(card.id);
@@ -624,7 +671,14 @@ export default async function CollectionPage({
                       </span>
                     )}
                   </div>
-                  <div className="text-xs font-medium">{card.name}</div>
+                  <div className="flex items-start justify-between gap-1">
+                    <div className="text-xs font-medium">{card.name}</div>
+                    {card.price_gbp !== null && (
+                      <span className="shrink-0 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                        {formatGbp(card.price_gbp)}
+                      </span>
+                    )}
+                  </div>
                   <div className="text-xs text-black/50 dark:text-white/50">
                     {card.set_name} · #{card.card_number}
                     {card.national_dex_no !== null && <> · Dex #{card.national_dex_no}</>}

@@ -85,9 +85,17 @@ type CardRow = {
   category: string | null;
   types: string[] | null;
   series: string | null;
+  price_gbp: number | null;
 };
 const CARD_COLUMNS =
-  "id, name, set_name, card_number, image_url, national_dex_no, artist, rarity, category, types, series";
+  "id, name, set_name, card_number, image_url, national_dex_no, artist, rarity, category, types, series, price_gbp";
+
+// £ formatting only — see the "keep the cost zero" price feature notes for
+// why GBP is the only currency shown (no live FX conversion at render
+// time, it all happens once at sync time — see src/lib/exchangeRates.ts).
+function formatGbp(price: number): string {
+  return `£${price.toFixed(2)}`;
+}
 
 // searchParams gives a plain string when a key appears once in the query
 // string, and an array when it appears more than once — which is exactly
@@ -600,7 +608,14 @@ export default async function SearchPage({
                       </span>
                     )}
                   </div>
-                  <div className="text-xs font-medium">{card.name}</div>
+                  <div className="flex items-start justify-between gap-1">
+                    <div className="text-xs font-medium">{card.name}</div>
+                    {card.price_gbp !== null && (
+                      <span className="shrink-0 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                        {formatGbp(card.price_gbp)}
+                      </span>
+                    )}
+                  </div>
                   <div className="text-xs text-black/50 dark:text-white/50">
                     {card.set_name} · #{card.card_number}
                     {card.national_dex_no !== null && <> · Dex #{card.national_dex_no}</>}

@@ -32,6 +32,8 @@ import {
   getCard,
   getSerie,
 } from "../src/lib/tcgdex";
+import { pickCardPrice, convertToGbp, type GbpRates } from "../src/lib/cardPricing";
+import { getGbpRates } from "../src/lib/exchangeRates";
 
 const CONCURRENCY = 5;
 
@@ -86,6 +88,17 @@ async function main() {
   }
 
   const supabase = createClient(url, serviceKey);
+
+  // Fetched once for the whole run, not per card or per language — a GBP
+  // conversion rate doesn't meaningfully change over the course of one
+  // sync. See src/lib/exchangeRates.ts for the fallback behavior if this
+  // fails (reuses the last cached rate rather than aborting pricing for
+  // the run).
+  console.log("\nFetching exchange rates...");
+  const gbpRates: GbpRates | null = await getGbpRates(supabase);
+  if (!gbpRates) {
+    console.warn("  proceeding without GBP conversion this run — price_gbp will stay unset on every card.");
+  }
 
   for (const language of languages) {
     console.log(`\n=== ${language} ===`);
@@ -150,6 +163,19 @@ async function main() {
       const rows = await mapWithConcurrency(fullSet.cards, CONCURRENCY, async (brief) => {
         try {
           const card = await getCard(language, brief.id);
+          // `card.id` here is always TCGdex's own native card id, which
+          // always corresponds to the variant=null "primary print" row —
+          // scripts/import-card-variants.ts is what adds the
+          // "<id>-<variant>" rows for a card's OTHER prints (holo, reverse
+          // holo, etc.), from a local index file with no live TCGdex
+          // fetch of its own. That script doesn't get a price yet — v1
+          // scopes pricing to the primary row only, a known, deliberate
+          // gap rather than a guess at how to fetch/store pricing for
+          // every variant too. See src/lib/cardPricing.ts for the
+          // variant -> TCGdex-pricing-bucket mapping this uses (here,
+          // always the `null`/"normal" bucket).
+          const price = pickCardPrice(card.pricing, null);
+          const priceGbp = convertToGbp(price, gbpRates);
           return {
             id: card.id,
             language,
@@ -164,6 +190,11 @@ async function main() {
             types: card.types ?? null,
             series: seriesName,
             image_url: card.image ?? null,
+            price_usd: price.usd,
+            price_eur: price.eur,
+            price_gbp: priceGbp,
+            price_source: price.source,
+            price_updated_at: price.source !== null ? new Date().toISOString() : null,
             synced_at: new Date().toISOString(),
           };
         } catch (err) {

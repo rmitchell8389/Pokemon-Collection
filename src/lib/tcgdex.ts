@@ -47,6 +47,58 @@ export interface TcgdexSerieFull {
   sets: TcgdexSetBrief[];
 }
 
+// One price point (TCGplayer's shape) — all optional since not every field
+// is populated for every listing. Same "documented, not live-verified from
+// this sandbox" caveat as the rest of this file.
+export interface TcgdexTcgplayerPriceVariant {
+  lowPrice?: number;
+  midPrice?: number;
+  highPrice?: number;
+  marketPrice?: number;
+  directLowPrice?: number;
+}
+
+// TCGplayer's pricing keys are per PRINT variant, not per card — a card
+// can have several of these present at once (e.g. both `normal` and
+// `reverse-holofoil` for a common that was also printed reverse holo).
+// See src/lib/cardPricing.ts for how a `cards.variant` value picks which
+// one of these applies to that specific row.
+export interface TcgdexTcgplayerPricing {
+  updated?: number;
+  unit?: string; // "USD"
+  normal?: TcgdexTcgplayerPriceVariant;
+  holofoil?: TcgdexTcgplayerPriceVariant;
+  "reverse-holofoil"?: TcgdexTcgplayerPriceVariant;
+  "1st-edition"?: TcgdexTcgplayerPriceVariant;
+  "1st-edition-holofoil"?: TcgdexTcgplayerPriceVariant;
+  unlimited?: TcgdexTcgplayerPriceVariant;
+  "unlimited-holofoil"?: TcgdexTcgplayerPriceVariant;
+}
+
+// Cardmarket only distinguishes non-foil vs foil (the "-holo" suffixed
+// fields), not TCGplayer's finer print-variant buckets.
+export interface TcgdexCardmarketPricing {
+  updated?: number;
+  unit?: string; // "EUR"
+  avg?: number;
+  low?: number;
+  trend?: number;
+  avg1?: number;
+  avg7?: number;
+  avg30?: number;
+  "avg-holo"?: number;
+  "low-holo"?: number;
+  "trend-holo"?: number;
+  "avg1-holo"?: number;
+  "avg7-holo"?: number;
+  "avg30-holo"?: number;
+}
+
+export interface TcgdexCardPricing {
+  tcgplayer?: TcgdexTcgplayerPricing;
+  cardmarket?: TcgdexCardmarketPricing;
+}
+
 export interface TcgdexCardFull {
   id: string;
   localId: string;
@@ -54,6 +106,17 @@ export interface TcgdexCardFull {
   image?: string;
   category: string; // "Pokemon" | "Trainer" | "Energy"
   rarity?: string;
+  // Market pricing, sourced from TCGplayer (USD) and/or Cardmarket (EUR).
+  // Added 2026-08-25, same "documented v2 convention, not fetched live
+  // from this sandbox" caveat as the rest of this file — TCGdex's own docs
+  // say it's "independent of language" (i.e. the same pricing data
+  // attaches to a card regardless of which language row it's synced as,
+  // not that there's a separate JA/ZH market price), and admit real gaps
+  // for older EX/full-art cards, very recent releases, and regional
+  // exclusives. Absent entirely — `pricing` itself undefined — when TCGdex
+  // has nothing for either source. See src/lib/cardPricing.ts for how this
+  // gets turned into the single price_gbp value the app actually shows.
+  pricing?: TcgdexCardPricing;
   // Illustrator credit — same "documented v2 convention, not fetched live
   // from this sandbox" caveat as the rest of this file (see the top-of-file
   // note). Absent on a handful of very old/promo cards TCGdex hasn't

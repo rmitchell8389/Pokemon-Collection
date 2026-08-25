@@ -1,0 +1,56 @@
+name: Sync card catalog
+
+# Runs the same `npm run sync` you'd otherwise run by hand
+# (scripts/sync-cards.ts) on a schedule — refreshes card data AND pricing
+# (see src/lib/cardPricing.ts, src/lib/exchangeRates.ts) from TCGdex, at
+# zero cost. GitHub Actions' free tier covers this comfortably (public
+# repos get unlimited minutes; private repos get 2,000 free minutes/month
+# on the free plan), but this workflow's actual runtime hasn't been
+# measured live — network egress to api.tcgdex.net isn't available from
+# where this was built. Check the Actions tab after the first couple of
+# real runs and confirm the duration comfortably fits a weekly cadence
+# before trusting the schedule below blindly. If it's taking hours, the
+# concurrency limit in sync-cards.ts (currently 5) or splitting this into
+# a per-language matrix are both ways to speed it up later.
+#
+# Needs two repository secrets, set under Settings -> Secrets and
+# variables -> Actions -> New repository secret (same two values already
+# in your local .env.local):
+#   NEXT_PUBLIC_SUPABASE_URL
+#   SUPABASE_SERVICE_ROLE_KEY
+#
+# GitHub auto-disables a scheduled workflow after 60 days with no
+# repository activity at all (commits, etc.) — if syncs silently stop
+# happening, that's the most likely reason. A commit, or manually running
+# this workflow once from the Actions tab, re-enables it. GitHub also
+# emails the repo owner by default when a scheduled workflow run fails, so
+# a broken sync shouldn't go unnoticed silently.
+on:
+  schedule:
+    # Every Sunday at 03:00 UTC. GitHub's scheduler is best-effort, not
+    # exact — the real run time can drift by several minutes, more if
+    # GitHub's shared runners are under heavy load.
+    - cron: "0 3 * * 0"
+  # Trigger a run on demand from the Actions tab, without waiting for the
+  # schedule — useful right after setting this up, or any time you want
+  # fresher prices/cards sooner than the weekly run.
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # Generous but bounded — prevents one stuck run from silently burning
+    # a private repo's whole monthly minutes allowance. Adjust down once
+    # you've seen a real run's actual duration.
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm run sync
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

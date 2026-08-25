@@ -118,6 +118,29 @@ create table if not exists public.cards (
   -- /search page's Series filter. Same backfill-on-next-sync story as
   -- artist/category/types above.
   series text,
+  -- Market value, added 2026-08-25. TCGdex now includes a `pricing` object
+  -- on the same full-card response the sync script already fetches per
+  -- card (see getCard() in src/lib/tcgdex.ts) — no new API call needed,
+  -- just new fields read off a response already being pulled. Two raw
+  -- source values are kept (price_usd from TCGplayer, price_eur from
+  -- Cardmarket) alongside a derived price_gbp, which is what the app
+  -- actually displays — see src/lib/cardPricing.ts for how the row's own
+  -- `variant` picks which of TCGdex's pricing sub-fields applies, and
+  -- src/lib/exchangeRates.ts for where the USD/EUR -> GBP rates come from.
+  -- price_source records which raw currency price_gbp was converted from
+  -- ('tcgplayer' or 'cardmarket'), for transparency/debugging — TCGplayer
+  -- is preferred when both are present (see cardPricing.ts for why).
+  -- All nullable: TCGdex's own docs admit real pricing gaps (older
+  -- EX/full-art cards, very recent releases, regional exclusives), and
+  -- coverage skews heavily English — ja/zh-tw/zh-cn cards frequently have
+  -- no price at all, since TCGplayer/Cardmarket are Western marketplaces.
+  -- That's a real data gap, not a bug, and every place this is displayed
+  -- needs to handle null rather than assume every card has a value.
+  price_usd numeric,
+  price_eur numeric,
+  price_gbp numeric,
+  price_source text,
+  price_updated_at timestamptz,
   primary key (id, language)
 );
 
@@ -131,6 +154,11 @@ alter table public.cards add column if not exists artist text;
 alter table public.cards add column if not exists category text;
 alter table public.cards add column if not exists types text[];
 alter table public.cards add column if not exists series text;
+alter table public.cards add column if not exists price_usd numeric;
+alter table public.cards add column if not exists price_eur numeric;
+alter table public.cards add column if not exists price_gbp numeric;
+alter table public.cards add column if not exists price_source text;
+alter table public.cards add column if not exists price_updated_at timestamptz;
 
 create index if not exists cards_national_dex_no_idx on public.cards (language, national_dex_no);
 create index if not exists cards_name_idx on public.cards (language, lower(name));
@@ -234,6 +262,36 @@ grant execute on function public.distinct_rarities(text) to authenticated;
 grant execute on function public.distinct_categories(text) to authenticated;
 grant execute on function public.distinct_series(text) to authenticated;
 grant execute on function public.distinct_energy_types(text) to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Exchange rates — a single-row cache of USD->GBP and EUR->GBP, used to
+-- convert TCGdex's raw TCGplayer (USD) / Cardmarket (EUR) card prices into
+-- the GBP value stored on `cards.price_gbp` (see src/lib/exchangeRates.ts
+-- and src/lib/cardPricing.ts). Fetched from Frankfurter (frankfurter.dev —
+-- free, no API key, ECB reference rates) once per sync run, not once per
+-- card — rates don't meaningfully change card-to-card within a single run.
+--
+-- Singleton by construction (`id` fixed to 1, checked, no default) rather
+-- than an append-only table: nothing here needs history, and always
+-- updating the same row means a query for "the current rate" never needs
+-- an ORDER BY/LIMIT. If Frankfurter is unreachable on a given sync run,
+-- the sync script logs a warning and reuses whatever's already in this
+-- row rather than failing pricing for the whole run — see
+-- exchangeRates.ts for that fallback.
+--
+-- No RLS policies on purpose (RLS is still enabled, so with zero policies
+-- nothing is readable/writable except via the service role key, which
+-- bypasses RLS) — this is sync-script-internal state, not something any
+-- user or client-side page ever needs to read directly.
+-- ---------------------------------------------------------------------------
+create table if not exists public.exchange_rates (
+  id integer primary key check (id = 1),
+  usd_to_gbp numeric not null,
+  eur_to_gbp numeric not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.exchange_rates enable row level security;
 
 -- ---------------------------------------------------------------------------
 -- Pokemon species names — dex number -> official name per language, synced
