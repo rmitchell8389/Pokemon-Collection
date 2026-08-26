@@ -257,6 +257,16 @@ async function main() {
   let totalSkippedNoDbMatch = 0;
   let totalSkippedAmbiguous = 0;
   let totalSkippedError = 0;
+  let totalSkippedDuplicateThisRun = 0;
+
+  // Some article pages show the same card more than once (a checklist grid
+  // plus a separate detail/showcase section further down, or a normal-print
+  // + reverse-holo thumbnail pair) — each occurrence independently parses to
+  // the same (set_id, card_number) key. Without this, every one of those
+  // would re-download and re-upload the same card, each "counting" as a
+  // fill even though only the first one changed anything. Track keys
+  // already filled this run and skip the rest before touching the network.
+  const filledThisRun = new Set<string>();
 
   for (const [setId, articleUrl] of Object.entries(SET_URL_MAP)) {
     console.log(`\n=== ${setId} — ${articleUrl} ===`);
@@ -286,6 +296,12 @@ async function main() {
 
       const cardNumber = normalizeCardNumber(img.cardNumber);
       const key = `${setId}::${cardNumber}`;
+
+      if (filledThisRun.has(key)) {
+        totalSkippedDuplicateThisRun++;
+        continue;
+      }
+
       const candidates = cardsByKey.get(key);
 
       if (!candidates || candidates.length === 0) {
@@ -337,6 +353,7 @@ async function main() {
 
         console.log(`  ${setId} #${cardNumber} (${card.name}): filled`);
         totalUploaded++;
+        filledThisRun.add(key);
       } catch (err) {
         console.log(`  ! ${setId} #${cardNumber}: error: ${(err as Error).message}`);
         totalSkippedError++;
@@ -348,10 +365,11 @@ async function main() {
     await sleep(PAGE_DELAY_MS);
   }
 
-  console.log(`\nDone. Filled ${totalUploaded} image(s).`);
+  console.log(`\nDone. Filled ${totalUploaded} distinct card(s).`);
   console.log(`Skipped — no parseable card number (filename/alt gave nothing usable, or the two disagreed): ${totalSkippedNoNumber}`);
   console.log(`Skipped — number parsed but no still-missing DB row matched: ${totalSkippedNoDbMatch}`);
   console.log(`Skipped — ambiguous (more than one DB row matched): ${totalSkippedAmbiguous}`);
+  console.log(`Skipped — same card already filled earlier in this run (duplicate image on the page): ${totalSkippedDuplicateThisRun}`);
   console.log(`Skipped — download/upload/database error: ${totalSkippedError}`);
 }
 
