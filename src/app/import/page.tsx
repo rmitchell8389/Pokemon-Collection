@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { importDexCsv, importPulseTcgCsv, importSimpleCsv } from "./actions";
+import { importDexCsv, importPulseTcgCsv, importSimpleCsv, importCollectrCsv } from "./actions";
 
 interface ImportSearchParams {
   error?: string;
@@ -21,6 +21,7 @@ const SOURCE_LABELS: Record<string, string> = {
   dex: "Dex",
   pulsetcg: "PulseTCG",
   simple: "spreadsheet template",
+  collectr: "Collectr",
 };
 
 export default async function ImportPage({
@@ -50,8 +51,9 @@ export default async function ImportPage({
         <h1 className="text-2xl font-bold tracking-tight">Import your collection</h1>
         <p className="text-sm text-black/60 dark:text-white/60">
           Bring your cards and quantities straight in from a service you already track your
-          collection in, instead of re-adding everything by hand. Only International/English
-          exports are supported right now. Collectr import is coming later.
+          collection in, instead of re-adding everything by hand. Dex, PulseTCG, and the
+          spreadsheet template are English-only. Collectr also checks Chinese-market cards
+          automatically — see that section below for details.
         </p>
       </div>
 
@@ -120,6 +122,34 @@ export default async function ImportPage({
             type="file"
             name="file"
             accept=".csv"
+            required
+            className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-red-600 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-red-700"
+          />
+          <button type="submit" className="btn-primary self-start">
+            Import
+          </button>
+        </form>
+      </section>
+
+      <section className="panel flex flex-col gap-3">
+        <h2 className="font-semibold">Import from Collectr</h2>
+        <p className="text-sm text-black/60 dark:text-white/60">
+          Export your Collectr portfolio and upload the file here — it&apos;s a real spreadsheet
+          file even though it&apos;s often named with a &ldquo;.csv&rdquo; ending, and that&apos;s
+          fine, upload it as-is. Same safe re-import behavior as Dex/PulseTCG: a card already in
+          your collection just gets its quantity refreshed, never duplicated. Chinese-market cards
+          (Collectr&apos;s own Gem Pack / Nine Colours Gathering / Collect 151 Hope style sets)
+          are detected automatically and matched against our Chinese card data — these are less
+          likely to match cleanly than English cards, since Collectr&apos;s set names don&apos;t
+          always line up with our data, so check the &ldquo;couldn&apos;t import&rdquo; list below
+          after uploading. Grade, condition, and cost-paid aren&apos;t tracked by this app yet, so
+          they won&apos;t carry over.
+        </p>
+        <form action={importCollectrCsv} className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <input
+            type="file"
+            name="file"
+            accept=".csv,.xlsx"
             required
             className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-red-600 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-red-700"
           />
