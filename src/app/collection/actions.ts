@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export async function toggleOwned(formData: FormData) {
@@ -113,4 +114,79 @@ export async function toggleWishlist(formData: FormData) {
 
   revalidatePath("/collection");
   revalidatePath("/search");
+}
+
+// ---------------------------------------------------------------------------
+// Bulk "danger zone" actions (added 2026-08-26) — unlike every action above,
+// these affect every card at once rather than one at a time, so both
+// require a real typed confirmation ("REMOVE", checked server-side) rather
+// than trusting a single button click. Both are scoped by `language`
+// (whichever language tab the person is on when they act, not their whole
+// account) — see the "Danger zone" section on src/app/collection/page.tsx
+// for the two-step UI (a plain link reveals the confirm form, no client JS
+// needed) that drives these. `redirect()` is used explicitly in both
+// (rather than just returning, like the actions above) so a wrong/missing
+// confirmation text sends the person back to the SAME confirm panel with an
+// error, and a successful action lands back on the plain view with the
+// panel closed, instead of silently re-rendering the confirm form either
+// way.
+const REQUIRED_CONFIRM_TEXT = "REMOVE";
+
+function requireConfirmed(formData: FormData, language: string, dangerZone: "owned" | "trade") {
+  const confirmText = String(formData.get("confirmText") ?? "").trim();
+  if (confirmText !== REQUIRED_CONFIRM_TEXT) {
+    redirect(
+      `/collection?lang=${encodeURIComponent(language)}&confirmDanger=${dangerZone}&dangerError=${encodeURIComponent(
+        `Type "${REQUIRED_CONFIRM_TEXT}" exactly (all caps) to confirm — nothing was removed.`
+      )}`
+    );
+  }
+}
+
+// Permanently deletes every collection_entries row the signed-in user has
+// in `language` — a full reset for that language, not a filtered subset.
+// Never touches wishlist_entries (a separate, explicitly NOT-in-scope
+// decision, not an oversight) or any other language.
+export async function removeAllOwned(formData: FormData) {
+  const language = String(formData.get("language"));
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  requireConfirmed(formData, language, "owned");
+
+  await supabase.from("collection_entries").delete().eq("user_id", user.id).eq("language", language);
+
+  revalidatePath("/collection");
+  revalidatePath("/search");
+  redirect(`/collection?lang=${encodeURIComponent(language)}`);
+}
+
+// Clears the for_trade flag on every card currently marked for trade in
+// `language`, without removing them from the owned collection — the
+// smaller, less-destructive sibling of removeAllOwned above.
+export async function removeAllForTrade(formData: FormData) {
+  const language = String(formData.get("language"));
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  requireConfirmed(formData, language, "trade");
+
+  await supabase
+    .from("collection_entries")
+    .update({ for_trade: false })
+    .eq("user_id", user.id)
+    .eq("language", language)
+    .eq("for_trade", true);
+
+  revalidatePath("/collection");
+  revalidatePath("/search");
+  redirect(`/collection?lang=${encodeURIComponent(language)}`);
 }

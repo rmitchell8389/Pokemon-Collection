@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TCGDEX_LANGUAGES, type TcgdexLanguage } from "@/lib/tcgdex";
-import { toggleOwned, toggleForTrade, toggleWishlist } from "./actions";
+import { toggleOwned, toggleForTrade, toggleWishlist, removeAllOwned, removeAllForTrade } from "./actions";
 import { isPricingEnabled } from "@/lib/appSettings";
 import { PokeballMark } from "@/components/PokeballMark";
 import { CardImageLightbox } from "@/components/CardImageLightbox";
@@ -68,9 +68,11 @@ export default async function CollectionPage({
     rarity?: string;
     friend?: string;
     view?: string;
+    confirmDanger?: string;
+    dangerError?: string;
   }>;
 }) {
-  const { lang, q, set, dex, artist, rarity, friend, view } = await searchParams;
+  const { lang, q, set, dex, artist, rarity, friend, view, confirmDanger, dangerError } = await searchParams;
   const language: TcgdexLanguage = TCGDEX_LANGUAGES.includes(lang as TcgdexLanguage)
     ? (lang as TcgdexLanguage)
     : "en";
@@ -414,6 +416,33 @@ export default async function CollectionPage({
     }
   }
 
+  // Danger zone counts (see src/app/collection/actions.ts's removeAllOwned/
+  // removeAllForTrade) — only queried when a confirm panel is actually
+  // open, not on every page load, since these are extra queries nobody
+  // needs most of the time. Always scoped to the SIGNED-IN user's own
+  // data (user.id), never targetUserId — this section doesn't render at
+  // all when viewingFriend is set (see the JSX below), but the query
+  // itself is written to be safe regardless.
+  let dangerOwnedCount = 0;
+  let dangerForTradeCount = 0;
+  if (!viewingFriend && (confirmDanger === "owned" || confirmDanger === "trade")) {
+    const [{ count: oc }, { count: tc }] = await Promise.all([
+      supabase
+        .from("collection_entries")
+        .select("card_id", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .eq("language", language),
+      supabase
+        .from("collection_entries")
+        .select("card_id", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .eq("language", language)
+        .eq("for_trade", true),
+    ]);
+    dangerOwnedCount = oc ?? 0;
+    dangerForTradeCount = tc ?? 0;
+  }
+
   // Every internal link on this page needs to carry `friend` (and, for the
   // view-mode pills, `view`) along so switching language or searching
   // doesn't silently kick you back to your own collection or the default
@@ -752,6 +781,102 @@ export default async function CollectionPage({
             })}
           </div>
         </>
+      )}
+
+      {/* Danger zone — never shown when viewing a friend's collection; both
+          actions only ever touch the signed-in user's OWN rows (see
+          src/app/collection/actions.ts), this guard just keeps the option
+          from being offered at all in a context where it'd be confusing
+          ("whose collection am I about to wipe?"). Collapsed by default,
+          same <details>/<summary> pattern as the filter groups on
+          /search — no client JS needed either here or for the two-step
+          confirm below (a plain link with a query param reveals the real
+          confirm form). */}
+      {!viewingFriend && (
+        <details className="rounded-lg border border-red-900/20 dark:border-red-400/30">
+          <summary className="cursor-pointer select-none px-3 py-2 text-sm font-medium text-red-700 dark:text-red-300">
+            Danger zone
+          </summary>
+          <div className="flex flex-col gap-4 border-t border-red-900/20 px-3 py-3 dark:border-red-400/30">
+            {dangerError && <p className="text-sm text-red-700 dark:text-red-300">{dangerError}</p>}
+
+            {confirmDanger === "owned" ? (
+              <div className="flex flex-col gap-2 rounded-lg bg-red-50 p-3 text-sm dark:bg-red-950/40">
+                <p>
+                  This will permanently remove all <strong>{dangerOwnedCount}</strong>{" "}
+                  {LANGUAGE_LABELS[language]} card{dangerOwnedCount === 1 ? "" : "s"} from your
+                  collection. Your wishlist and other languages are not affected. This cannot be
+                  undone.
+                </p>
+                <form action={removeAllOwned} className="flex flex-wrap items-center gap-2">
+                  <input type="hidden" name="language" value={language} />
+                  <input
+                    name="confirmText"
+                    placeholder='Type "REMOVE" to confirm'
+                    className="input w-auto"
+                    required
+                  />
+                  <button type="submit" className="btn-sm bg-red-600 text-white hover:bg-red-700">
+                    Permanently remove all {dangerOwnedCount} card{dangerOwnedCount === 1 ? "" : "s"}
+                  </button>
+                  <a href={hrefWithFriend({ lang: language })} className="text-sm text-black/50 underline dark:text-white/50">
+                    Cancel
+                  </a>
+                </form>
+              </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm text-black/60 dark:text-white/60">
+                  Remove every {LANGUAGE_LABELS[language]} card from your owned collection.
+                </p>
+                <a
+                  href={hrefWithFriend({ lang: language, confirmDanger: "owned" })}
+                  className="btn-sm whitespace-nowrap bg-red-600 text-white hover:bg-red-700"
+                >
+                  Remove all owned
+                </a>
+              </div>
+            )}
+
+            {confirmDanger === "trade" ? (
+              <div className="flex flex-col gap-2 rounded-lg bg-red-50 p-3 text-sm dark:bg-red-950/40">
+                <p>
+                  This will un-flag <strong>{dangerForTradeCount}</strong> {LANGUAGE_LABELS[language]}{" "}
+                  card{dangerForTradeCount === 1 ? "" : "s"} currently marked for trade. They stay in
+                  your collection — only the &ldquo;for trade&rdquo; flag is cleared.
+                </p>
+                <form action={removeAllForTrade} className="flex flex-wrap items-center gap-2">
+                  <input type="hidden" name="language" value={language} />
+                  <input
+                    name="confirmText"
+                    placeholder='Type "REMOVE" to confirm'
+                    className="input w-auto"
+                    required
+                  />
+                  <button type="submit" className="btn-sm bg-red-600 text-white hover:bg-red-700">
+                    Un-flag all {dangerForTradeCount} card{dangerForTradeCount === 1 ? "" : "s"}
+                  </button>
+                  <a href={hrefWithFriend({ lang: language })} className="text-sm text-black/50 underline dark:text-white/50">
+                    Cancel
+                  </a>
+                </form>
+              </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm text-black/60 dark:text-white/60">
+                  Clear the &ldquo;for trade&rdquo; flag on every {LANGUAGE_LABELS[language]} card
+                  marked for trade, without removing them from your collection.
+                </p>
+                <a
+                  href={hrefWithFriend({ lang: language, confirmDanger: "trade" })}
+                  className="btn-sm whitespace-nowrap bg-red-600 text-white hover:bg-red-700"
+                >
+                  Remove all &ldquo;for trade&rdquo; flags
+                </a>
+              </div>
+            )}
+          </div>
+        </details>
       )}
     </div>
   );
