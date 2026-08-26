@@ -16,6 +16,8 @@
     "backfill:images-jp-vintage": "tsx scripts/backfill-images-jp-vintage.ts",
     "backfill:images-tc": "tsx scripts/backfill-images-tc.ts",
     "backfill:images-cn": "tsx scripts/backfill-images-cn.ts",
+    "backfill:images-cn-manual": "tsx scripts/backfill-images-cn-manual.ts",
+    "backfill:images-cn-krystalkollectz": "tsx scripts/backfill-images-cn-krystalkollectz.ts",
     "report:missing-images": "tsx scripts/report-missing-images.ts"
   },
   "dependencies": {
