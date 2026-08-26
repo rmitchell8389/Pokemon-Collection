@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { TCGDEX_LANGUAGES, type TcgdexLanguage } from "@/lib/tcgdex";
 import { toggleOwned, toggleForTrade, toggleWishlist } from "../collection/actions";
+import { isPricingEnabled } from "@/lib/appSettings";
 import { PokeballMark } from "@/components/PokeballMark";
 import { CardImageLightbox } from "@/components/CardImageLightbox";
 
@@ -217,6 +218,10 @@ export default async function SearchPage({
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  // Pause switch — see src/lib/appSettings.ts. When off, price badges are
+  // hidden entirely rather than showing stale/zeroed figures.
+  const pricingEnabled = await isPricingEnabled(supabase);
 
   // Populate every checkbox/datalist group with real values from the
   // synced data for this language, rather than a hardcoded list — same
@@ -610,7 +615,7 @@ export default async function SearchPage({
                   </div>
                   <div className="flex items-start justify-between gap-1">
                     <div className="text-xs font-medium">{card.name}</div>
-                    {card.price_gbp !== null && (
+                    {pricingEnabled && card.price_gbp !== null && (
                       <span className="shrink-0 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
                         {formatGbp(card.price_gbp)}
                       </span>

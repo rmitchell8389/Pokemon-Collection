@@ -37,6 +37,7 @@ import {
 import { pickCardPrice, convertToGbp, type GbpRates } from "../src/lib/cardPricing";
 import { getGbpRates } from "../src/lib/exchangeRates";
 import { lookupVariants, pickPrimaryVariant, type CardVariantLanguage } from "../src/lib/cardVariants";
+import { isPricingEnabled } from "../src/lib/appSettings";
 
 const CONCURRENCY = 5;
 
@@ -92,15 +93,34 @@ async function main() {
 
   const supabase = createClient(url, serviceKey);
 
+  // Master pricing switch — see src/lib/appSettings.ts and the
+  // "app_settings" table in supabase/schema.sql. Checked once, up front,
+  // for the whole run. When off: the Frankfurter exchange-rate fetch is
+  // skipped entirely (no point calling it for nothing), no card's price_*
+  // columns are touched by this run's upsert at all (see priceFields
+  // below in the per-card loop — omitted from the payload, not zeroed
+  // out), so whatever prices are already stored stay exactly as they
+  // were. Flipping pricing_enabled back to true and re-running picks up
+  // pricing again with no other change needed.
+  const pricingEnabled = await isPricingEnabled(supabase);
+  if (!pricingEnabled) {
+    console.log(
+      "\nPricing is OFF (app_settings.pricing_enabled = false) — skipping exchange rates and all price fields this run. Existing price_* data on already-synced cards is left untouched."
+    );
+  }
+
   // Fetched once for the whole run, not per card or per language — a GBP
   // conversion rate doesn't meaningfully change over the course of one
   // sync. See src/lib/exchangeRates.ts for the fallback behavior if this
   // fails (reuses the last cached rate rather than aborting pricing for
   // the run).
-  console.log("\nFetching exchange rates...");
-  const gbpRates: GbpRates | null = await getGbpRates(supabase);
-  if (!gbpRates) {
-    console.warn("  proceeding without GBP conversion this run — price_gbp will stay unset on every card.");
+  let gbpRates: GbpRates | null = null;
+  if (pricingEnabled) {
+    console.log("\nFetching exchange rates...");
+    gbpRates = await getGbpRates(supabase);
+    if (!gbpRates) {
+      console.warn("  proceeding without GBP conversion this run — price_gbp will stay unset on every card.");
+    }
   }
 
   // Variant-row pricing (added 2026-08-25, see the long comment inside the
@@ -112,9 +132,12 @@ async function main() {
   // failed TCGdex fetch. Checked once, up front, instead: if the file
   // isn't there, variant-row pricing is skipped for the whole run with one
   // clear warning, and everything else (primary-row pricing, card data)
-  // proceeds completely normally.
-  const variantIndexAvailable = existsSync(join(process.cwd(), "data", "card-variants-index.json"));
-  if (!variantIndexAvailable) {
+  // proceeds completely normally. Also gated on pricingEnabled — no point
+  // checking for (or warning about) this file at all when pricing is
+  // intentionally off.
+  const variantIndexAvailable =
+    pricingEnabled && existsSync(join(process.cwd(), "data", "card-variants-index.json"));
+  if (pricingEnabled && !variantIndexAvailable) {
     console.warn(
       "\n! data/card-variants-index.json not found — variant-row pricing (the holo/reverse-holo/1st-edition/etc rows import-card-variants.ts adds) will be SKIPPED this entire run. This is expected if that file was never committed to the repo; check with `git ls-files data/card-variants-index.json` — if it prints nothing, commit it (it's what import-card-variants.ts itself needs too, so it should already be safe to add). Primary-row card data and pricing are unaffected either way."
     );
@@ -193,49 +216,68 @@ async function main() {
           // of its own. See src/lib/cardPricing.ts for the variant ->
           // TCGdex-pricing-bucket mapping this uses (here, the `null`/
           // "normal" bucket, for this row specifically).
-          const price = pickCardPrice(card.pricing, null);
-          const priceGbp = convertToGbp(price, gbpRates);
+          //
+          // priceFields is spread into the returned row below rather than
+          // always including price_usd/eur/gbp/source/updated_at directly
+          // — when pricing is off (see pricingEnabled above), it stays an
+          // empty object, so those columns are simply absent from this
+          // run's upsert payload and Postgres leaves whatever's already
+          // stored there completely untouched, rather than overwriting
+          // real prices with nulls just because pricing was paused.
+          let priceFields: Record<string, unknown> = {};
+          if (pricingEnabled) {
+            const price = pickCardPrice(card.pricing, null);
+            const priceGbp = convertToGbp(price, gbpRates);
+            priceFields = {
+              price_usd: price.usd,
+              price_eur: price.eur,
+              price_gbp: priceGbp,
+              price_source: price.source,
+              price_updated_at: price.source !== null ? new Date().toISOString() : null,
+            };
 
-          // Also price every OTHER variant row for this same physical card
-          // (holo, reverse holo, 1st edition, etc.), reusing the SAME
-          // pricing object just fetched above — zero extra TCGdex requests.
-          // Added 2026-08-25: turned out to be the dominant cause of "too
-          // many cards missing a price" — Ross sampled 15 real "missing"
-          // cards and 14 of the 15 were variant rows this sync script had
-          // never touched at all, only ever pricing the plain/primary row.
-          // A plain `.update()` per row (not part of the main upsert
-          // below) — these rows may not exist yet if
-          // import-card-variants.ts hasn't been run for this set/language,
-          // in which case this is just a no-op (0 rows affected), not an
-          // error; re-running this script after that script has created
-          // them picks the prices up on the next sync.
-          const variants = variantIndexAvailable
-            ? lookupVariants(language as CardVariantLanguage, card.set.id, card.localId)
-            : null;
-          if (variants && variants.length > 1) {
-            const primary = pickPrimaryVariant(variants);
-            for (const variantKey of variants) {
-              if (variantKey === primary) continue; // that's this same card.id row, priced above
-              const vPrice = pickCardPrice(card.pricing, variantKey);
-              const vGbp = convertToGbp(vPrice, gbpRates);
-              const { error: vError, count } = await supabase
-                .from("cards")
-                .update(
-                  {
-                    price_usd: vPrice.usd,
-                    price_eur: vPrice.eur,
-                    price_gbp: vGbp,
-                    price_source: vPrice.source,
-                    price_updated_at: vPrice.source !== null ? new Date().toISOString() : null,
-                  },
-                  { count: "exact" }
-                )
-                .eq("id", `${card.id}-${variantKey}`)
-                .eq("language", language);
-              if (vError) {
-                console.error(`    ! failed to price variant row ${card.id}-${variantKey}: ${vError.message}`);
-              } else if (count) {
-                variantRowsPriced += count;
+            // Also price every OTHER variant row for this same physical
+            // card (holo, reverse holo, 1st edition, etc.), reusing the
+            // SAME pricing object just fetched above — zero extra TCGdex
+            // requests. Added 2026-08-25: turned out to be the dominant
+            // cause of "too many cards missing a price" — Ross sampled 15
+            // real "missing" cards and 14 of the 15 were variant rows this
+            // sync script had never touched at all, only ever pricing the
+            // plain/primary row. A plain `.update()` per row (not part of
+            // the main upsert below) — these rows may not exist yet if
+            // import-card-variants.ts hasn't been run for this
+            // set/language, in which case this is just a no-op (0 rows
+            // affected), not an error; re-running this script after that
+            // script has created them picks the prices up on the next
+            // sync.
+            const variants = variantIndexAvailable
+              ? lookupVariants(language as CardVariantLanguage, card.set.id, card.localId)
+              : null;
+            if (variants && variants.length > 1) {
+              const primary = pickPrimaryVariant(variants);
+              for (const variantKey of variants) {
+                if (variantKey === primary) continue; // that's this same card.id row, priced above
+                const vPrice = pickCardPrice(card.pricing, variantKey);
+                const vGbp = convertToGbp(vPrice, gbpRates);
+                const { error: vError, count } = await supabase
+                  .from("cards")
+                  .update(
+                    {
+                      price_usd: vPrice.usd,
+                      price_eur: vPrice.eur,
+                      price_gbp: vGbp,
+                      price_source: vPrice.source,
+                      price_updated_at: vPrice.source !== null ? new Date().toISOString() : null,
+                    },
+                    { count: "exact" }
+                  )
+                  .eq("id", `${card.id}-${variantKey}`)
+                  .eq("language", language);
+                if (vError) {
+                  console.error(`    ! failed to price variant row ${card.id}-${variantKey}: ${vError.message}`);
+                } else if (count) {
+                  variantRowsPriced += count;
+                }
               }
             }
           }
@@ -254,11 +296,7 @@ async function main() {
             types: card.types ?? null,
             series: seriesName,
             image_url: card.image ?? null,
-            price_usd: price.usd,
-            price_eur: price.eur,
-            price_gbp: priceGbp,
-            price_source: price.source,
-            price_updated_at: price.source !== null ? new Date().toISOString() : null,
+            ...priceFields,
             synced_at: new Date().toISOString(),
           };
         } catch (err) {

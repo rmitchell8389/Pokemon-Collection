@@ -294,6 +294,49 @@ create table if not exists public.exchange_rates (
 alter table public.exchange_rates enable row level security;
 
 -- ---------------------------------------------------------------------------
+-- App settings — a single-row table of feature toggles Ross flips directly
+-- in the Supabase table editor (same "no admin UI needed" pattern as
+-- feature_requests.status below). Added 2026-08-26 so the whole card
+-- pricing / collection value feature (src/lib/cardPricing.ts,
+-- src/app/search/page.tsx, src/app/collection/page.tsx,
+-- scripts/sync-cards.ts) can be paused and resumed with a single row
+-- update, with no code change, no redeploy, and no data loss — turning it
+-- back on doesn't require a resync, since pausing never clears the
+-- already-stored price_usd/price_eur/price_gbp columns, only stops
+-- reading/writing them while off.
+--
+-- Singleton by construction (`id` fixed to 1, same reasoning as
+-- exchange_rates above) — seeded below so the app always has a row to
+-- read rather than needing null-handling for "no settings row yet".
+--
+-- Unlike exchange_rates, THIS table needs a select policy: it's read by
+-- the search/collection pages themselves (running as the signed-in user,
+-- not the service-role sync script) to decide whether to show price
+-- badges/collection value at all.
+-- ---------------------------------------------------------------------------
+create table if not exists public.app_settings (
+  id integer primary key check (id = 1),
+  -- Master switch for card pricing. true = badges + collection value show,
+  -- and the sync script fetches/stores prices as normal. false = pages
+  -- hide all pricing UI, and the sync script skips pricing entirely
+  -- (including the Frankfurter FX call) to avoid needless work while off.
+  pricing_enabled boolean not null default true,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.app_settings enable row level security;
+
+drop policy if exists "app settings are readable by any signed-in user" on public.app_settings;
+create policy "app settings are readable by any signed-in user"
+  on public.app_settings for select
+  to authenticated
+  using (true);
+
+insert into public.app_settings (id, pricing_enabled)
+values (1, true)
+on conflict (id) do nothing;
+
+-- ---------------------------------------------------------------------------
 -- Pokemon species names — dex number -> official name per language, synced
 -- from PokeAPI (see scripts/sync-species-names.ts), NOT from TCGdex. This
 -- exists because TCGdex's own per-card dex-number tagging turned out to be

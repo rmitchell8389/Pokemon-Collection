@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TCGDEX_LANGUAGES, type TcgdexLanguage } from "@/lib/tcgdex";
 import { toggleOwned, toggleForTrade, toggleWishlist } from "./actions";
+import { isPricingEnabled } from "@/lib/appSettings";
 import { PokeballMark } from "@/components/PokeballMark";
 import { CardImageLightbox } from "@/components/CardImageLightbox";
 
@@ -100,6 +101,13 @@ export default async function CollectionPage({
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  // Pause switch — see src/lib/appSettings.ts. When off, price badges and
+  // the collection-value total below are hidden entirely rather than
+  // showing stale/zeroed figures. totalValueGbp/pricedCount/unpricedCount
+  // are still computed either way (cheap, no extra query) so turning this
+  // back on doesn't need any other code path touched.
+  const pricingEnabled = await isPricingEnabled(supabase);
 
   // Viewing a friend's collection (?friend=<id>) reuses this whole page —
   // same search, same grid — swapping only whose ownership the "owned"
@@ -612,7 +620,7 @@ export default async function CollectionPage({
                   : `${cards.length} card${cards.length === 1 ? "" : "s"} owned`
               : `${cards.length} card${cards.length === 1 ? "" : "s"} · ${ownedQuantities.size} owned`}
           </p>
-          {showingFullCollection && viewMode === "owned" && pricedCount > 0 && (
+          {pricingEnabled && showingFullCollection && viewMode === "owned" && pricedCount > 0 && (
             <p className="panel text-sm">
               Estimated collection value: <strong>{formatGbp(totalValueGbp)}</strong>
               <span className="text-black/50 dark:text-white/50">
@@ -673,7 +681,7 @@ export default async function CollectionPage({
                   </div>
                   <div className="flex items-start justify-between gap-1">
                     <div className="text-xs font-medium">{card.name}</div>
-                    {card.price_gbp !== null && (
+                    {pricingEnabled && card.price_gbp !== null && (
                       <span className="shrink-0 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
                         {formatGbp(card.price_gbp)}
                       </span>
