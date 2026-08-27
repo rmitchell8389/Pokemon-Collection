@@ -14,14 +14,35 @@
 //
 // Default is report-only, no DB writes, no .env/Supabase needed. Fetches
 // live from wiki.52poke.com — run from a real machine, not this sandbox.
-// Already-committed sets (CS1 line) are safe to re-run — upsert just
-// overwrites with the same data, doesn't duplicate.
+//
+// IMPORTANT (fixed 2026-08-27, round 18 continued): this script's rows
+// always carry `image_url: null` (scoutBoosterSet() has no way to know a
+// card's image — that's a separate manual-backfill workflow's job). A
+// naive `.upsert(rows, {onConflict: "id,language"})` overwrites EVERY
+// column in the payload on conflict, image_url included — so re-running
+// this against a set that already had images manually backfilled (same
+// `id` scheme, "${setId}-${cardNumber}") silently nulls them back out.
+// Confirmed live: the very first --commit run of this script wiped
+// images on CS1aC/CS1bC/CS2aC/CS2bC/CS3aC/CS3bC/CS4aC/CS4bC (all 8 had
+// been through the manual-image-backfill workflow earlier in the same
+// session). Fixed below by stripping `image_url` out of the upsert
+// payload entirely — omitted columns are left untouched by Postgres'
+// ON CONFLICT DO UPDATE, so existing images now survive a re-run. New
+// rows still get image_url via the column's own NULL default, same
+// effective result as before for genuinely new cards.
+//
+// This same upsert-overwrites-image_url pattern exists in every other
+// zh-cn import script in this repo (grep for `.upsert(` in scripts/) —
+// only THIS script has been fixed so far. Treat re-running any of the
+// others against an already-image-backfilled set as unsafe until they
+// get the same fix.
 
 import { config as loadEnv } from "dotenv";
 loadEnv({ path: ".env.local" });
 
 import { createClient } from "@supabase/supabase-js";
 import { scoutBoosterSet, scoutAllBoosterSets, BOOSTER_SETS, type BoosterSetResult } from "../src/lib/cnBoosterSetImport";
+import { stripUnsetImageUrls } from "../src/lib/dbUpsertSafety";
 
 async function main() {
   const args = process.argv.slice(2);
@@ -89,11 +110,16 @@ async function main() {
   console.log(`\nCommitting ${totalCards} row(s)...`);
   for (const r of results) {
     if (r.rows.length === 0) continue;
-    const { error } = await supabase.from("cards").upsert(r.rows, { onConflict: "id,language" });
+    // See src/lib/dbUpsertSafety.ts's header for why this matters — this
+    // script never knows a real image, so leaving image_url out of the
+    // payload (rather than sending `null`) means an existing image on a
+    // conflicting row survives instead of getting silently overwritten.
+    const rowsToCommit = stripUnsetImageUrls(r.rows);
+    const { error } = await supabase.from("cards").upsert(rowsToCommit, { onConflict: "id,language" });
     if (error) {
       console.error(`  ! ${r.setId}: batch upsert failed (${error.message}) — retrying row by row`);
       let ok = 0;
-      for (const row of r.rows) {
+      for (const row of rowsToCommit) {
         const { error: rowError } = await supabase.from("cards").upsert(row, { onConflict: "id,language" });
         if (rowError) console.error(`    ! skipped ${row.id}: ${rowError.message}`);
         else ok++;

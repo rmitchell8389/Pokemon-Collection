@@ -22,6 +22,7 @@ loadEnv({ path: ".env.local" });
 
 import { createClient } from "@supabase/supabase-js";
 import { scoutReprintSet } from "../src/lib/cnReprintImport";
+import { stripUnsetImageUrls } from "../src/lib/dbUpsertSafety";
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -74,11 +75,17 @@ async function main() {
   }
   const supabase = createClient(url, serviceKey);
 
-  const { error } = await supabase.from("cards").upsert(result.rows, { onConflict: "id,language" });
+  // See src/lib/dbUpsertSafety.ts — a row WITH a verified image still
+  // writes it through; a row with no verified image omits the column
+  // instead of sending null, so ON CONFLICT DO UPDATE can't wipe an image
+  // a different pipeline already filled in. Fixed 2026-08-27 after a real
+  // incident (see claude/spec.md "zh-cn round 18 continued").
+  const rowsToCommit = stripUnsetImageUrls(result.rows);
+  const { error } = await supabase.from("cards").upsert(rowsToCommit, { onConflict: "id,language" });
   if (error) {
     console.error(`! batch upsert failed (${error.message}) — retrying row by row`);
     let ok = 0;
-    for (const row of result.rows) {
+    for (const row of rowsToCommit) {
       const { error: rowError } = await supabase.from("cards").upsert(row, { onConflict: "id,language" });
       if (rowError) console.error(`  ! skipped ${row.id}: ${rowError.message}`);
       else ok++;

@@ -38,6 +38,7 @@ import { pickCardPrice, convertToGbp, type GbpRates } from "../src/lib/cardPrici
 import { getGbpRates } from "../src/lib/exchangeRates";
 import { lookupVariants, pickPrimaryVariant, type CardVariantLanguage } from "../src/lib/cardVariants";
 import { isPricingEnabled } from "../src/lib/appSettings";
+import { stripUnsetImageUrls } from "../src/lib/dbUpsertSafety";
 
 const CONCURRENCY = 5;
 
@@ -312,7 +313,18 @@ async function main() {
       const validRows = rows.filter((r): r is NonNullable<typeof r> => r !== null);
       if (validRows.length === 0) continue;
 
-      const { error } = await supabase.from("cards").upsert(validRows, { onConflict: "id,language" });
+      // Same "omit rather than null out" principle this file already uses
+      // for price_* fields (see priceFields above), applied to image_url:
+      // TCGdex's own `card.image` is null for plenty of real cards (that's
+      // the entire reason the manual-backfill workflows — English and
+      // zh-cn — exist), and re-syncing shouldn't silently erase an image a
+      // manual pass already filled in for the same row id. Fixed
+      // 2026-08-27 after a real incident wiped 1,426 zh-cn images this
+      // exact way via a different script (see src/lib/dbUpsertSafety.ts
+      // and claude/spec.md's "zh-cn round 18 continued").
+      const rowsToCommit = stripUnsetImageUrls(validRows);
+
+      const { error } = await supabase.from("cards").upsert(rowsToCommit, { onConflict: "id,language" });
       if (error) {
         // A single bad row (seen in practice: TCGdex returning a
         // non-integer national dex number like "384.1" for a handful of
@@ -322,7 +334,7 @@ async function main() {
         // time so only the actual bad row(s) get skipped and reported.
         console.error(`  ! batch upsert failed for set ${fullSet.id} (${error.message}) — retrying row by row`);
         let ok = 0;
-        for (const row of validRows) {
+        for (const row of rowsToCommit) {
           const { error: rowError } = await supabase
             .from("cards")
             .upsert(row, { onConflict: "id,language" });

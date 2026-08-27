@@ -24,6 +24,7 @@ import {
   STARTER_DECK_SETS,
   type StarterDeckResult,
 } from "../src/lib/cnStarterDeckImport";
+import { stripUnsetImageUrls } from "../src/lib/dbUpsertSafety";
 
 async function main() {
   const args = process.argv.slice(2);
@@ -99,11 +100,16 @@ async function main() {
   console.log(`\nCommitting ${totalCards} row(s)...`);
   for (const r of results) {
     if (r.rows.length === 0) continue;
-    const { error } = await supabase.from("cards").upsert(r.rows, { onConflict: "id,language" });
+    // See src/lib/dbUpsertSafety.ts — strips image_url when this row
+    // doesn't carry a real one, so ON CONFLICT DO UPDATE can't silently
+    // wipe an image a different pipeline (manual backfill) already filled
+    // in for the same row id. Fixed 2026-08-27 after a real incident.
+    const rowsToCommit = stripUnsetImageUrls(r.rows);
+    const { error } = await supabase.from("cards").upsert(rowsToCommit, { onConflict: "id,language" });
     if (error) {
       console.error(`  ! ${r.setId}: batch upsert failed (${error.message}) — retrying row by row`);
       let ok = 0;
-      for (const row of r.rows) {
+      for (const row of rowsToCommit) {
         const { error: rowError } = await supabase.from("cards").upsert(row, { onConflict: "id,language" });
         if (rowError) console.error(`    ! skipped ${row.id}: ${rowError.message}`);
         else ok++;

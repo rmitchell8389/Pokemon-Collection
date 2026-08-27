@@ -71,6 +71,55 @@ export const BOOSTER_SETS: BoosterSetDef[] = [
   // data/wiki-raw/brilliant-counterattack-round15-raw.txt. Its own chain
   // reference in turn names CS3aC/CS3bC directly: `next=洪荒演武 茂|next2=洪荒演武 激`.
   { setId: "CS2.5C", pageTitle: "璀璨反击（TCG）" },
+  // Round 16 — CS3aC/CS3bC/CS3DC (Primordial Arts line), all three confirmed
+  // real via data/wiki-raw/primordial-arts-round16-raw.txt:
+  //   CS3aC "洪荒演武 茂（TCG）" — 184 raw entries (positions 001-184 against a
+  //     stated total of 125, as usual TOTAL is decorative, not the real count).
+  //   CS3bC "洪荒演武 激（TCG）" — 177 raw entries (positions 001-177 against a
+  //     stated total of 122).
+  //   CS3DC "V起始卡组 洪荒演武（TCG）" — 191 raw entries: 183 numbered
+  //     (positions 001-183 against a stated total of 170; infobox separately
+  //     claims cards=178 — a THIRD, also-wrong number, ignored as always) plus
+  //     8 unnumbered basic-energy cards (literal "—" position, same pattern as
+  //     CS1DC). Three raw lines (166/070, 167/132, 168/190) have a TOTAL field
+  //     that varies per line instead of staying constant — a wiki-source
+  //     copy-paste artifact — but the position regex only reads the numerator,
+  //     so 166/167/168 parse correctly regardless. Validated in
+  //     scripts/validate-dynamax-clash-parser.ts.
+  //   CS3aC's own chain reference also confirms both siblings independently
+  //   (`other=洪荒演武 激|other2=V起始卡组 洪荒演武`) and names the next set in
+  //   the chain: `next=怒炎灼天` — round 17's target.
+  //   A 4th round-16 guess, "洪荒演武 卡组构筑礼盒（TCG）" for CSBC/CSCC (the
+  //   Primordial Arts gift boxes), 404'd — those two sets' real titles are
+  //   still unknown.
+  { setId: "CS3aC", pageTitle: "洪荒演武 茂（TCG）" },
+  { setId: "CS3bC", pageTitle: "洪荒演武 激（TCG）" },
+  { setId: "CS3DC", pageTitle: "V起始卡组 洪荒演武（TCG）" },
+  // Round 18 — CS3.5C bridges the CS3 (Primordial Arts) and CS4 (Nine
+  // Colors Gathering) lines; CS4aC/CS4bC/CS4.5C confirmed real via
+  // data/wiki-raw/nine-colors-gathering-round18-raw.txt:
+  //   CS3.5C "怒炎灼天（TCG）" — 90 raw entries (positions 001-090 against a
+  //     stated total of 66). Named as "next" by BOTH CS3aC's and CS3bC's
+  //     own chain references. Its own chain in turn names both CS4 sets:
+  //     `next=九彩汇聚 朋|next2=九彩汇聚 源`.
+  //   CS4aC "九彩汇聚 朋（TCG）" — 184 raw entries (positions 001-184 against
+  //     a stated total of 132). Chain: `next=终末炎舞|other=九彩汇聚 谱`.
+  //   CS4bC "九彩汇聚 源（TCG）" — 177 raw entries (positions 001-177 against
+  //     a stated total of 132). Chain: `next=终末炎舞|other=九彩汇聚 朋`.
+  //   CS4.5C "终末炎舞（TCG）" — 83 raw entries (positions 001-083 against a
+  //     stated total of 63). Confirmed real (own page text mentions
+  //     "CS4.5C" directly, not just a chain-ref guess) — its own chain
+  //     reference names the round-19 targets: `other=伊布进阶礼盒|next=勇魅群星 魅|next2=勇魅群星 勇`.
+  //   All four validated offline with zero duplicate positions and fully
+  //   sequential 1-N numbering in scripts/validate-dynamax-clash-parser.ts.
+  //   Two more titles from this round's chain refs 404'd and remain
+  //   unidentified: "九彩汇聚 谱（TCG）" (unknown CS4-family set — could be a
+  //   starter deck or gift box) and the carried-over CSBC/CSCC ("洪荒演武
+  //   双人对战卡组") and CS2.1C ("猫铃奇计 卡组构筑礼盒") guesses.
+  { setId: "CS3.5C", pageTitle: "怒炎灼天（TCG）" },
+  { setId: "CS4aC", pageTitle: "九彩汇聚 朋（TCG）" },
+  { setId: "CS4bC", pageTitle: "九彩汇聚 源（TCG）" },
+  { setId: "CS4.5C", pageTitle: "终末炎舞（TCG）" },
 ];
 
 const MARKERS = ["{{卡牌列表/entryjp|", "{{卡牌列表/entry|"];
