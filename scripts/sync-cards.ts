@@ -42,6 +42,28 @@ import { stripUnsetImageUrls } from "../src/lib/dbUpsertSafety";
 
 const CONCURRENCY = 5;
 
+// Known-bad TCGdex catalog entries to exclude from a full sync, discovered
+// 2026-08-27 during the JP vintage-era reconciliation
+// (scripts/ja-tcgdex-vintage-check.ts's output). TCGdex's own listSets("ja")
+// includes 15 set ids that collide with this project's own zh-cn
+// booster-set code scheme (CS1a, CS1b, CS2a, CS2b, CS3a, CS3b, CS3D, CS3.5,
+// CS4, CS4a, CS4b, CS4Da, CSA, CS1.5, CS2.5 — note: no trailing "C", so
+// distinct from this app's own zh-cn "...C" set_ids) but every single one
+// returns the exact same content as the real SV1a set ("トリプレットビート"
+// / Triplet Beat, 101 total / 101 official cards) rather than anything of
+// their own — clearly a TCGdex catalog bug or unpopulated placeholder, not
+// 15 real distinct Japanese sets. None of these appear to have been synced
+// into this DB yet (confirmed via scripts/ja-set-breakdown-distinct.ts —
+// no bare "CS*" ja set_ids present), but a future blind full sync would
+// pick them up and write 15 sets' worth of duplicate garbage. Excluded here
+// the same way TCG Pocket sets are excluded below. If TCGdex fixes this
+// upstream, this list becomes a no-op (the filter just matches nothing) —
+// safe to leave in rather than needing to remember to remove it.
+const KNOWN_BAD_JA_SET_IDS = new Set([
+  "CS1a", "CS1b", "CS1.5", "CS2a", "CS2b", "CS2.5",
+  "CS3a", "CS3b", "CS3D", "CS3.5", "CS4", "CS4a", "CS4b", "CS4Da", "CSA",
+]);
+
 function parseArgs() {
   const args = process.argv.slice(2);
   const langArg = args.find((a) => a.startsWith("--lang="))?.split("=")[1];
@@ -169,8 +191,14 @@ async function main() {
       }
     }
 
-    const sets = allSets.filter((s) => !pocketSetIds.has(s.id));
-    console.log(`${sets.length} set(s) to process${pocketSetIds.size > 0 ? ` (${allSets.length - sets.length} Pocket set(s) skipped)` : ""}`);
+    const knownBadIds = language === "ja" && !setFilter ? KNOWN_BAD_JA_SET_IDS : new Set<string>();
+    const sets = allSets.filter((s) => !pocketSetIds.has(s.id) && !knownBadIds.has(s.id));
+    const badSkipped = allSets.length - sets.length - pocketSetIds.size;
+    console.log(
+      `${sets.length} set(s) to process` +
+        (pocketSetIds.size > 0 ? ` (${pocketSetIds.size} Pocket set(s) skipped)` : "") +
+        (badSkipped > 0 ? ` (${badSkipped} known-bad TCGdex set(s) skipped — see KNOWN_BAD_JA_SET_IDS)` : "")
+    );
 
     // Self-healing cleanup: if a previous run (before this fix) already
     // synced Pocket cards into this language, remove them now rather than
