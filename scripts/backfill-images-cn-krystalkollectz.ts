@@ -156,8 +156,21 @@ function extractCardNumber(src: string, alt: string): string | null {
   let fromFilename: string | null = null;
   const leadingNumber = filename.match(/^0*(\d{1,4})_/);
   const krystalPrefixed = filename.match(/krystalkollectz\.?(?:com)?_0*(\d{1,4})_/i);
+  // A third real convention, confirmed 2026-08-27 against the actual live
+  // CSV1C page (not just the two patterns this file's header comment
+  // originally documented): "KRYSTALKOLLECTZ_<SETCODE>_<NUM>_<TOTAL>.png",
+  // e.g. "KRYSTALKOLLECTZ_CSV1C_008_127.png". Neither of the two patterns
+  // above matches this — leadingNumber requires digits at the very start
+  // of the filename, and krystalPrefixed requires a number immediately
+  // after "krystalkollectz_", but here the set code sits in between. This
+  // is very likely why the first real run of this script filled 0 cards
+  // despite parsing thousands of numbers total: most base-set images on
+  // these pages use exactly this filename shape with NO alt text at all,
+  // so neither existing pattern nor the alt-text fallback could reach them.
+  const numBeforeTotal = filename.match(/_0*(\d{1,4})_\d{1,4}\.\w+$/);
   if (leadingNumber) fromFilename = leadingNumber[1];
   else if (krystalPrefixed) fromFilename = krystalPrefixed[1];
+  else if (numBeforeTotal) fromFilename = numBeforeTotal[1];
 
   let fromAlt: string | null = null;
   const altMatch = alt.match(/(\d{1,4})\s*\/\s*\d{1,4}/);
@@ -287,6 +300,30 @@ async function main() {
     const images = extractImages(html);
     const withNumbers = images.filter((img) => img.cardNumber !== null);
     console.log(`  ${images.length} card image(s) found on page, ${withNumbers.length} with a parseable number`);
+
+    // Diagnostic sample, printed every run (cheap, and the first real run
+    // of this script filled 0 cards despite parsing thousands of numbers
+    // total — see the numBeforeTotal comment above). Shows the raw
+    // (unnormalized) shape on both sides side by side so a format mismatch
+    // is visible at a glance instead of requiring a fresh investigation
+    // each time this needs re-checking.
+    const missingForThisSet = missingCards.filter((c) => c.set_id === setId);
+    if (withNumbers.length > 0) {
+      console.log(
+        `  sample extracted numbers (raw -> normalized): ${withNumbers
+          .slice(0, 5)
+          .map((img) => `"${img.cardNumber}"->"${normalizeCardNumber(img.cardNumber!)}"`)
+          .join(", ")}`
+      );
+    }
+    if (missingForThisSet.length > 0) {
+      console.log(
+        `  sample still-missing DB card_number (raw -> normalized): ${missingForThisSet
+          .slice(0, 5)
+          .map((c) => `"${c.card_number}"->"${normalizeCardNumber(c.card_number)}"`)
+          .join(", ")}`
+      );
+    }
 
     for (const img of images) {
       if (!img.cardNumber) {
