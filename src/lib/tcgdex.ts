@@ -135,23 +135,67 @@ export interface TcgdexCardFull {
   types?: string[];
 }
 
-async function tcgdexFetch<T>(path: string): Promise<T> {
-  const res = await fetch(`${TCGDEX_BASE_URL}${path}`, {
-    headers: {
-      Accept: "application/json",
-      // Without a real browser-like User-Agent, TCGdex's edge (Cloudflare)
-      // returned a bare 403 in testing — Node's default fetch UA looks
-      // enough like a bot to get blocked.
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-    },
-  });
+const TCGDEX_MAX_RETRIES = 3;
+const TCGDEX_RETRY_BASE_DELAY_MS = 1000;
 
-  if (!res.ok) {
-    throw new Error(`TCGdex request failed: ${res.status} ${res.statusText} for ${path}`);
+// Status codes worth retrying — transient server-side issues, not "this
+// genuinely doesn't exist" (404) or a real client error, which retrying
+// would never fix and which some callers rely on failing immediately (a
+// guessed set id that legitimately 404s, e.g. CS1.5C elsewhere in this
+// project, must still fail fast).
+const TCGDEX_RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function tcgdexFetch<T>(path: string): Promise<T> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt <= TCGDEX_MAX_RETRIES; attempt++) {
+    if (attempt > 0) {
+      // Exponential backoff: 1s, 2s, 4s before retries 1, 2, 3.
+      await sleep(TCGDEX_RETRY_BASE_DELAY_MS * 2 ** (attempt - 1));
+    }
+
+    let res: Response;
+    try {
+      res = await fetch(`${TCGDEX_BASE_URL}${path}`, {
+        headers: {
+          Accept: "application/json",
+          // Without a real browser-like User-Agent, TCGdex's edge (Cloudflare)
+          // returned a bare 403 in testing — Node's default fetch UA looks
+          // enough like a bot to get blocked.
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        },
+      });
+    } catch (err) {
+      // Network-level failure (DNS, connection reset, etc.) — same retry
+      // treatment as a 5xx.
+      lastError = err instanceof Error ? err : new Error(String(err));
+      if (attempt < TCGDEX_MAX_RETRIES) continue;
+      throw lastError;
+    }
+
+    if (res.ok) {
+      return (await res.json()) as T;
+    }
+
+    if (!TCGDEX_RETRYABLE_STATUSES.has(res.status) || attempt === TCGDEX_MAX_RETRIES) {
+      // Not worth retrying (e.g. a real 404) or out of attempts — same
+      // error message shape every existing caller (sync-cards.ts's
+      // per-set catch block) already expects and parses.
+      throw new Error(`TCGdex request failed: ${res.status} ${res.statusText} for ${path}`);
+    }
+
+    console.log(
+      `  ! ${path} returned ${res.status}, retrying (attempt ${attempt + 1}/${TCGDEX_MAX_RETRIES})...`
+    );
+    lastError = new Error(`TCGdex request failed: ${res.status} ${res.statusText} for ${path}`);
   }
 
-  return (await res.json()) as T;
+  throw lastError ?? new Error(`TCGdex request failed for ${path}`);
 }
 
 export function listSets(language: TcgdexLanguage) {
