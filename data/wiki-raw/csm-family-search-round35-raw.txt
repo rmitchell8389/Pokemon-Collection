@@ -1,0 +1,224 @@
+=== PHASE 1: full-text search for each raw code + family root ===
+
+--- searching (plain): "CSM1aC" ---
+  CSM1 :: CSM1是指宝可梦集换式卡牌游戏简体中文版的第一个版本横空出世，属于太阳&amp;月亮系列，包含： 补充包 横空出世 赫（TCG），标志为CSM1a。 补充包 横空出世 苍（TCG），标志为CSM1b。 补充包 横空出世 泽（TCG），标志为CSM1c。 起始卡组 GX起始卡组 横空出世（TCG），标志为CSM1D。
+  横空出世 赫（TCG） :: 赫是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以火、超、钢属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  交相辉映 沐（TCG） :: 沐是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以水、雷、钢属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+  凯罗斯（SM7a） :: 卡包 系列 时间 稀有度 编号 图像 赛制 绘师 设计 GX起始卡组 横空出世 太阳&amp;月亮系列 2022-10-28 — 010/324 File:CSM1D010.jpg — Suwama Chiaki [[]] [[]] 共用同一图片的版本、同一行内繁体中文和简体中文的卡牌插画相同，因此除非特殊标
+  捕虫少年（TCG） :: 上只可以附着1张宝可梦道具，并保持附加状态。寶可夢道具卡，附於自己的寶可夢使用。1隻寶可夢只可附上1張寶可夢道具卡，並且保持附加狀態。ポケモンのどうぐは、自分のポケモンにつけて使う。ポケモン1匹につき1枚だけつけられ、つけたままにする。Attach a Pokémon Tool to 1 of your
+  派拉斯（SM1S） :: 卡包 系列 时间 稀有度 编号 图像 赛制 绘师 设计 GX起始卡组 横空出世 太阳&amp;月亮系列 2022-10-28 — 004/324 File:CSM1D004.jpg Ayaka Yoshida [[]] [[]] 共用同一图片的版本、同一行内繁体中文和简体中文的卡牌插画相同，因此除非特殊标志*
+  派拉斯特（SM1S） :: 派拉斯特（日文︰パラセクト，英文︰Parasect）是一张草属性的1阶进化宝可梦卡。 这张卡牌的宝可梦图鉴来自《太陽》。
+  离洞绳（TCG） :: 上只可以附着1张宝可梦道具，并保持附加状态。寶可夢道具卡，附於自己的寶可夢使用。1隻寶可夢只可附上1張寶可夢道具卡，並且保持附加狀態。ポケモンのどうぐは、自分のポケモンにつけて使う。ポケモン1匹につき1枚だけつけられ、つけたままにする。Attach a Pokémon Tool to 1 of your
+  闪卡（TCG） :: 彩条闪膜从XY系列/X·Y系列起改用。日文版为从右上到左下的彩条，英文版则是左上到右下。 彩粉蝶（XY1） 彩粉蝶（XY） 右上到左下的圆弧。太阳&amp;月亮系列起改用。 穿着熊（AC1a） 光面就是没有图案的闪膜，出现在25周年收藏版/庆典中。 露奈雅拉（S8a） 竖纹闪膜为纵向线条，呈现彩虹的效果。从剑&amp;盾系列起改用。 珠贝（S10PF）
+  讲究头带（TCG） :: 上只可以附着1张宝可梦道具，并保持附加状态。寶可夢道具卡，附於自己的寶可夢使用。1隻寶可夢只可附上1張寶可夢道具卡，並且保持附加狀態。ポケモンのどうぐは、自分のポケモンにつけて使う。ポケモン1匹につき1枚だけつけられ、つけたままにする。Attach a Pokémon Tool to 1 of your
+--- searching (plain): "CSM1bC" ---
+  横空出世 苍（TCG） :: 苍是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以草、雷、恶属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  交相辉映 魁（TCG） :: 魁是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以草、超、斗属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+  CSM1 :: CSM1是指宝可梦集换式卡牌游戏简体中文版的第一个版本横空出世，属于太阳&amp;月亮系列，包含： 补充包 横空出世 赫（TCG），标志为CSM1a。 补充包 横空出世 苍（TCG），标志为CSM1b。 补充包 横空出世 泽（TCG），标志为CSM1c。 起始卡组 GX起始卡组 横空出世（TCG），标志为CSM1D。
+  闪卡（TCG） :: 迷光森林（SWSH-DA） 高温火能量（SWSH-DA） 从巨大属性做出修改，中央是一个大号的符号球，而能量卡和训练家卡一样是精灵球图案。只出现在简体中文版。 皮卡丘（CSM1bC） 出现在宝石包。 出现在宝石包。 出现在宝石包。 镜面（日文︰ミラー，英文︰Mirror Reverse）指全卡面都有加工的闪卡。 碎冰闪膜从被解除的封印/EX
+  离洞绳（TCG） :: 上只可以附着1张宝可梦道具，并保持附加状态。寶可夢道具卡，附於自己的寶可夢使用。1隻寶可夢只可附上1張寶可夢道具卡，並且保持附加狀態。ポケモンのどうぐは、自分のポケモンにつけて使う。ポケモン1匹につき1枚だけつけられ、つけたままにする。Attach a Pokémon Tool to 1 of your
+  模仿少女（TCG） :: 上只可以附着1张宝可梦道具，并保持附加状态。寶可夢道具卡，附於自己的寶可夢使用。1隻寶可夢只可附上1張寶可夢道具卡，並且保持附加狀態。ポケモンのどうぐは、自分のポケモンにつけて使う。ポケモン1匹につき1枚だけつけられ、つけたままにする。Attach a Pokémon Tool to 1 of your
+--- searching (plain): "CSM1cC" ---
+  对战精英（TCG） :: 编号 卡牌名称 属性 稀有度 获得方式 卡图 001/060 火斑喵 C 特典卡信息 002/060 炎热喵 C 特典卡信息 003/060 砰头小丑GX RR 特典卡信息 004/060 墨海马 C 特典卡信息 005/060 海刺龙 C 特典卡信息 006/060
+  横空出世 苍（TCG） :: 苍是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以草、雷、恶属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  横空出世 泽（TCG） :: 泽是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以水、斗、妖属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  炫奇争胜（TCG） :: 007/061 火伊布 C 特典卡信息 008/061 波尔凯尼恩 R 特典卡信息 009/061 砰头小丑 U 特典卡信息 010/061 水伊布 C 特典卡信息 011/061 呱呱泡蛙 C 特典卡信息 012/061 呱头蛙 C 特典卡信息 013/061 皮卡丘 C 特典卡信息 014/061
+  横空出世 赫（TCG） :: 赫是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以火、超、钢属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  交相辉映 沐（TCG） :: 沐是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以水、雷、钢属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+  交相辉映 唤（TCG） :: 唤是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以火、恶、妖属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+  交相辉映 魁（TCG） :: 魁是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以草、超、斗属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+  CSM1 :: CSM1是指宝可梦集换式卡牌游戏简体中文版的第一个版本横空出世，属于太阳&amp;月亮系列，包含： 补充包 横空出世 赫（TCG），标志为CSM1a。 补充包 横空出世 苍（TCG），标志为CSM1b。 补充包 横空出世 泽（TCG），标志为CSM1c。 起始卡组 GX起始卡组 横空出世（TCG），标志为CSM1D。
+  捕虫少年（TCG） :: 上只可以附着1张宝可梦道具，并保持附加状态。寶可夢道具卡，附於自己的寶可夢使用。1隻寶可夢只可附上1張寶可夢道具卡，並且保持附加狀態。ポケモンのどうぐは、自分のポケモンにつけて使う。ポケモン1匹につき1枚だけつけられ、つけたままにする。Attach a Pokémon Tool to 1 of your
+--- searching (plain): "CSM2aC" ---
+  交相辉映 沐（TCG） :: 蚊香蝌蚪 C 特典卡信息 014/150 蚊香君 C 特典卡信息 015/150 蚊香泳士 U 特典卡信息 016/150 玛瑙水母 C 特典卡信息 017/150 毒刺水母 C 特典卡信息 018/150 呆呆兽 C 特典卡信息 019/150 呆壳兽 R 特典卡信息 020/150 小海狮 C 特典卡信息
+  CSM2 :: CSM2是指宝可梦集换式卡牌游戏简体中文版的第二个版本交相辉映，属于太阳&amp;月亮系列，包含： 补充包 交相辉映 沐（TCG），标志为CSM2a。 补充包 交相辉映 魁（TCG），标志为CSM2b。 补充包 交相辉映 唤（TCG），标志为CSM2c。 起始卡组 GX起始卡组 交相辉映（TCG），标志为CSM2D。
+  捕虫少年（TCG） :: 从自己的牌库上方抽取2张卡牌。抛掷1次硬币如果为正面，则额外抽取2张卡牌。從自己的牌庫抽出2張卡。擲1次硬幣若為正面，則再抽出2張卡。自分の山札を2枚引く。コインを1回投げオモテなら、さらに2枚引く。Draw 2 cards. Flip a coin. If heads, draw 2 more cards
+  派拉斯（SM1S） :: 将手牌中的2种派拉斯LEGEND组合后，放于备战区。將手牌中的2張派拉斯LEGEND加以組合，放置於備戰區。手札にある2枚の{{{jname}}}LEGENDを組み合わせて、ベンチに出す。Put this card from
+  派拉斯特（SM1S） :: 将手牌中的2种派拉斯特LEGEND组合后，放于备战区。將手牌中的2張派拉斯特LEGEND加以組合，放置於備戰區。手札にある2枚の{{{jname}}}LEGENDを組み合わせて、ベンチに出す。Put this card
+  闪卡（TCG） :: 桃心闪膜图案是♡，是宝可恋爱心跳收集的C卡。 花蓓蓓（CP3） 磨砂星星闪膜图案是磨砂和五角星，是宝可恋爱心跳收集的U卡。 花叶蒂（CP3） 方块闪膜图案是正方形和菱形，只出现在25周年收藏版。 皮卡丘（S8a） 精灵球闪膜通常出现在剑&amp;盾系列的强化扩充包、高级扩充包等特殊扩充包中。 莎莉娜（S11aF） 闪膜图案是圆圈形的彩虹，只出现在闪色明星V。
+  离洞绳（TCG） :: 须从自己的手牌将2种「离洞绳」加以组合，作为1张竞技场卡放置于场上。このカードは1枚だけでは出せず、自分の手札から2種類の「」を組み合わせて、1枚のスタジアムとして場に出す。You cannot play this card by itself. You must combine 2 different
+  讲究头带（TCG） :: 2023-09-09 — 023/045 双倍爆击 SET A 太阳&amp;月亮系列 2020-02-18 TR 181/184 Eske Yoshinob [[]] [[]] 横空出世 泽 太阳&amp;月亮系列 2022-10-28 UR 210/151 File:CSM1cC210.png Eske Yoshinob [[]]
+  模仿少女（TCG） :: 2022-10-28 SR 180/151 File:CSM1bC180.png Megumi Mizutani [[]] [[]] 九彩汇聚 朋 剑&amp;盾系列 2024-03-01 C 129/132 摩天巅峰 剑&amp;盾系列 2021-07-23 C 065/067 Sanosuke Sakuma [[]]
+  名词列表（TCG） :: 开始采用相同编号，但仍然后缀文字标识，如S4Ｆ。 简体中文版太阳&amp;月亮系列和剑&amp;盾系列分别使用CSM和CS，朱&amp;紫系列使用CSV、CBB、151版本编号，并且均后缀文字版编号Ｃ（简体中文)，如CSM1aＣ。 英文、西班牙文、德文、法文、意大利文、葡萄牙文版自朱紫系列起使用与亚洲版相同的标记设计，并在
+--- searching (plain): "CSM2bC" ---
+  交相辉映 魁（TCG） :: 地鼠 C 特典卡信息 082/150 三地鼠 U 特典卡信息 083/150 无畏小子 C 特典卡信息 084/150 飞腿郎 C 特典卡信息 085/150 快拳郎 C 特典卡信息 086/150 战舞郎 C 特典卡信息 087/150 独角犀牛 C 特典卡信息 088/150 钻角犀兽 C 特典卡信息
+  CSM2 :: CSM2是指宝可梦集换式卡牌游戏简体中文版的第二个版本交相辉映，属于太阳&amp;月亮系列，包含： 补充包 交相辉映 沐（TCG），标志为CSM2a。 补充包 交相辉映 魁（TCG），标志为CSM2b。 补充包 交相辉映 唤（TCG），标志为CSM2c。 起始卡组 GX起始卡组 交相辉映（TCG），标志为CSM2D。
+  离洞绳（TCG） :: Toyste Beach [[]] [[]] 辉金能量专题包 太阳&amp;月亮系列 2023-09-09 — 002/045 File:CSM2.1C002.png 雙倍爆擊 SET B 太陽&amp;月亮系列 2020-02-18 TR 177/186 Toyste Beach [[]] [[]] 洪荒演武 激 剑&amp;盾系列
+  模仿少女（TCG） :: 2022-10-28 SR 180/151 File:CSM1bC180.png Megumi Mizutani [[]] [[]] 九彩汇聚 朋 剑&amp;盾系列 2024-03-01 C 129/132 摩天巅峰 剑&amp;盾系列 2021-07-23 C 065/067 Sanosuke Sakuma [[]]
+  闪卡（TCG） :: 迷光森林（SWSH-DA） 高温火能量（SWSH-DA） 从巨大属性做出修改，中央是一个大号的符号球，而能量卡和训练家卡一样是精灵球图案。只出现在简体中文版。 皮卡丘（CSM1bC） 出现在宝石包。 出现在宝石包。 出现在宝石包。 镜面（日文︰ミラー，英文︰Mirror Reverse）指全卡面都有加工的闪卡。 碎冰闪膜从被解除的封印/EX
+--- searching (plain): "CSM2cC" ---
+  炫奇争胜（TCG） :: 砰头小丑 U 特典卡信息 010/061 水伊布 C 特典卡信息 011/061 呱呱泡蛙 C 特典卡信息 012/061 呱头蛙 C 特典卡信息 013/061 皮卡丘 C 特典卡信息 014/061 阿罗拉 雷丘 R 特典卡信息 015/061 雷伊布 C 特典卡信息 016/061 朽木妖&amp;黑夜魔灵GX
+  交相辉映 唤（TCG） :: 105/150 烈雀 C 特典卡信息 106/150 大嘴雀 C 特典卡信息 107/150 嘟嘟 C 特典卡信息 108/150 嘟嘟利 C 特典卡信息 109/150 大舌头 C 特典卡信息 110/150 大舌舔 U 特典卡信息 111/150 袋兽GX RR 特典卡信息 112/150 懒人獭 C 特典卡信息
+  交相辉映 沐（TCG） :: 蚊香蝌蚪 C 特典卡信息 014/150 蚊香君 C 特典卡信息 015/150 蚊香泳士 U 特典卡信息 016/150 玛瑙水母 C 特典卡信息 017/150 毒刺水母 C 特典卡信息 018/150 呆呆兽 C 特典卡信息 019/150 呆壳兽 R 特典卡信息 020/150 小海狮 C 特典卡信息
+  交相辉映 魁（TCG） :: 地鼠 C 特典卡信息 082/150 三地鼠 U 特典卡信息 083/150 无畏小子 C 特典卡信息 084/150 飞腿郎 C 特典卡信息 085/150 快拳郎 C 特典卡信息 086/150 战舞郎 C 特典卡信息 087/150 独角犀牛 C 特典卡信息 088/150 钻角犀兽 C 特典卡信息
+  对战精英（TCG） :: 002/060 炎热喵 C 特典卡信息 003/060 砰头小丑GX RR 特典卡信息 004/060 墨海马 C 特典卡信息 005/060 海刺龙 C 特典卡信息 006/060 刺龍王GX RR 特典卡信息 007/060 帕奇利兹 C 特典卡信息 008/060 电飞鼠 C 特典卡信息 009/060
+  CSM2 :: CSM2是指宝可梦集换式卡牌游戏简体中文版的第二个版本交相辉映，属于太阳&amp;月亮系列，包含： 补充包 交相辉映 沐（TCG），标志为CSM2a。 补充包 交相辉映 魁（TCG），标志为CSM2b。 补充包 交相辉映 唤（TCG），标志为CSM2c。 起始卡组 GX起始卡组 交相辉映（TCG），标志为CSM2D。
+  捕虫少年（TCG） :: 从自己的牌库上方抽取2张卡牌。抛掷1次硬币如果为正面，则额外抽取2张卡牌。從自己的牌庫抽出2張卡。擲1次硬幣若為正面，則再抽出2張卡。自分の山札を2枚引く。コインを1回投げオモテなら、さらに2枚引く。Draw
+  派拉斯（SM1S） :: 将手牌中的2种派拉斯LEGEND组合后，放于备战区。將手牌中的2張派拉斯LEGEND加以組合，放置於備戰區。手札にある2枚の{{{jname}}}LEGENDを組み合わせて、ベンチに出す。Put this card from
+  闪卡（TCG） :: 野外考察员（EX12） 从光面做出修改，呈现密集的X线条。只用于2009-2010至2014-2015赛季期间的宝可梦联盟奖品卡。 磁暴（XY-Fr） 从光面做出修改，闪膜是碎冰闪。只用于崛起劲敌中编号为RT的卡。 冥王的选择（PL2） 卡图的背景和其余卡面有光面加工。只出现在EX对战加速中。 火焰鸟（EBB）
+  派拉斯特（SM1S） :: 将手牌中的2种派拉斯特LEGEND组合后，放于备战区。將手牌中的2張派拉斯特LEGEND加以組合，放置於備戰區。手札にある2枚の{{{jname}}}LEGENDを組み合わせて、ベンチに出す。Put this card
+--- searching (plain): "CSM1" ---
+  CSM1 :: CSM1是指宝可梦集换式卡牌游戏简体中文版的第一个版本横空出世，属于太阳&amp;月亮系列，包含： 补充包 横空出世 赫（TCG），标志为CSM1a。 补充包 横空出世 苍（TCG），标志为CSM1b。 补充包 横空出世 泽（TCG），标志为CSM1c。 起始卡组 GX起始卡组 横空出世（TCG），标志为CSM1D。
+  对战精英（TCG） :: 快捷方式： CSM1.5
+  辉金能量专题包（TCG） :: 太阳&amp;月亮系列属性的基本能量卡（辉金色卡版本）1张、训练家闪卡1张和宝可梦闪卡1张。 辉金能量礼盒包含1包专题包，以及太阳&amp;月亮两弹6款补充包（增量款）各1包，两弹强化包各2包。 辉金能量进阶礼盒则包含2包专题包，太阳&amp;月亮两弹6款补充包（增量款）各1包，两弹强化包各3包。 这个礼盒是在简体中文版剑
+  宝可梦卡牌展示套礼盒（TCG） :: 该礼盒主打卡牌展示硅胶套，内含特别插画闪卡1张。 伊布款内含物包括： 伊布特别插画闪卡1张（共8种，每种等比生产，随机封入1种）。 卡牌保护套1枚 透明卡膜1张 补充包 九彩汇聚* 1包 喷火龙款内含物包括： 随机宝可梦特别插画闪卡1张（1张普通款或隐藏款宝可梦特别插画闪卡） 宝可梦主题卡牌展示硅胶套1个 卡牌保护套1个 透明卡膜1个
+  炫奇争胜（TCG） :: 所属系列 太阳&amp;月亮系列 卡牌数目 61+ 形式 强化包 版本号 1 发布时间 2023年03月17日 发售价格 15（人民币） 每盒包数 30 每包卡数 6 每盒卡数 {{{deckcardnumber}}} 封装方式
+  横空出世 苍（TCG） :: 苍是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以草、雷、恶属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  横空出世 泽（TCG） :: 泽是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以水、斗、妖属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  横空出世 赫（TCG） :: 赫是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第一个补充包。 该版本以火、超、钢属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。 增量版卡盒
+  交相辉映 沐（TCG） :: 沐是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以水、雷、钢属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+  交相辉映 唤（TCG） :: 唤是宝可梦集换式卡牌游戏中简体中文版太阳&amp;月亮系列的第二个补充包。 该版本以火、恶、妖属性为主题。常规款补充包和增量款补充包分别收录5张和25张卡牌，同时分别封入1张和5张闪卡。引入新的TAG TEAM系统。 增量版扩充包 增量版卡盒
+--- searching (plain): "CSM2" ---
+  CSM2 :: CSM2是指宝可梦集换式卡牌游戏简体中文版的第二个版本交相辉映，属于太阳&amp;月亮系列，包含： 补充包 交相辉映 沐（TCG），标志为CSM2a。 补充包 交相辉映 魁（TCG），标志为CSM2b。 补充包 交相辉映 唤（TCG），标志为CSM2c。 起始卡组 GX起始卡组 交相辉映（TCG），标志为CSM2D。
+  辉金能量专题包（TCG） :: 卡版本）1张、训练家闪卡1张和宝可梦闪卡1张。 辉金能量礼盒包含1包专题包，以及太阳&amp;月亮两弹6款补充包（增量款）各1包，两弹强化包各2包。 辉金能量进阶礼盒则包含2包专题包，太阳&amp;月亮两弹6款补充包（增量款）各1包，两弹强化包各3包。 这个礼盒是在简体中文版剑&amp;盾系列登场后发售的属于太阳&amp;月亮系列的商品。
+  炫奇争胜（TCG） :: 快捷方式： CSM2.5
+  对战精英（TCG） :: {{{deckcardnumber}}} 封装方式 随机，必定包含2张闪卡 硬币 对应日文版 {{{ja}}} 对应英文版 {{{en}}} 同期发售 官方页面 对战精英 [ 对战精英]（简中版） [ 对战精英]（日文版）
+  交相辉映 唤（TCG） :: 快捷方式： CSM2c
+  交相辉映 魁（TCG） :: 快捷方式： CSM2b
+  交相辉映 沐（TCG） :: 快捷方式： CSM2a
+  宝可梦卡牌展示套礼盒（TCG） :: ※宝可梦特别插画闪卡全13种，包含普通宝可梦特别插画闪卡12种，隐藏款宝可梦特别插画闪卡1种，生产比例为47:1，随机获得其中1张。 第1弹 礼盒 第2弹 礼盒 第3弹 礼盒 该礼盒首次公开于中国农历甲辰年前夕的除夕日。 该礼盒中的卡牌都为日文版CHR卡牌。 对应VMAX绝群压轴、對戰地區、黑暗亡靈、對戰地區、黑暗亡靈、白热奥秘等。
+  GX起始卡组 横空出世（TCG） :: 小枫与小南 Su 1× 304/324 马玛内 Su 2× GRA 基本草能量 E 9× 组合之 3/20 006/324 蛋蛋 2× 014/324 雪笠怪 2× 015/324 暴雪王 1× 018/324 坐骑小羊 2× 019/324 坐骑山羊 2× 200/324 阿罗拉 椰蛋树GX 1× 204/324
+  GX起始卡组 交相辉映（TCG） :: Su 2× WAT 基本水能量 E 8× 组合之 8/20 078/342 皮卡丘 2× 081/342 阿罗拉 雷丘 2× 092/342 闪电鸟 1× 106/342 电束木 1× 250/342 超级球 I 2× 263/342 宝可梦交替 I 2× 264/342 宝可梦捕捉器 I 2× 275/342
+
+=== PHASE 2: fetching 23 distinct candidate title(s), checking alt= ===
+
+
+=== CSM1 ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 横空出世 赫（TCG） ===
+[alt= field: CSM1aC]
+[cards= field: 211]
+[USES: {{卡牌列表/entryjp|...}} x211]
+[chain reference: {{ExpansionPrevNext|火|飞行|prev=|next=对战精英|other=横空出世 苍|other2=横空出世 泽}}]
+
+=== 交相辉映 沐（TCG） ===
+[alt= field: CSM2aC]
+[cards= field: 150+]
+[USES: {{卡牌列表/entryjp|...}} x194]
+[chain reference: {{ExpansionPrevNext|超能力|皮卡丘|prev=对战精英|next=炫奇争胜|other=交相辉映 魁|other2=交相辉映 唤}}]
+
+=== 凯罗斯（SM7a） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 捕虫少年（TCG） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 派拉斯（SM1S） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 派拉斯特（SM1S） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 离洞绳（TCG） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 闪卡（TCG） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 讲究头带（TCG） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 横空出世 苍（TCG） ===
+[alt= field: CSM1bC]
+[cards= field: 204]
+[USES: {{卡牌列表/entryjp|...}} x204]
+[chain reference: {{ExpansionPrevNext|地面|绿宝石|prev=|next=对战精英|other=横空出世 赫|other2=横空出世 泽}}]
+
+=== 交相辉映 魁（TCG） ===
+[alt= field: CSM2bC]
+[cards= field: 150+]
+[USES: {{卡牌列表/entryjp|...}} x193]
+[chain reference: {{ExpansionPrevNext|幽灵|城都|prev=对战精英|next=炫奇争胜|other=交相辉映 沐|other2=交相辉映 唤}}]
+
+=== 模仿少女（TCG） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 对战精英（TCG） ===
+[alt= field: CSM1.5C]
+[cards= field: 60+28]
+[USES: {{卡牌列表/entryjp|...}} x88]
+[chain reference: {{ExpansionPrevNext|白|紫|prev=横空出世 赫|prev2=横空出世 苍|prev3=横空出世 泽|next=交相辉映 沐|next2=交相辉映 魁|next3=交相辉映 唤|other=}}]
+
+=== 横空出世 泽（TCG） ===
+[alt= field: CSM1cC]
+[cards= field: 212]
+[USES: {{卡牌列表/entryjp|...}} x212]
+[chain reference: {{ExpansionPrevNext|妖精|水|prev=|next=对战精英|other=横空出世 赫|other2=横空出世 苍}}]
+
+=== 炫奇争胜（TCG） ===
+[alt= field: CSM2.5C]
+[cards= field: 61+]
+[USES: {{卡牌列表/entryjp|...}} x99]
+[chain reference: {{ExpansionPrevNext|月亮|皮卡丘|prev=交相辉映 沐|prev2=交相辉映 魁|prev3=交相辉映 唤|next=极巨争锋 雷|next2=极巨争锋 焰|next3=|other=}}]
+
+=== 交相辉映 唤（TCG） ===
+[alt= field: CSM2cC]
+[cards= field: 150+]
+[USES: {{卡牌列表/entryjp|...}} x192]
+[chain reference: {{ExpansionPrevNext|无色C|恶C|prev=对战精英|next=炫奇争胜|other=交相辉映 沐|other2=交相辉映 魁}}]
+
+=== CSM2 ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 名词列表（TCG） ===
+[alt= field: (none found)]
+[cards= field: (no cards= field found)]
+[no known bulk-table template found]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 辉金能量专题包（TCG） ===
+[alt= field: CSM2.1C]
+[cards= field: 45+9]
+[USES: {{卡牌列表/entryjp|...}} x54]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== 宝可梦卡牌展示套礼盒（TCG） ===
+[alt= field: (none found)]
+[cards= field: 8（伊布款）<br>12（喷火龙款）]
+[USES: {{卡牌列表/entryjp|...}} x34]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== GX起始卡组 横空出世（TCG） ===
+[alt= field: CSM1DC]
+[cards= field: 336]
+[USES: {{卡牌列表/entryjp|...}} x381, {{主题牌组列表/entry|...}} x604]
+[chain reference: (no ExpansionPrevNext template found)]
+
+=== GX起始卡组 交相辉映（TCG） ===
+[alt= field: CSM2DC]
+[cards= field: 342+]
+[USES: {{卡牌列表/entryjp|...}} x406, {{主题牌组列表/entry|...}} x638]
+[chain reference: (no ExpansionPrevNext template found)]
+
+Done. Save this whole output to a file and send it back.

@@ -1,0 +1,50 @@
+
+=== 雳焰激荡（TCG） ===
+[no known bulk-table template found]
+[CS code(s) mentioned in page text: CSV11C, CSV11]
+[chain reference: {{ExpansionPrevNext|电|火C|prev=共逐荣光|next=黑雷奔流|next2=白雷迸涌|other=|other2=}}]
+{{ExpansionPrevNext|电|火C|prev=共逐荣光|next=黑雷奔流|next2=白雷迸涌|other=|other2=}}
+{{TCG版本信息框/ZH
+| setname = 雳焰激荡
+| title      = 
+| setsymbol  = yes
+| alt        = CSV11C
+| setlogo    = TCG 朱&紫 雳焰激荡 logo.png
+| packlogo   = TCG 朱&紫 雳焰激荡 常规版补充包.png
+| packlogobig   = TCG 朱&紫 雳焰激荡 补充包.png
+| poster = TCG 朱&紫 雳焰激荡 poster.png
+| 版本       = 朱&紫
+| cards   = 
+| pack = 补充包
+| release = 
+| price = 5张装：10（人民币元）<br>20张装：50（人民币元）
+| packnumber = 5张装：15<br>20张装：6
+| cardnumber = 5张装：5<br>20张装：20
+| serices    = 随机
+| ja = {{TCG|对战搭档}}、{{TCG|热风竞技场}}等
+| zh =
+| official = 
+|}}
+{{快捷方式|CSV11}}
+“'''雳焰激荡'''”是简体中文版{{TCG|朱&紫系列}}[[宝可梦集换式卡牌游戏|卡牌]]第十二个发售的补充包。
+
+==概述==
+
+==卡牌列表==
+
+
+==规格==
+
+* 精灵球纹样闪卡和大师球纹样闪卡种类为C、U、R之和，内容相同，加工不同。
+==细节==
+
+==参见==
+* [[雳焰激荡 相关产品（TCG）]]
+
+{{reflist}}
+{{PTCG版本导航/朱&紫系列简中}}
+{{神奇宝贝百科卡牌工程}}
+
+[[Category:雳焰激荡（TCG）|*]]
+
+Done. Save this whole output to a file and send it back.
